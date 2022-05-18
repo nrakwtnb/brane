@@ -16,9 +16,6 @@ class FormatClassType:
 class ObjectClassType:
     pass
 
-class ExtensionClassType:
-    pass
-
 class HookClassType:
     pass
 
@@ -37,8 +34,10 @@ class ContextInterface(TypedDict):
 
 def _generate_file_type():
     import pathlib
-    return Union[str, pathlib.Path]
+    import io
+    PathType = Union[str, pathlib.Path]
+    FileType = Union[PathType, io.TextIOWrapper]# [TODO]: more types should be added
+    return PathType, FileType
 
-FileType = _generate_file_type()
-
+PathType, FileType = _generate_file_type()
 del _generate_file_type

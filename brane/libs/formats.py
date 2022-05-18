@@ -21,45 +21,56 @@ class DictType():# Map
 class TextType():
     pass
 from brane.core.format import Format
-from brane.libs.modules import PILModule, PandasModule, JsonModule
+from brane.libs.modules import className2Module
 
-# temporal (Data ? Format ?)
 class JPEGFormat(Format):
+    name = "JPEG"
     data_type = ImageType
     default_extension = "jpg"
-    #module_read = PILImage
-    #module_write = PILImage
-    #read = PILModule.read### exp
-    module = PILModule### exp
-
-#class PNGFormat(Format):
-#    data_type = ImageType
-#    default_extension = "png"
-#    read = PILModule.read### exp
-
-class TSVFormat(Format):
-    data_type = TableType
-    default_extension = "tsv"
-    #read = PandasModule.read### exp
-    module = PandasModule### exp
+    variation = ["jpeg"]
+    module = className2Module["Pillow"]
 
 class CSVFormat(Format):
     data_type = TableType
     default_extension = "csv"
-    #read = PandasModule.read### exp
-    module = PandasModule### exp
-attributes = dict(
-    data_type = ImageType,
-    default_extension = "png",
-    #read = PILModule.read### exp
-    module = PILModule### exp
-)
-PNGFormat = type("PNGFormat", (Format, ), attributes)
+    module = className2Module["Pandas"]
+#from brane.core.format import create_format_class
 
-attributes = dict(
-    data_type = DictType,
-    default_extension = "json",
-    #read = PILModule.read### exp
-    module = JsonModule### exp
-)
-JsonFormat = type("JsonFormat", (Format, ), attributes)
+# [alternative (class generation from config)]
+format_data = {
+    "PNG": dict(
+        data_type = ImageType,
+        default_extension = "png",
+        module = className2Module["Pillow"],
+    ),
+    "Json": dict(
+        data_type = DictType,
+        default_extension = "json",
+        module = className2Module["Json"],
+    ),
+    "TSV": dict(
+        data_type = TableType,
+        default_extension = "tsv",
+        module = className2Module["Pandas"],
+    ),
+}
+
+def create_format_class(name: str, default_extension: str, module: ModuleClassType, variation: list[str] = [], data_type=None):
+    attributes = dict(
+        name = name,
+        data_type = data_type,
+        default_extension = default_extension,
+        module = module,
+    )
+    #if name is None:
+    #    name = default_extension
+    return type(f"{name}Format", (Format, ), attributes)
+
+className2Format = {
+    "JPEG": JPEGFormat,
+    "CSV": CSVFormat,
+    **{
+        name: create_format_class(name=name, **params)
+        for name, params in format_data.items()
+    },
+}

@@ -1,0 +1,10 @@
+
+Json:
+    module_name: json
+    base_kwargs_write:
+        indent: 2
+    file_arg_first: false
+    file_open_for_read: true
+    file_open_for_write: true
+    module_method_read: load
+    module_method_write: dump

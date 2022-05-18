@@ -1,44 +1,29 @@
 from __future__ import annotations
 from brane.typing import *
 from brane.core.module import NoneModule
-from brane.core.format import NoneFormat
+from brane.core.format import Format, NoneFormat
 from brane.core.object import Object
-from brane.core.extension import Extension, NoneExtension
 
-class Extension2Extension():### rename
+class ExtensionMapper():### rename
     # [TODO];: caching
     @classmethod
-    def get_extension_class(cls, ext: str) -> ExtensionClassType:# ignore: this type is defined later
-        for _, Ext in Extension.registered_extensions.items():###
-            ext_normalzied = Ext.preprocess(ext)
-            if ext_normalzied in Ext.variation:
-                return Ext
-        assert False, "no extension found"# [TODO]: エラーをraiseするか、NoneExtensionをreturnするか
-        return NoneExtension
+    def get_format_class_from_extension(cls, ext: str) -> FormatClassType:# ignore: this type is defined later
+        for _, Fmt in Format.registered_formats.items():###
+            if Fmt.check_extension(ext):
+                return Fmt
+            #if ext_normalzied in Fmt.variation:
+            #    return Fmt
+        assert False, "no Format found"# [TODO]: エラーをraiseするか、NoneExtensionをreturnするか
+        return NoneFormat
 
-class Extension2Format(Extension2Extension):
-    #def get_format_from_extension_name(ext):
     @classmethod
-    def get_format(cls, ext: str) -> FormatClassType:
-        Ext = cls.get_extension_class(ext)
-        if Ext:###
-            return Ext.format
-        else:
-            return NoneFormat
-
-class Extension2Module(Extension2Extension):
-    @classmethod
-    def get_module(cls, ext: str) -> ModuleClassType:
-        Ext = cls.get_extension_class(ext)
-        if Ext:
-            if hasattr(Ext, "module"):
-                return Ext.module
+    def get_module_class_from_extension(cls, ext: str) -> ModuleClassType:
+        Fmt: FormatClassType = cls.get_format_class_from_extension(ext=ext)
+        if Fmt:
+            if hasattr(Fmt, "module"):
+                return Fmt.module
             else:
-                Fmt = Ext.format
-                if hasattr(Fmt, "module"):
-                    return Fmt.module
-                else:
-                    raise NotImplementedError
+                raise AttributeError(f"'module' attribute is not defined at {Fmt}")
         else:
             assert False, "no module found"# [TODO]: エラーをraiseするか、NoneModuleをreturnするか
             return NoneModule
@@ -53,6 +38,7 @@ class ObjectFormat2Module:
             Obj.load_objects()### will be removed in the future
             #     -> Objのattributes (objectなどload_objectsでセットされるもの)にアクセスした際に、自動で読み出されるようにするため
             if isinstance(obj, Obj.object):
+                print(obj, Obj)
                 if hasattr(Obj, "module") and Obj.module is not None:
                     module = Obj.module
                     return module

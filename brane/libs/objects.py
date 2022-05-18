@@ -1,13 +1,12 @@
 from __future__ import annotations
 from brane.typing import *
 from brane.core.object import Object
-from brane.libs.modules import PILModule, PandasModule, JsonModule
-from brane.libs.formats import JPEGFormat, PNGFormat, CSVFormat, JsonFormat
+from brane.libs.modules import className2Module
+from brane.libs.formats import className2Format
 
 class PIL_Image_Object(Object):
-    format = JPEGFormat
-    module = PILModule
-    #write = PILModule.write
+    format = className2Format["JPEG"]
+    module = className2Module["Pillow"]
 
     @classmethod
     def load_objects(cls):
@@ -15,9 +14,8 @@ class PIL_Image_Object(Object):
         cls.object_type = PILImage.Image
 
 class PIL_JPEG_Object(Object):
-    format = JPEGFormat
-    module = PILModule
-    #write = PILModule.write
+    format = className2Format["JPEG"]
+    module = className2Module["Pillow"]
 
     @classmethod
     def load_objects(cls):
@@ -25,9 +23,8 @@ class PIL_JPEG_Object(Object):
         cls.object_type = JpegImagePlugin.JpegImageFile
 
 class PIL_PNG_Object(Object):
-    format = PNGFormat###
-    module = PILModule
-    #write = PILModule.write
+    format = className2Format["PNG"]
+    module = className2Module["Pillow"]
 
     @classmethod
     def load_objects(cls):
@@ -36,8 +33,8 @@ class PIL_PNG_Object(Object):
 
 class Pandas_DataFrame_Object(Object):
     type_evaluation = "isinstance"### temporal name and value
-    format_checker = lambda obj: CSVFormat
-    module_checker = lambda obj, fmt: PandasModule
+    format_checker = lambda obj: className2Format["CSV"]
+    module_checker = lambda obj, fmt: className2Module["Pandas"]
 
     @classmethod
     def load_objects(cls):
@@ -45,8 +42,8 @@ class Pandas_DataFrame_Object(Object):
         cls.object_type = pd.DataFrame
 
 class Json_Json_Object(Object):
-    format = JsonFormat
-    module = JsonModule
+    format = className2Format["Json"]
+    module = className2Module["Json"]
 
     @classmethod
     def load_objects(cls):

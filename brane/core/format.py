@@ -1,29 +1,28 @@
 from __future__ import annotations
 from brane.typing import *
 from brane.core.base import BaseSubclassRegister
+from brane.core.base import MetaFalse
+
+def normalize_extension_default(ext: str) -> str:
+    return ext.strip().lower()
 
 class MetaFormat(type):
     def __new__(cls, classname, bases, class_info):
-        class_info["name"] = class_info.get("default_extension", None)
-        return type.__new__(cls, classname, bases, class_info)
+        new_class_info = class_info.copy()
+        default_extension: Optional[str] = class_info.get("default_extension", None)
+        if new_class_info.get("name", None) is None:
+            new_class_info["name"] = default_extension
+        if default_extension not in class_info.get("variation", []):
+            new_class_info.setdefault("variation", []).append(default_extension)
+        print(f"[DEBUG]: in MetaFormat default_extension={default_extension} class_info={new_class_info}")
+        return type.__new__(cls, classname, bases, new_class_info)
 
-#class Format():
 class Format(FormatClassType, BaseSubclassRegister, metaclass=MetaFormat):
     # Image, Text ...
     data_type = None
     # jpg, png, tsv,... (flexible/variable/dynamical)
-    default_extension = None
-    ## experimental attr & name
-    #module_read = None
-    ## experimental attr & name
-    #module_write = None
-    #
-    #def read(self, obj):
-    #    raise NotImplementedError
-    #
-    #def write(self, obj):
-    #    raise NotImplementedError
-    
+    default_extension: Optional[str] = None
+
     # valid = True
     
     #_registered_subclasses = []
@@ -41,7 +40,16 @@ class Format(FormatClassType, BaseSubclassRegister, metaclass=MetaFormat):
     # @property
     # def name(cls):
     #     return cls.default_extension
-from brane.core.base import MetaFalse
+
+
+    # integrated from Extension
+    variation: list[str] = []# variations ? // use tuple instead of list or replace later ?
+
+    @classmethod
+    def check_extension(cls, ext: str):
+        ext_normalized: str = normalize_extension_default(ext)
+        return ext_normalized in cls.variation
+
 class MetaNoneFormat(MetaFormat, MetaFalse):# [MEMO]: deprecated after removing MetaFormat
     pass
 

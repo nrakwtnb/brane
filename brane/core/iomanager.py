@@ -1,15 +1,14 @@
 from __future__ import annotations
 from brane.typing import *
 from brane.core.base import Context
-from brane.core.mapper import Extension2Module, Extension2Format, ObjectFormat2Module
+from brane.core.mapper import ExtensionMapper, ObjectFormat2Module
 from brane.core.hook import FunctionHook, Hook
 from brane.libs.events import BasicEvents
 from brane.core.utils import get_extension_from_filname_default, integrate_args, integrate_kwargs
 ### temporal just activate class definitions
-from brane.libs.modules import PILModule
-from brane.libs.formats import TableType
+from brane.libs.modules import className2Module
+from brane.libs.formats import className2Format
 from brane.libs.objects import PIL_Image_Object
-from brane.libs.extensions import info
 from pathlib import Path
 # [ARG]: moved to hook.py ?
 
@@ -79,6 +78,14 @@ class HookManager(object):
         cls.clear_hooks(BasicEvents.write_post)
 
     @classmethod
+    def clear_read_all_pre_hook(cls):
+        raise NotImplementedError
+
+    @classmethod
+    def clear_write_all_pre_hook(cls):
+        raise NotImplementedError
+
+    @classmethod
     def clear_read_all_post_hook(cls):
         raise NotImplementedError
 
@@ -102,27 +109,27 @@ class IOManager(HookManager):
     logger = IOLogger()
     
     @classmethod
-    def read(cls, path, *args, **kwargs):# add args and kwargs
-        ext = cls.get_extension_from_filename(path)
-        #Fmt = Extension2Format.get_format(ext)
-        #if Fmt is None:
-        #    raise NotImplementedError(f"Cannot find the corresponding format for given extension {ext}")
-        Mdl = Extension2Module.get_module(ext)
+    def read(cls, path: PathType = None, file: FileType = None, ext: str = "", *args, **kwargs):# add args and kwargs
+        # implementation for the flle argument is temporal
+        # assert path is None or file is Nonr
+        # assert ext != "" when file is not None
+        ext = cls.get_extension_from_filename(path) if path else ext
+        Mdl = ExtensionMapper.get_module_class_from_extension(ext)
         if Mdl is None:
             raise NotImplementedError(f"Cannot find the corresponding module for given extension {ext}")
         Mdl.load_modules()
 
-        #context = { "path": path, "ext": ext, "Format": Fmt }
-        context: ContextInterface = Context({ "path": path, "ext": ext, "Module": Mdl })# add Fmt as supplementary ?
+        context: ContextInterface = Context({ "path": path, "file": file, "ext": ext, "Module": Mdl })# add Fmt as supplementary ?
         context = BasicEvents.read_pre.fire(context)
-        path = context["path"]
         base_args = context.get("args", ())
         base_kwargs = context.get("kwargs", {})
         base_args = integrate_args(base_args, args)
         base_kwargs = integrate_kwargs(base_kwargs, kwargs)
 
-        cls.logger.log.append( { "path": path, "ext": ext, "module": Mdl.name, "args": args, "kwargs": kwargs } )
-        obj = Mdl.read(file=path, *base_args, **base_kwargs)
+        path = context["path"]
+        file = context["file"]
+        cls.logger.log.append( ("read", { "path": path, "file": file, "ext": ext, "module": Mdl.name, "args": args, "kwargs": kwargs } ) )### temporal
+        obj = Mdl.read(path=path, file=file, *base_args, **base_kwargs)
 
         context.update({ "object": obj })
         context = BasicEvents.read_post.fire(context)
@@ -131,6 +138,7 @@ class IOManager(HookManager):
     
     @classmethod
     def read_all_as_list(cls, multiple_paths: list[str], read_args: tuple = (), read_kwargs: dict = {}, *args, **kwargs):
+        # flles not supported yet
         paths: list = []
         if isinstance(multiple_paths, str):
             import glob
@@ -164,6 +172,7 @@ class IOManager(HookManager):
 
     @classmethod
     def read_all_as_dict(cls, multiple_paths: dict[str, str], read_args: tuple = (), read_kwargs: dict = {}, *args, **kwargs):
+        # flles not supported yet
         paths: dict = {}
         if isinstance(multiple_paths, str):
             import glob
@@ -199,27 +208,34 @@ class IOManager(HookManager):
             return context["objects"]
 
     @classmethod
-    def write(cls, obj, path, *args, **kwargs):# [ARG]: addtional args: ext=None, 
-        ext = cls.get_extension_from_filename(path)
-        Fmt = Extension2Format.get_format(ext) if ext else None### replace NoneFormat
+    def write(cls, obj, path: PathType = None, file: Filetype = None, ext: str = '', *args, **kwargs):
+        # implementation for the flle argument is temporal
+        # assert path is None or file is Nonr
+        # assert ext != "" when file is not None
+        ext = cls.get_extension_from_filename(path) if path else ext
+        Fmt = ExtensionMapper.get_format_class_from_extension(ext) if ext else None### replace NoneFormat
         Mdl = ObjectFormat2Module.get_module_from_object(obj, fmt=Fmt)
         if Mdl is None:
             raise NotImplementedError(f"Cannot find the corresponding module for given object type {type(obj)}")
         Mdl.load_modules()
 
-        context: ContextInterface = Context({ "path": path, "object": obj, "Module": Mdl })
+        context: ContextInterface = Context({ "path": path, "file": file, "object": obj, "Module": Mdl })
         context = BasicEvents.write_pre.fire(context)
         base_args = context.get("args", ())
         base_kwargs = context.get("kwargs", {})
         base_args = integrate_args(base_args, args)
         base_kwargs = integrate_kwargs(base_kwargs, kwargs)
 
-        Mdl.write(obj=obj, file=path, *base_args, **base_kwargs)
+        path = context["path"]
+        file = context["file"]
+        cls.logger.log.append( ("write", { "path": path, "file": file, "ext": ext, "module": Mdl.name, "args": args, "kwargs": kwargs } ) )### temporal
+        Mdl.write(obj=obj, file=file, path=path, *base_args, **base_kwargs)
         context = BasicEvents.write_post.fire(context)
 
     @classmethod
     def write_all_from_list(cls, obj_list: list, output_dir: Optional[PathType] = None, path_ruler = None,
                             write_args: tuple = (), write_kwargs: dict = {}, *args, **kwargs):
+        # flles notg supported yet
         # [ARG]: list case is the special case of dict, to say, the index can be seen as the key -> unify two ??
         # [TODO]: should allow the iterator...
         # path assignemtn option
@@ -250,6 +266,7 @@ class IOManager(HookManager):
     @classmethod
     def write_all_from_dict(cls, obj_dict: dict, output_dir: Optional[PathType] = None, path_ruler = None,
                             write_args: tuple = (), write_kwargs: dict = {}, *args, **kwargs):
+        # flles notg supported yet
         # path assignemtn option
         # 1. output_dir + key
         # 2. path_ruler(obj_dict)

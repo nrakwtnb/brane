@@ -1,0 +1,25 @@
+
+Pillow:
+    name: Pillow
+    module_name: PIL.Image
+    module_method_read: open
+    object_method_write: save
+
+CV2:
+    module_name: cv2
+    module_method_read: imread
+    module_method_write: imwrite
+    file_arg_first: true
+
+Pandas:
+    module_name: pandas
+    module_method_read: read_csv
+    object_method_write: to_csv
+    base_kwargs_write:
+        index: null
+
+Numpy:
+    module_name: numpy
+    module_method_read: load
+    module_method_write: save
+    file_arg_first: true
