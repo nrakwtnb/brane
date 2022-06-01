@@ -1,0 +1,7 @@
+JSON:
+    default_extension: json
+    module_name: Json
+
+PKL:
+    default_extension: pkl
+    module_name: Pickle

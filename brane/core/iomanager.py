@@ -3,12 +3,9 @@ from brane.typing import *
 from brane.core.base import Context
 from brane.core.mapper import ExtensionMapper, ObjectFormat2Module
 from brane.core.hook import FunctionHook, Hook
+from brane.core.factory import Factory
 from brane.libs.events import BasicEvents
 from brane.core.utils import get_extension_from_filname_default, integrate_args, integrate_kwargs
-### temporal just activate class definitions
-from brane.libs.modules import className2Module
-from brane.libs.formats import className2Format
-from brane.libs.objects import PIL_Image_Object
 from pathlib import Path
 # [ARG]: moved to hook.py ?
 
@@ -94,7 +91,6 @@ class HookManager(object):
         raise NotImplementedError
 
 class IOLogger(object):
-    "v4.2"
     # for debug at this stage
     log = []
 
@@ -104,6 +100,7 @@ class IOManager(HookManager):
     * refactor for better implementation
     * use mixin ?
     """
+    factory = Factory()
 
     get_extension_from_filename = get_extension_from_filname_default
     logger = IOLogger()
@@ -248,7 +245,7 @@ class IOManager(HookManager):
         paths: list[str, PathType] = []
         if output_dir is not None:
             if path_ruler is None:
-                path_ruler = lambda idx: str(idx)
+                path_ruler = lambda idx: str(idx) # noqa: E731
             paths = [ Path(output_dir) / path_ruler(idx) for idx in range(len(obj_list)) ]
         elif path_ruler is not None:
             paths = [ path_ruler(idx) for idx in range(len(obj_list)) ]
@@ -277,7 +274,7 @@ class IOManager(HookManager):
         paths: dict[str, PathType] = {}
         if output_dir is not None:
             if path_ruler is None:
-                path_ruler = lambda key: key
+                path_ruler = lambda key: key # noqa: E731
             paths = { key: Path(output_dir) / path_ruler(key) for key in obj_dict.keys() }
         elif path_ruler is not None:
             paths = { key: path_ruler(key) for key in obj_dict.keys() }

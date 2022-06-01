@@ -1,0 +1,13 @@
+#Pickle_PKL:
+#    format_name: PKL
+#    module_name: Pickle
+#    object_type_info:
+#        - builtins
+#        - object
+
+Json_JSON:
+    format_name: JSON
+    module_name: Json
+    object_type_info:
+        - builtins
+        - dict

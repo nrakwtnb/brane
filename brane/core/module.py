@@ -14,6 +14,9 @@ class MetaModule(type):
         return type.__new__(cls, classname, bases, new_class_info)
 
 class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
+    """
+    Needed to be inheritated. The child class correspond to module.
+    """
     # should be unqiue. package name specifed at pip install is usually set
     name: Optional[str] = None
     # module name for base. allow the string like "module1.module2"
@@ -24,7 +27,7 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
     loaded: bool = False
 
     module_method_read: Optional[str] = None
-    read_method: Callable = None
+    read_method: Optional[Callable] = None
 
     module_method_write: Optional[str] = None
     write_method: Callable = None
@@ -38,7 +41,7 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
     object_method_write: Optional[str] = None### temporal arg name
 
     # temporal arg name # unnecessary ?
-    require_file_stream_read = False
+    # require_file_stream_read = False
 
     base_args_read: tuple = ()
     base_kwargs_read: dict = {}
@@ -49,23 +52,36 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
     
     @classmethod
     def load_modules(cls):
+        """ lazy loading of modules and setting of methods.
+        """
         # allow lazy loading of modules
         if cls.module_name:
             if cls.module is None:
                 cls.module = importlib.import_module(cls.module_name)
+        # set read method
         if cls.module_method_read:
             cls.read_method = getattr(cls.module, cls.module_method_read)
         else:
             raise ValueError("'module_method_read' is undefined")# [ARGS]: other error type ?
+        # set write method
         if cls.module_method_write:
             cls.write_method = getattr(cls.module, cls.module_method_write)
         elif cls.object_method_write:
             pass
         else:
-            raise ValueError("'module_method_write' is undefined")# [ARGS]: other error type ?
+            raise ValueError("neither 'module_method_write' nor 'object_method_write' is undefined")# [ARGS]: other error type ?
 
     @classmethod
-    def read(cls, path: Optional[PathType] = None, file: Optional[FileType] = None, *args, **kwargs):
+    def read(cls, path: Optional[PathType] = None, file: Optional[FileType] = None, *args, **kwargs) -> Any:
+        """ read from path or file stream.
+
+        Args:
+            path: path object
+            file: file stream object
+        
+        Returns:
+            Any: loaded objects
+        """
         # generate the args and keyword args passed to read method
         base_args_read, base_kwargs_read = cls.base_args_read, cls.base_kwargs_read.copy()
         # [ARG]: unnecessary
@@ -93,6 +109,13 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
 
     @classmethod
     def write(cls, obj: Any, path: Optional[PathType] = None, file: Optional[FileType] = None, *args, **kwargs):
+        """ write objects to the file specified by path object or file object.
+
+        Args:
+            obj: object to save
+            path: path object
+            file: file stream object
+        """
         base_args_write, base_kwargs_write = cls.base_args_write, cls.base_kwargs_write.copy()
         if cls.generate_params_write:
             base_args_write, base_kwargs_write = cls.generate_params_write(obj, base_args_write, base_kwargs_write)

@@ -22,15 +22,6 @@ class HookClassType:
 class EventClassType:
     pass
 
-class ContextInterface(TypedDict):
-    object = None
-    objects = None
-    path = None
-    paths = None
-    file = None
-    files = None
-    Module = None
-
 
 def _generate_file_type():
     import pathlib
@@ -41,3 +32,13 @@ def _generate_file_type():
 
 PathType, FileType = _generate_file_type()
 del _generate_file_type
+
+class ContextInterface(TypedDict):
+    object: Optional[Any] = None
+    objects: Optional[list[Any]] = None
+    path: Optional[PathType] = None
+    paths: Optional[list[PathType]] = None
+    file: Optional[FileType] = None
+    files: Optional[list[FileType]] = None
+    Module: Optional[ModuleClassType] = None
+    Format: Optional[FormatClassType] = None

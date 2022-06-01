@@ -1,7 +1,7 @@
 from __future__ import annotations
 from brane.typing import *
 from brane.core.hook import Hook
-from brane.libs.objects import PIL_JPEG_Object, PIL_PNG_Object
+from brane.core.factory import Factory
 
 class PILResizeHook(Hook):
     hook_name = "PILResize"
@@ -14,7 +14,8 @@ class PILResizeHook(Hook):
 
     def condition(self, info: ContextInterface):
         obj = info.get("object", None)
-        return isinstance(obj, PIL_JPEG_Object.object) or isinstance(obj, PIL_PNG_Object.object)
+        #return isinstance(obj, PIL_JPEG_Object.object) or isinstance(obj, PIL_PNG_Object.object)
+        return isinstance(obj, Factory.className2Object["PIL_JPEG"].object) or isinstance(obj, Factory.className2Object["PIL_PNG"].object)
 
     def __call__(self, info: ContextInterface):
         print("resize")

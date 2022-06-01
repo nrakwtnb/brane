@@ -8,11 +8,9 @@ class ExtensionMapper():### rename
     # [TODO];: caching
     @classmethod
     def get_format_class_from_extension(cls, ext: str) -> FormatClassType:# ignore: this type is defined later
-        for _, Fmt in Format.registered_formats.items():###
+        for _, Fmt in Format.registered_formats.items():
             if Fmt.check_extension(ext):
                 return Fmt
-            #if ext_normalzied in Fmt.variation:
-            #    return Fmt
         assert False, "no Format found"# [TODO]: エラーをraiseするか、NoneExtensionをreturnするか
         return NoneFormat
 
@@ -32,17 +30,17 @@ class ExtensionMapper():### rename
 
 # In the future, I'd like to use hashed-key for quick search
 class ObjectFormat2Module:
+    # [TODO]: use hash ?
     def get_module_from_object(obj, fmt=None) -> ModuleClassType:
         for _, Obj in Object.registered_objects.items():### -> global var.
             # type(obj) == Obj.object # Objにtype-eq評価か、isinstance評価か決めるattributeを付与したので、そちらで制御
             Obj.load_objects()### will be removed in the future
             #     -> Objのattributes (objectなどload_objectsでセットされるもの)にアクセスした際に、自動で読み出されるようにするため
             if isinstance(obj, Obj.object):
-                print(obj, Obj)
                 if hasattr(Obj, "module") and Obj.module is not None:
                     module = Obj.module
                     return module
-                elif hasattr(Obj, "module_checker"):
+                elif hasattr(Obj, "module_checker") and Obj.module_checker is not None:
                     if hasattr(Obj, "format") and Obj.format is not None:
                         fmt = Obj.format
                         print("Obj.format", fmt)

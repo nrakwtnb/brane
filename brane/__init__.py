@@ -1,7 +1,6 @@
 print("brane.__init__.py called")
-from .core.module import Module
-from .core.format import Format
-from .core.object import Object
+from brane.core.iomanager import IOManager
 
-from core.iomanager import IOManager
-
+from brane.core.format import Format
+from brane.core.module import Module
+from brane.core.object import Object

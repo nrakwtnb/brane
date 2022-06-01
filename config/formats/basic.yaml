@@ -1,0 +1,17 @@
+PNG:
+    default_extension: png
+    module_name: Pillow
+
+TSV:
+    default_extension: tsv
+    module_name: Pandas
+
+JPEG:
+    default_extension: jpeg
+    variation:
+        - jpg
+    module_name: Pillow
+
+CSV:
+    default_extension: csv
+    module_name: Pandas

@@ -1,0 +1,27 @@
+PIL_Image:
+    format_name: JPEG
+    module_name: Pillow
+    object_type_info:
+        - PIL.Image
+        - Image
+
+PIL_JPEG:
+    format_name: JPEG
+    module_name: Pillow
+    object_type_info:
+        - PIL.JpegImagePlugin
+        - JpegImageFile
+
+PIL_PNG:
+    format_name: PNG
+    module_name: Pillow
+    object_type_info:
+        - PIL.PngImagePlugin
+        - PngImageFile
+
+Pandas_DataFrame:
+    format_name: CSV
+    module_name: Pandas
+    object_type_info:
+        - pandas
+        - DataFrame
