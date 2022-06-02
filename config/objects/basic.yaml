@@ -4,6 +4,7 @@ PIL_Image:
     object_type_info:
         - PIL.Image
         - Image
+    priority: 80
 
 PIL_JPEG:
     format_name: JPEG
@@ -11,6 +12,7 @@ PIL_JPEG:
     object_type_info:
         - PIL.JpegImagePlugin
         - JpegImageFile
+    priority: 90
 
 PIL_PNG:
     format_name: PNG
@@ -18,6 +20,7 @@ PIL_PNG:
     object_type_info:
         - PIL.PngImagePlugin
         - PngImageFile
+    priority: 90
 
 Pandas_DataFrame:
     format_name: CSV
@@ -25,3 +28,4 @@ Pandas_DataFrame:
     object_type_info:
         - pandas
         - DataFrame
+    priority: 90

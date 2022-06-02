@@ -1,9 +1,11 @@
 from __future__ import annotations
-from brane.typing import *
-from brane.core.base import BaseSubclassRegister
-from brane.core.utils import integrate_args, integrate_kwargs
-from brane.core.base import MetaFalse
+
 import importlib
+
+from brane.core.base import BaseSubclassRegister, MetaFalse
+from brane.core.utils import integrate_args, integrate_kwargs
+from brane.typing import *  # noqa: F403
+
 
 class MetaModule(type):
     def __new__(cls, classname, bases, class_info):
@@ -13,10 +15,19 @@ class MetaModule(type):
         print(f"[DEBUG]: in MetaModule class_info={new_class_info}")
         return type.__new__(cls, classname, bases, new_class_info)
 
+    @property
+    def registered_modules(cls):
+        return cls._registered_subclasses
+
+
 class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
     """
     Needed to be inheritated. The child class correspond to module.
     """
+
+    _registered_subclasses = {}
+    priority = 50
+
     # should be unqiue. package name specifed at pip install is usually set
     name: Optional[str] = None
     # module name for base. allow the string like "module1.module2"
@@ -38,7 +49,7 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
     file_open_for_write: bool = False
     open_mode_for_write: dict = {"mode": "w"}
 
-    object_method_write: Optional[str] = None### temporal arg name
+    object_method_write: Optional[str] = None  ### temporal arg name
 
     # temporal arg name # unnecessary ?
     # require_file_stream_read = False
@@ -47,13 +58,12 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
     base_kwargs_read: dict = {}
     base_args_write: tuple = ()
     base_kwargs_write: dict = {}
-    generate_params_read = None # unnecessary ?
+    generate_params_read = None  # unnecessary ?
     generate_params_write = None
-    
+
     @classmethod
     def load_modules(cls):
-        """ lazy loading of modules and setting of methods.
-        """
+        """lazy loading of modules and setting of methods."""
         # allow lazy loading of modules
         if cls.module_name:
             if cls.module is None:
@@ -62,28 +72,41 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
         if cls.module_method_read:
             cls.read_method = getattr(cls.module, cls.module_method_read)
         else:
-            raise ValueError("'module_method_read' is undefined")# [ARGS]: other error type ?
+            raise ValueError(
+                "'module_method_read' is undefined"
+            )  # [ARGS]: other error type ?
         # set write method
         if cls.module_method_write:
             cls.write_method = getattr(cls.module, cls.module_method_write)
         elif cls.object_method_write:
             pass
         else:
-            raise ValueError("neither 'module_method_write' nor 'object_method_write' is undefined")# [ARGS]: other error type ?
+            raise ValueError(
+                "neither 'module_method_write' nor 'object_method_write' is undefined"
+            )  # [ARGS]: other error type ?
 
     @classmethod
-    def read(cls, path: Optional[PathType] = None, file: Optional[FileType] = None, *args, **kwargs) -> Any:
-        """ read from path or file stream.
+    def read(
+        cls,
+        path: Optional[PathType] = None,
+        file: Optional[FileType] = None,
+        *args,
+        **kwargs,
+    ) -> Any:
+        """read from path or file stream.
 
         Args:
             path: path object
             file: file stream object
-        
+
         Returns:
             Any: loaded objects
         """
         # generate the args and keyword args passed to read method
-        base_args_read, base_kwargs_read = cls.base_args_read, cls.base_kwargs_read.copy()
+        base_args_read, base_kwargs_read = (
+            cls.base_args_read,
+            cls.base_kwargs_read.copy(),
+        )
         # [ARG]: unnecessary
         # if cls.generate_params_read:
         #     base_args_read, base_kwargs_read = cls.generate_params_read(base_args_read, base_kwargs_read)
@@ -108,18 +131,30 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
             file.close()
 
     @classmethod
-    def write(cls, obj: Any, path: Optional[PathType] = None, file: Optional[FileType] = None, *args, **kwargs):
-        """ write objects to the file specified by path object or file object.
+    def write(
+        cls,
+        obj: Any,
+        path: Optional[PathType] = None,
+        file: Optional[FileType] = None,
+        *args,
+        **kwargs,
+    ):
+        """write objects to the file specified by path object or file object.
 
         Args:
             obj: object to save
             path: path object
             file: file stream object
         """
-        base_args_write, base_kwargs_write = cls.base_args_write, cls.base_kwargs_write.copy()
+        base_args_write, base_kwargs_write = (
+            cls.base_args_write,
+            cls.base_kwargs_write.copy(),
+        )
         if cls.generate_params_write:
-            base_args_write, base_kwargs_write = cls.generate_params_write(obj, base_args_write, base_kwargs_write)
-            
+            base_args_write, base_kwargs_write = cls.generate_params_write(
+                obj, base_args_write, base_kwargs_write
+            )
+
         args_write = integrate_args(base_args_write, args)
         kwargs_write = integrate_kwargs(base_kwargs_write, kwargs)
 
@@ -141,42 +176,18 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
 
         if cls.file_open_for_write:
             file.close()
-        
-    #_registered_subclasses = []
-    _registered_subclasses = {}
-    registered_modules = _registered_subclasses
-    # [ToDo]: define class-propetry or dynamical attibutes by using meta class
-    #@property
-    #def registered_modules(cls):
-    #    return [ c for c in cls.__registered_subclasses if c != cls ]
-    
-    # def __init_subclass__(cls):
-    #     #super().__init_subclass__()
-    #     #super(cls).__class__.registered_modules.append(cls)
-    #     #print(cls)
-    #     if cls.valid:
-    #         cls.registered_modules.append(cls)
-    #     # これだと継承クラス全体でregistered_moduleをシェア
-        
-    #def __init__(self):
-    #    self.registered_modules = []
-    #def __init_subclass__(cls):
-    #    print(super())
-    #    super().registered_modules.append(cls)
 
-    # # if False, not register the module
-    # valid = True# temporal arg name
-    # #@property
-    # #def valid(self):
-    # #    return self._valid
 
-class MetaNoneModule(MetaModule, MetaFalse):# [MEMO]: deprecated after removing MetaModule
+class MetaNoneModule(
+    MetaModule, MetaFalse
+):  # [MEMO]: deprecated after removing MetaModule
     pass
 
+
 class NoneModule(Module, metaclass=MetaNoneModule):
-    valid = False###
+    valid = False  ###
     name = "None"
-    
-    #@classmethod # not work for class
-    #def __bool__(cls):
+
+    # @classmethod # not work for class
+    # def __bool__(cls):
     #    return False

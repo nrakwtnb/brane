@@ -1,37 +1,61 @@
 from __future__ import annotations
-from typing import Any, Union, Optional, Callable, Sequence, Generator, Generic, Tuple, Dict, List, Set, NamedTuple, TypeVar
-from typing_extensions import Protocol
+
+from typing import (  # noqa: F401
+    Any,
+    Callable,
+    Dict,
+    Generator,
+    Generic,
+    List,
+    NamedTuple,
+    Optional,
+    Sequence,
+    Set,
+    Tuple,
+    TypeVar,
+    Union,
+)
+
+from typing_extensions import Protocol  # noqa: F401
 
 try:
-    from typing import TypedDict # >=3.8
+    from typing import TypedDict  # >=3.8
 except ImportError:
-    from typing_extensions import TypedDict # <=3.7
+    from typing_extensions import TypedDict  # <=3.7
+
 
 class ModuleClassType:
     pass
 
+
 class FormatClassType:
     pass
+
 
 class ObjectClassType:
     pass
 
+
 class HookClassType:
     pass
+
 
 class EventClassType:
     pass
 
 
 def _generate_file_type():
-    import pathlib
     import io
+    import pathlib
+
     PathType = Union[str, pathlib.Path]
-    FileType = Union[PathType, io.TextIOWrapper]# [TODO]: more types should be added
+    FileType = Union[PathType, io.TextIOWrapper]  # [TODO]: more types should be added
     return PathType, FileType
+
 
 PathType, FileType = _generate_file_type()
 del _generate_file_type
+
 
 class ContextInterface(TypedDict):
     object: Optional[Any] = None

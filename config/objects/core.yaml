@@ -1,9 +1,10 @@
-#Pickle_PKL:
-#    format_name: PKL
-#    module_name: Pickle
-#    object_type_info:
-#        - builtins
-#        - object
+Pickle_PKL:
+    format_name: PKL
+    module_name: Pickle
+    object_type_info:
+        - builtins
+        - object
+    priority: 0
 
 Json_JSON:
     format_name: JSON
@@ -11,3 +12,4 @@ Json_JSON:
     object_type_info:
         - builtins
         - dict
+    priority: 10
