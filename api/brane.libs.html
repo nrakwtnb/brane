@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>brane.libs package &mdash; brane Bleeding Edge documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="brane.core package" href="brane.core.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> brane
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/introduction.html">What is brane ?</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/introduction.html#unified-interface">Unified interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/introduction.html#hook-system">Hook system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/introduction.html#i-o-logging">I/O logging</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="brane.html">brane package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="brane.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="brane.core.html">brane.core package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="brane.core.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.base">brane.core.base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.event">brane.core.event module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.factory">brane.core.factory module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.format">brane.core.format module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.hook">brane.core.hook module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.iomanager">brane.core.iomanager module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.mapper">brane.core.mapper module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.module">brane.core.module module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.object">brane.core.object module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.utils">brane.core.utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">brane.libs package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-brane.libs.events">brane.libs.events module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-brane.libs.hooks">brane.libs.hooks module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-brane.libs">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="brane.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brane.html#module-brane.typing">brane.typing module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brane.html#module-brane">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">brane</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="brane.html">brane package</a> &raquo;</li>
+      <li>brane.libs package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/brane.libs.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="brane-libs-package">
+<h1>brane.libs package<a class="headerlink" href="#brane-libs-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-brane.libs.events">
+<span id="brane-libs-events-module"></span><h2>brane.libs.events module<a class="headerlink" href="#module-brane.libs.events" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="brane.libs.events.BasicEvents">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.libs.events.</span></span><span class="sig-name descname"><span class="pre">BasicEvents</span></span><a class="headerlink" href="#brane.libs.events.BasicEvents" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.libs.events.BasicEvents.read_post">
+<span class="sig-name descname"><span class="pre">read_post</span></span><a class="headerlink" href="#brane.libs.events.BasicEvents.read_post" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.libs.events.BasicEvents.read_pre">
+<span class="sig-name descname"><span class="pre">read_pre</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.</span> <span class="pre">&lt;function</span> <span class="pre">check_path_existence&gt;</span></em><a class="headerlink" href="#brane.libs.events.BasicEvents.read_pre" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.libs.events.BasicEvents.readall_post">
+<span class="sig-name descname"><span class="pre">readall_post</span></span><a class="headerlink" href="#brane.libs.events.BasicEvents.readall_post" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.libs.events.BasicEvents.readall_pre">
+<span class="sig-name descname"><span class="pre">readall_pre</span></span><a class="headerlink" href="#brane.libs.events.BasicEvents.readall_pre" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.libs.events.BasicEvents.write_post">
+<span class="sig-name descname"><span class="pre">write_post</span></span><a class="headerlink" href="#brane.libs.events.BasicEvents.write_post" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.libs.events.BasicEvents.write_pre">
+<span class="sig-name descname"><span class="pre">write_pre</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.</span> <span class="pre">&lt;function</span> <span class="pre">create_parent_directory&gt;</span></em><a class="headerlink" href="#brane.libs.events.BasicEvents.write_pre" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.libs.events.BasicEvents.writeall_post">
+<span class="sig-name descname"><span class="pre">writeall_post</span></span><a class="headerlink" href="#brane.libs.events.BasicEvents.writeall_post" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.libs.events.BasicEvents.writeall_pre">
+<span class="sig-name descname"><span class="pre">writeall_pre</span></span><a class="headerlink" href="#brane.libs.events.BasicEvents.writeall_pre" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-brane.libs.hooks">
+<span id="brane-libs-hooks-module"></span><h2>brane.libs.hooks module<a class="headerlink" href="#module-brane.libs.hooks" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="brane.libs.hooks.PILResizeHook">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.libs.hooks.</span></span><span class="sig-name descname"><span class="pre">PILResizeHook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resample</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#brane.libs.hooks.PILResizeHook" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="brane.core.html#brane.core.hook.Hook" title="brane.core.hook.Hook"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hook</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="brane.libs.hooks.PILResizeHook.condition">
+<span class="sig-name descname"><span class="pre">condition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="brane.html#brane.typing.ContextInterface" title="brane.typing.ContextInterface"><span class="pre">ContextInterface</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#brane.libs.hooks.PILResizeHook.condition" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.libs.hooks.PILResizeHook.hook_name">
+<span class="sig-name descname"><span class="pre">hook_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'PILResize'</span></em><a class="headerlink" href="#brane.libs.hooks.PILResizeHook.hook_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="brane.libs.hooks.check_path_existence">
+<span class="sig-prename descclassname"><span class="pre">brane.libs.hooks.</span></span><span class="sig-name descname"><span class="pre">check_path_existence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#brane.libs.hooks.check_path_existence" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="brane.libs.hooks.create_parent_directory">
+<span class="sig-prename descclassname"><span class="pre">brane.libs.hooks.</span></span><span class="sig-name descname"><span class="pre">create_parent_directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#brane.libs.hooks.create_parent_directory" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-brane.libs">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-brane.libs" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="brane.core.html" class="btn btn-neutral float-left" title="brane.core package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Noriaki Watanabe.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
