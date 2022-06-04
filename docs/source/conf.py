@@ -32,8 +32,10 @@ release = 'Bleeding Edge'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    "sphinx.ext.autosummary",
     'sphinx.ext.napoleon',
     'sphinx_rtd_theme',
+    #'sphinx_multiversion',
     'recommonmark',
 ]
 
@@ -64,11 +66,15 @@ html_static_path = ['_static']
 
 # -- User setting -----------------------------------------------------------
 
+## theme
 html_theme_options = {"collapse_navigation": False, "style_external_links": True}
 
 
+
+## targets
 source_suffix = ['.rst', '.md']
 
+### markdown
 from recommonmark.parser import CommonMarkParser
 
 source_parsers = {
@@ -84,5 +90,21 @@ def setup(app):
             'auto_toc_tree_section': 'Contents',
             }, True)
     app.add_transform(AutoStructify)
+
+
+
+## autodoc
+autodoc_default_options = {
+    "member-order": "bysource",
+    #'show-inheritance': True,
+}
+autoclass_content = 'both'
+
+
+
+# ???
+#autosummary_generate = True
+
+
 
 

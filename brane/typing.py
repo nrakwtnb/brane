@@ -16,12 +16,10 @@ from typing import (  # noqa: F401
     Union,
 )
 
-from typing_extensions import Protocol  # noqa: F401
-
 try:
-    from typing import TypedDict  # >=3.8
+    from typing import Protocol, TypedDict  # noqa: F401 # >=3.8
 except ImportError:
-    from typing_extensions import TypedDict  # <=3.7
+    from typing_extensions import Protocol, TypedDict  # noqa: F401 # <=3.7
 
 
 class ModuleClassType:
