@@ -41,9 +41,24 @@
               <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../introduction/introduction.html">What is brane ?</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../introduction/introduction.html#unified-interface">Unified interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/introduction.html#what-will-brane-solves">What will brane solves ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/introduction.html#what-does-brane-means">What does brane means ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/introduction.html#features-of-brane">Features of brane</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/introduction.html#unified-i-o-interface">Unified I/O interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../introduction/introduction.html#hook-system">Hook system</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../introduction/introduction.html#i-o-logging">I/O logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/introduction.html#i-o-tracking">I/O tracking</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/introduction.html#id1">What is brane ?</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/introduction.html#id2">What will brane solves ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/introduction.html#id3">Features of brane</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/introduction.html#id4">Unified I/O interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/introduction.html#id5">Hook system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/introduction.html#id6">I/O tracking</a></li>
 </ul>
 </li>
 </ul>
@@ -143,29 +158,39 @@
 <section id="module-brane.typing">
 <span id="brane-typing-module"></span><h2>brane.typing module<a class="headerlink" href="#module-brane.typing" title="Permalink to this heading"></a></h2>
 <dl class="py class">
+<dt class="sig sig-object py" id="brane.typing.ModuleClassType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.typing.</span></span><span class="sig-name descname"><span class="pre">ModuleClassType</span></span><a class="headerlink" href="#brane.typing.ModuleClassType" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="brane.typing.FormatClassType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.typing.</span></span><span class="sig-name descname"><span class="pre">FormatClassType</span></span><a class="headerlink" href="#brane.typing.FormatClassType" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="brane.typing.ObjectClassType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.typing.</span></span><span class="sig-name descname"><span class="pre">ObjectClassType</span></span><a class="headerlink" href="#brane.typing.ObjectClassType" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="brane.typing.HookClassType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.typing.</span></span><span class="sig-name descname"><span class="pre">HookClassType</span></span><a class="headerlink" href="#brane.typing.HookClassType" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="brane.typing.EventClassType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.typing.</span></span><span class="sig-name descname"><span class="pre">EventClassType</span></span><a class="headerlink" href="#brane.typing.EventClassType" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="brane.typing.ContextInterface">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.typing.</span></span><span class="sig-name descname"><span class="pre">ContextInterface</span></span><a class="headerlink" href="#brane.typing.ContextInterface" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.typing.ContextInterface.Format">
-<span class="sig-name descname"><span class="pre">Format</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#brane.typing.FormatClassType" title="brane.typing.FormatClassType"><span class="pre">FormatClassType</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.typing.ContextInterface.Format" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.typing.ContextInterface.Module">
-<span class="sig-name descname"><span class="pre">Module</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#brane.typing.ModuleClassType" title="brane.typing.ModuleClassType"><span class="pre">ModuleClassType</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.typing.ContextInterface.Module" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.typing.ContextInterface.file">
-<span class="sig-name descname"><span class="pre">file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">TextIOWrapper</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.typing.ContextInterface.file" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.typing.ContextInterface.files">
-<span class="sig-name descname"><span class="pre">files</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">_io.TextIOWrapper</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.typing.ContextInterface.files" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="brane.typing.ContextInterface.object">
 <span class="sig-name descname"><span class="pre">object</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.typing.ContextInterface.object" title="Permalink to this definition"></a></dt>
@@ -186,36 +211,26 @@
 <span class="sig-name descname"><span class="pre">paths</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.typing.ContextInterface.paths" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
-</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.typing.ContextInterface.file">
+<span class="sig-name descname"><span class="pre">file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">TextIOWrapper</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.typing.ContextInterface.file" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
-<dl class="py class">
-<dt class="sig sig-object py" id="brane.typing.EventClassType">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.typing.</span></span><span class="sig-name descname"><span class="pre">EventClassType</span></span><a class="headerlink" href="#brane.typing.EventClassType" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.typing.ContextInterface.files">
+<span class="sig-name descname"><span class="pre">files</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">_io.TextIOWrapper</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.typing.ContextInterface.files" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
-<dl class="py class">
-<dt class="sig sig-object py" id="brane.typing.FormatClassType">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.typing.</span></span><span class="sig-name descname"><span class="pre">FormatClassType</span></span><a class="headerlink" href="#brane.typing.FormatClassType" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.typing.ContextInterface.Module">
+<span class="sig-name descname"><span class="pre">Module</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#brane.typing.ModuleClassType" title="brane.typing.ModuleClassType"><span class="pre">ModuleClassType</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.typing.ContextInterface.Module" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
-<dl class="py class">
-<dt class="sig sig-object py" id="brane.typing.HookClassType">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.typing.</span></span><span class="sig-name descname"><span class="pre">HookClassType</span></span><a class="headerlink" href="#brane.typing.HookClassType" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.typing.ContextInterface.Format">
+<span class="sig-name descname"><span class="pre">Format</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#brane.typing.FormatClassType" title="brane.typing.FormatClassType"><span class="pre">FormatClassType</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.typing.ContextInterface.Format" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
-<dl class="py class">
-<dt class="sig sig-object py" id="brane.typing.ModuleClassType">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.typing.</span></span><span class="sig-name descname"><span class="pre">ModuleClassType</span></span><a class="headerlink" href="#brane.typing.ModuleClassType" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="brane.typing.ObjectClassType">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.typing.</span></span><span class="sig-name descname"><span class="pre">ObjectClassType</span></span><a class="headerlink" href="#brane.typing.ObjectClassType" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 </dd></dl>
 
 </section>

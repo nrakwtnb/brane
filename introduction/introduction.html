@@ -16,7 +16,6 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -42,9 +41,24 @@
               <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">What is brane ?</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#unified-interface">Unified interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-will-brane-solves">What will brane solves ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-does-brane-means">What does brane means ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#features-of-brane">Features of brane</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#unified-i-o-interface">Unified I/O interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#hook-system">Hook system</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#i-o-logging">I/O logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#i-o-tracking">I/O tracking</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id1">What is brane ?</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">What will brane solves ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id3">Features of brane</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id4">Unified I/O interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">Hook system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">I/O tracking</a></li>
 </ul>
 </li>
 </ul>
@@ -109,20 +123,104 @@
              
   <section id="what-is-brane">
 <h1>What is brane ?<a class="headerlink" href="#what-is-brane" title="Permalink to this heading"></a></h1>
-<section id="unified-interface">
-<h2>Unified interface<a class="headerlink" href="#unified-interface" title="Permalink to this heading"></a></h2>
+<p>Brane is designed to provide a rich I/O management system in the Python programming.
+The goals are</p>
+<ul class="simple">
+<li><p>to avoid setting the common arguments or processings on the I/O events</p></li>
+<li><p>to be allowed to track data flows</p></li>
+</ul>
+<p>Then, we can save time (quick), get less human errors (stable), use everywhere (reusable), may easily find I/O related bugs (reproduction) and make codes readable.</p>
+<section id="what-will-brane-solves">
+<h2>What will brane solves ?<a class="headerlink" href="#what-will-brane-solves" title="Permalink to this heading"></a></h2>
+<p>In several cases, we have similar small but many boilarplates on reading or writing objects such as</p>
+<ul class="simple">
+<li><p>using <code class="docutils literal notranslate"><span class="pre">with</span></code> statement to open and close the files</p></li>
+<li><p>checking the method’s name and its arguments’ names or orderings</p></li>
+<li><p>giving fixed arugments to modules or methods</p></li>
+<li><p>making directories before saving files</p></li>
+<li><p>loading multiple csv files, concatenating them and optimizing</p></li>
+<li><p>loading images and resizing them in a fixed shape</p></li>
+<li><p>writing tables</p></li>
+</ul>
+<p>Brane aims to mitigates these boring or troublesome things by unifying the interfaces and configuring them.
+In other words, it realizes the DRY priciple for I/O.</p>
+</section>
+<section id="what-does-brane-means">
+<h2>What does brane means ?<a class="headerlink" href="#what-does-brane-means" title="Permalink to this heading"></a></h2>
+<p>First of all, you should not mind it too much.
+Honestly speaking, there is no deep meaning on it but here let me describe it as it implies !</p>
+<p>The terminology “brane” comes from the string theory which is considered to be the most possible theory unifying the general relativity (the most established theory of the gravitation) and the quantum field theory (the most established theory on the micro world, to say, particle physics).
+There, branes were found as the boudaries or the sources/sinks of the strings which are elementary objects in the (perturbative) string theory as the name suggests.
+The other intersting aspect of the branes is a universal soliton or an extend object of the strings.</p>
+<p>Now, go back to our programing world which might be artificially at first sight far from the string worlds.
+There, the most fundamental actors may be data.
+However, data is originally abstract to some extent but needed to be saved as files at storages in some format.
+To say, data is absorbed or emitted from the file system what strings to branes (really ?).
+And, both serve as some extensible and unifying roles.
+That is the reason why the brane comes to our module name.</p>
+</section>
+</section>
+<section id="features-of-brane">
+<h1>Features of brane<a class="headerlink" href="#features-of-brane" title="Permalink to this heading"></a></h1>
+<section id="unified-i-o-interface">
+<h2>Unified I/O interface<a class="headerlink" href="#unified-i-o-interface" title="Permalink to this heading"></a></h2>
+<p>First of all, we provide extension or data type free I/O interfaces.</p>
+<p>Secondly, we can handle multiple files in the same interface.</p>
 </section>
 <section id="hook-system">
 <h2>Hook system<a class="headerlink" href="#hook-system" title="Permalink to this heading"></a></h2>
+<p>In many cases, we do common preprocessings on reading objects from files or writing objects into files.
+In such situations, we apply the same fucntions to the objects or the paths/files before/after I/O operations.
+Hook systems in brane help us to do so.</p>
 </section>
-<section id="i-o-logging">
-<h2>I/O logging<a class="headerlink" href="#i-o-logging" title="Permalink to this heading"></a></h2>
-<div class="math notranslate nohighlight">
-\[E = m c^2\]</div>
-<p><a class="reference external" href="api_ref">API Reference</a></p>
+<section id="i-o-tracking">
+<h2>I/O tracking<a class="headerlink" href="#i-o-tracking" title="Permalink to this heading"></a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="doc1">Title1</a></p></li>
-<li><p><a class="reference external" href="doc2">Title2</a></p></li>
+<li><p>Not implemented yet</p></li>
+</ul>
+</section>
+</section>
+<section id="id1">
+<h1>What is brane ?<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h1>
+<p>Brane is designed to provide a rich I/O management system in the Python programming.
+The goals are</p>
+<ul class="simple">
+<li><p>to avoid setting the common arguments or processings on the I/O events</p></li>
+<li><p>to be allowed to track data flows</p></li>
+</ul>
+<p>Then, we can save time, get less human error and make codes readable.</p>
+<section id="id2">
+<h2>What will brane solves ?<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
+<p>In several cases, we have similar small but many boilarplates on reading or writing objects such as</p>
+<ul class="simple">
+<li><p>using <code class="docutils literal notranslate"><span class="pre">with</span></code> statement to open and close the files</p></li>
+<li><p>checking the method’s name and its arguments’ names or orderings</p></li>
+<li><p>giving fixed arugments to modules or methods</p></li>
+<li><p>making directories before saving files</p></li>
+<li><p>loading multiple csv files, concatenating them and optimizing</p></li>
+<li><p>loading images and resizing them in a fixed shape</p></li>
+<li><p>writing tables</p></li>
+</ul>
+<p>Brane aims to mitigates these boring or troublesome things by unifying the interfaces and configuring them.</p>
+</section>
+</section>
+<section id="id3">
+<h1>Features of brane<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h1>
+<section id="id4">
+<h2>Unified I/O interface<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h2>
+<p>First of all, we provide extension or data type free I/O interfaces.</p>
+<p>Secondly, we can handle multiple files in the same interface.</p>
+</section>
+<section id="id5">
+<h2>Hook system<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h2>
+<p>In many cases, we do common preprocessings on reading objects from files or writing objects into files.
+In such situations, we apply the same fucntions to the objects or the paths/files before/after I/O operations.
+Hook systems in brane help us to do so.</p>
+</section>
+<section id="id6">
+<h2>I/O tracking<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p>Not implemented yet</p></li>
 </ul>
 </section>
 </section>
