@@ -22,8 +22,59 @@ except ImportError:
     from typing_extensions import Protocol, TypedDict  # noqa: F401 # <=3.7
 
 
+# define the types for universal objects
+
+
+def _generate_file_type():
+    import io
+    import pathlib
+
+    PathType = Union[str, pathlib.Path]
+    FileType = Union[PathType, io.TextIOWrapper]  # [TODO]: more types should be added
+    return PathType, FileType
+
+
+PathType, FileType = _generate_file_type()
+del _generate_file_type
+
+
+# define the package specific types
+
+
 class ModuleClassType:
-    pass
+    _registered_subclasses: dict
+    priority: int
+    name: Optional[str]
+    module: Any
+    loaded: bool
+    module_read_method: Optional[Callable]
+    module_read_method_name: Optional[str]
+    file_read_method_name: Optional[str]
+    file_open_for_read: bool
+    open_mode_for_read: dict[str, Any]
+    transform: Optional[Callable]
+    transform_name: Optional[str]
+    transform_info: Optional[tuple[str, ...]]
+
+    module_write_method: Callable = None
+    module_write_method_name: Optional[str]
+    writer_method_name: Optional[str]
+    object_write_method_name: Optional[str]
+    file_write_method_name: Optional[str]
+    file_open_for_write: bool
+    open_mode_for_write: dict[str, Any]
+
+    file_arg_first: bool
+    object_unpacking_type: str
+    file_keyword_at_write: Optional[str]
+    obj_keyword_at_write: Optional[str]
+
+    base_args_read: tuple
+    base_kwargs_read: dict
+    base_args_write: tuple
+    base_kwargs_write: dict
+    # generate_params_read
+    # generate_params_write
 
 
 class FormatClassType:
@@ -42,17 +93,7 @@ class EventClassType:
     pass
 
 
-def _generate_file_type():
-    import io
-    import pathlib
-
-    PathType = Union[str, pathlib.Path]
-    FileType = Union[PathType, io.TextIOWrapper]  # [TODO]: more types should be added
-    return PathType, FileType
-
-
-PathType, FileType = _generate_file_type()
-del _generate_file_type
+HookFlagType = Optional[Union[str, set[str]]]
 
 
 class ContextInterface(TypedDict):

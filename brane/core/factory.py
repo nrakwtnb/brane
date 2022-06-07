@@ -9,33 +9,33 @@ from brane.core.module import Module
 from brane.core.object import Object
 from brane.typing import *  # noqa: F403
 
-CORE_MODULE_CONFIG_PATH = os.path.abspath(
+CORE_MODULE_CONFIG_PATH: str = os.path.abspath(
     os.path.join(__file__, "../../../", "./config/modules/core.yaml")
 )
-THIRDPARTY_MODULE_CONFIG_PATH = os.path.abspath(
+THIRDPARTY_MODULE_CONFIG_PATH: str = os.path.abspath(
     os.path.join(__file__, "../../../", "./config/modules/basic.yaml")
 )
-CORE_FORMAT_CONFIG_PATH = os.path.abspath(
+CORE_FORMAT_CONFIG_PATH: str = os.path.abspath(
     os.path.join(__file__, "../../../", "./config/formats/core.yaml")
 )
-THIRDPARTY_FORMAT_CONFIG_PATH = os.path.abspath(
+THIRDPARTY_FORMAT_CONFIG_PATH: str = os.path.abspath(
     os.path.join(__file__, "../../../", "./config/formats/basic.yaml")
 )
-CORE_OBJECT_CONFIG_PATH = os.path.abspath(
+CORE_OBJECT_CONFIG_PATH: str = os.path.abspath(
     os.path.join(__file__, "../../../", "./config/objects/core.yaml")
 )
-THIRDPARTY_OBJECT_CONFIG_PATH = os.path.abspath(
+THIRDPARTY_OBJECT_CONFIG_PATH: str = os.path.abspath(
     os.path.join(__file__, "../../../", "./config/objects/basic.yaml")
 )
 
 ClassAttributeType = dict[str, Any]
-ConfigType = dict[str, dict]
+ConfigType = dict[str, Union[str, dict]]
 
 
 class Factory(object):
-    className2Module: dict[str, type] = dict()
-    className2Format: dict[str, type] = dict()
-    className2Object: dict[str, type] = dict()
+    className2Module: dict[str, ModuleClassType] = dict()
+    className2Format: dict[str, FormatClassType] = dict()
+    className2Object: dict[str, ObjectClassType] = dict()
     _instance = None
 
     def __new__(cls):
@@ -48,7 +48,7 @@ class Factory(object):
 
     @staticmethod
     def load_config(config_path: str) -> ConfigType:
-        cfg: dict = {}
+        cfg: ConfigType = {}
         if os.path.exists(config_path):
             with open(config_path, "r") as f:
                 cfg = yaml.safe_load(f)
@@ -77,7 +77,7 @@ class Factory(object):
         return name2class
 
     @classmethod
-    def load_brane_modules(cls) -> dict[str, type]:
+    def load_brane_modules(cls) -> dict[str, ModuleClassType]:
         cfg_core = cls.load_config(config_path=CORE_MODULE_CONFIG_PATH)
         cfg_thirdparty = Factory.load_config(config_path=THIRDPARTY_MODULE_CONFIG_PATH)
 
@@ -90,7 +90,7 @@ class Factory(object):
         return className2Module
 
     @classmethod
-    def load_brane_formats(cls) -> dict[str, type]:
+    def load_brane_formats(cls) -> dict[str, FormatClassType]:
         cfg_core = Factory.load_config(config_path=CORE_FORMAT_CONFIG_PATH)
         cfg_thirdparty = Factory.load_config(config_path=THIRDPARTY_FORMAT_CONFIG_PATH)
 
@@ -103,6 +103,17 @@ class Factory(object):
                 attributes["module"] = cls.className2Module.get(
                     attributes["module_name"], None
                 )
+
+            if attributes["module"] is None:
+                if attributes["module_name"]:
+                    print(
+                        f"[WARNING]: module name {attributes['module_name']} is not found"
+                    )
+                else:
+                    print(
+                        f"[WARNING]: module name is not defined for {attributes.get('name', '')}"
+                    )
+
             return attributes
 
         className2Format = cls.generate_classes_from_configs(
@@ -114,7 +125,7 @@ class Factory(object):
         return className2Format
 
     @classmethod
-    def load_brane_objects(cls) -> dict[str, type]:
+    def load_brane_objects(cls) -> dict[str, ObjectClassType]:
         cfg_core = Factory.load_config(config_path=CORE_OBJECT_CONFIG_PATH)
         cfg_thirdparty = Factory.load_config(config_path=THIRDPARTY_OBJECT_CONFIG_PATH)
 
@@ -134,6 +145,27 @@ class Factory(object):
                 attributes["module"] = cls.className2Module.get(
                     attributes["module_name"], None
                 )
+
+            if attributes["module"] is None:
+                if attributes["module_name"]:
+                    print(
+                        f"[WARNING]: module name {attributes['module_name']} is not found"
+                    )
+                else:
+                    print(
+                        f"[WARNING]: module name is not defined for {attributes.get('name', '')}"
+                    )
+
+            if attributes["format"] is None:
+                if attributes["format_name"]:
+                    print(
+                        f"[WARNING]: format name {attributes['format_name']} is not found"
+                    )
+                else:
+                    print(
+                        f"[WARNING]: format name is not defined for {attributes.get('name', '')}"
+                    )
+
             return attributes
 
         className2Object = cls.generate_classes_from_configs(

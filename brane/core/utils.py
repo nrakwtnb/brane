@@ -23,11 +23,17 @@ def integrate_kwargs(base_kwargs: dict, new_kwargs: dict) -> dict:
 
 
 def sort_mapper(
-    mapper: dict[str, Any], key: str, reverse: bool = False
+    mapper: dict[str, Any], key: str, ascending: bool = False
 ) -> dict[str, Any]:  # Any should has key
+    """
+    Args:
+        mapper:
+        key:
+        ascending:
+    """
     return dict(
-        sorted(mapper.items(), key=lambda x: getattr(x[1], key), reverse=reverse)
-    )
+        sorted(mapper.items(), key=lambda x: getattr(x[1], key), reverse=not ascending)
+    )  # [TODO]: Any is dictionary case
 
 
 def get_extension_from_filname_default(path: str) -> str:

@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from brane.core.base import Context
+from brane.core.event import Event
 from brane.core.factory import Factory
 from brane.core.hook import FunctionHook, Hook
 from brane.core.mapper import ExtensionMapper, ObjectFormat2Module
@@ -11,18 +12,37 @@ from brane.core.utils import (
     integrate_args,
     integrate_kwargs,
 )
-from brane.libs.events import BasicEvents
+from brane.libs.hooks import check_path_existence, create_parent_directory  # noqa E402
 from brane.typing import *  # noqa: F403
-
-# [ARG]: moved to hook.py ?
 
 
 class HookManager(object):
-    """This is a temporal class.
-    [ARGS]:
-    * consider better class name
-    * refactor this class
-    """
+    """"""
+
+    pre_read = Event(event_name="pre_read")
+    post_read = Event(event_name="post_read")
+    pre_write = Event(event_name="pre_write")
+    post_write = Event(event_name="post_write")
+
+    pre_readall = Event(event_name="pre_readall")
+    post_readall = Event(event_name="post_readall")
+    pre_writeall = Event(event_name="pre_writeall")
+    post_writeall = Event(event_name="post_writeall")
+
+    #  This is a temporal class.
+    # [ARGS]:
+    # * moved to hook.py ?
+    # * consider better class name if exists
+    # * refactor this class
+
+    # @property [TODO]: use when python>=3.9
+    @classmethod
+    def get_events(cls) -> dict[str, Event]:
+        name2event: dict[str, Event] = dict()
+        for event in dir(cls):
+            if isinstance(event, Event):
+                name2event.update({event.event_name: event})
+        return name2event
 
     @classmethod
     def get_hook_class(cls, hook, **hook_kwargs):
@@ -37,67 +57,86 @@ class HookManager(object):
         event.add_hooks(hook)
 
     @classmethod
-    def register_read_pre_hook(cls, hook, **hook_kwargs):
-        cls.connect_hook_and_event(BasicEvents.read_pre, hook, **hook_kwargs)
+    def register_pre_read_hook(cls, hook, **hook_kwargs):
+        cls.connect_hook_and_event(cls.pre_read, hook, **hook_kwargs)
 
     @classmethod
-    def register_read_post_hook(cls, hook, **hook_kwargs):
-        cls.connect_hook_and_event(BasicEvents.read_post, hook, **hook_kwargs)
+    def register_post_read_hook(cls, hook, **hook_kwargs):
+        cls.connect_hook_and_event(cls.post_read, hook, **hook_kwargs)
 
     @classmethod
-    def register_write_pre_hook(cls, hook, **hook_kwargs):
-        cls.connect_hook_and_event(BasicEvents.write_pre, hook, **hook_kwargs)
+    def register_pre_write_hook(cls, hook, **hook_kwargs):
+        cls.connect_hook_and_event(cls.pre_write, hook, **hook_kwargs)
 
     @classmethod
-    def register_write_post_hook(cls, hook, **hook_kwargs):
-        cls.connect_hook_and_event(BasicEvents.write_post, hook, **hook_kwargs)
+    def register_post_write_hook(cls, hook, **hook_kwargs):
+        cls.connect_hook_and_event(cls.post_write, hook, **hook_kwargs)
 
     @classmethod
-    def register_read_all_post_hook(cls, hook, **hook_kwargs):
-        func = FunctionHook(hook, container_type="list", **hook_kwargs)  ### temporal
-        # ReadAllPostEvent.add_hooks(func)
-        BasicEvents.readall_post.add_hooks(func)
-        # use cls.connect_hook_and_event
+    def register_pre_readall_hook(cls, hook, **hook_kwargs):
+        cls.connect_hook_and_event(cls.pre_readall, hook, **hook_kwargs)
 
     @classmethod
-    def register_write_all_post_hook(cls, hook, **hook_kwargs):
-        raise NotImplementedError
+    def register_pre_writeall_hook(cls, hook, **hook_kwargs):
+        cls.connect_hook_and_event(cls.pre_writeall, hook, **hook_kwargs)
+
+    @classmethod
+    def register_post_readall_hook(cls, hook, **hook_kwargs):
+        cls.connect_hook_and_event(cls.post_readall, hook, **hook_kwargs)
+
+    @classmethod
+    def register_post_writeall_hook(cls, hook, **hook_kwargs):
+        cls.connect_hook_and_event(cls.post_writeall, hook, **hook_kwargs)
 
     @classmethod
     def clear_hooks(cls, event):
         event.clear_hooks()
 
     @classmethod
-    def clear_read_pre_hook(cls):
-        cls.clear_hooks(BasicEvents.read_pre)
+    def clear_pre_read_hook(cls):
+        cls.clear_hooks(cls.pre_read)
 
     @classmethod
-    def clear_read_post_hook(cls):
-        cls.clear_hooks(BasicEvents.read_post)
+    def clear_post_read_hook(cls):
+        cls.clear_hooks(cls.post_read)
 
     @classmethod
-    def clear_write_pre_hook(cls):
-        cls.clear_hooks(BasicEvents.write_pre)
+    def clear_pre_write_hook(cls):
+        cls.clear_hooks(cls.pre_write)
 
     @classmethod
-    def clear_write_post_hook(cls):
-        cls.clear_hooks(BasicEvents.write_post)
+    def clear_post_write_hook(cls):
+        cls.clear_hooks(cls.post_write)
 
     @classmethod
-    def clear_read_all_pre_hook(cls):
-        raise NotImplementedError
+    def clear_pre_readall_hook(cls):
+        cls.clear_hooks(cls.pre_readall)
 
     @classmethod
-    def clear_write_all_pre_hook(cls):
-        raise NotImplementedError
+    def clear_pre_writeall_hook(cls):
+        cls.clear_hooks(cls.pre_writeall)
 
     @classmethod
-    def clear_read_all_post_hook(cls):
-        raise NotImplementedError
+    def clear_post_readall_hook(cls):
+        cls.clear_hooks(cls.post_readall)
 
     @classmethod
-    def clear_write_all_post_hook(cls):
-        raise NotImplementedError
+    def clear_post_writeall_hook(cls):
+        cls.clear_hooks(cls.post_writeall)
+
+    @classmethod
+    def clear_all_hooks(cls):
+        for event in cls.get_events():
+            cls.clear_hooks(event)
+
+    @classmethod
+    def setup_hooks(cls):  # temporal name
+        cls.register_pre_read_hook(
+            check_path_existence
+        )  # read_pre.add_hooks(FunctionHook(check_path_existence))
+        cls.register_pre_write_hook(
+            create_parent_directory
+        )  # write_pre.add_hooks(FunctionHook(create_parent_directory))
 
 
 class IOLogger(object):
@@ -106,12 +145,11 @@ class IOLogger(object):
 
 
 class IOManager(HookManager):
-    """
-    [ARGS]
-    * refactor for better implementation
-    * use mixin ?
-    """
+    """"""
 
+    # [ARGS]
+    # * refactor for better implementation
+    # * use mixin ?
     factory = Factory()
 
     get_extension_from_filename = get_extension_from_filname_default
@@ -120,17 +158,36 @@ class IOManager(HookManager):
     @classmethod
     def read(
         cls,
-        path: PathType = None,
-        file: FileType = None,
+        path: Optional[PathType] = None,
+        file: Optional[FileType] = None,
         ext: str = "",
+        module_name: str = "",
         *args,
         **kwargs,
-    ):  # add args and kwargs
+    ) -> Any:  #
+        """
+        Args:
+            path: File path to read. Currently, only local file system path is available.
+            file: File object such as byte stream to read.
+            ext: The extension name. Used only when the extension is not given in the path.
+            module_name: The module name. Specified only in the case the module is fixed.
+
+        Returns:
+            loaded object.
+        """
         # implementation for the flle argument is temporal
         # assert path is None or file is Nonr
         # assert ext != "" when file is not None
-        ext = cls.get_extension_from_filename(path) if path else ext
-        Mdl = ExtensionMapper.get_module_class_from_extension(ext)
+        if module_name:
+            if module_name in cls.factory.className2Module:
+                Mdl = factory.className2Module["module"]
+            else:
+                raise NameError(
+                    f"No module name: {module_name}. Check the `all_modules` propetry."
+                )  ###
+        else:
+            ext = ext if ext else cls.get_extension_from_filename(path)
+            Mdl = ExtensionMapper.get_module_class_from_extension(ext)
         if Mdl is None:
             raise NotImplementedError(
                 f"Cannot find the corresponding module for given extension {ext}"
@@ -140,7 +197,7 @@ class IOManager(HookManager):
         context: ContextInterface = Context(
             {"path": path, "file": file, "ext": ext, "Module": Mdl}
         )  # add Fmt as supplementary ?
-        context = BasicEvents.read_pre.fire(context)
+        context = cls.pre_read.fire(context)
         base_args = context.get("args", ())
         base_kwargs = context.get("kwargs", {})
         base_args = integrate_args(base_args, args)
@@ -164,19 +221,30 @@ class IOManager(HookManager):
         obj = Mdl.read(path=path, file=file, *base_args, **base_kwargs)
 
         context.update({"object": obj})
-        context = BasicEvents.read_post.fire(context)
+        context = cls.post_read.fire(context)
         obj = context["object"]
         return obj
 
     @classmethod
     def read_all_as_list(
         cls,
-        multiple_paths: list[str],
+        multiple_paths: Union[str, list[PathType]],
         read_args: Optional[tuple] = None,
         read_kwargs: Optional[dict] = None,
         *args,
         **kwargs,
     ) -> list[Any]:
+        """
+        Args:
+            multiple_paths: Several file paths to read once. The glob format is also allowed.
+                Currently, only local file system paths are available.
+            read_args:
+            read_kwargs:
+
+        Returns:
+            loaded objects as list. The ordering is same as given paths.
+            If the specified path is in the glob format, paths will be sorted.
+        """
         if read_args is None:
             read_args = tuple()
         if read_kwargs is None:
@@ -187,6 +255,7 @@ class IOManager(HookManager):
             import glob
 
             paths = glob.glob(multiple_paths, recursive=True)
+            paths.sort()
         elif isinstance(multiple_paths, list):  # [TODO]: include tuple ?
             assert all(map(lambda path: isinstance(path, str), multiple_paths))
             paths = multiple_paths
@@ -196,7 +265,7 @@ class IOManager(HookManager):
             return {}
 
         context: ContextInterface = Context({"paths": paths})
-        context = BasicEvents.readall_pre.fire(context)
+        context = cls.pre_readall.fire(context)
         objs = []
         for path in paths:
             obj = cls.read(path=path, *read_args, **read_kwargs)
@@ -208,7 +277,7 @@ class IOManager(HookManager):
             sort_func = kwargs["sort_func"]
             context = sort_func(context)
 
-        context = BasicEvents.readall_post.fire(context)
+        context = cls.post_readall.fire(context)
         if "object" in context:
             return context["object"]
         else:
@@ -217,18 +286,18 @@ class IOManager(HookManager):
     @classmethod
     def read_all_as_dict(
         cls,
-        multiple_paths: dict[str, str],
+        multiple_paths: dict[str, PathType],
         read_args: Optional[tuple] = None,
         read_kwargs: Optional[dict] = None,
         *args,
         **kwargs,
-    ) -> dict[Any]:
+    ) -> dict[str, Any]:
         if read_args is None:
             read_args = tuple()
         if read_kwargs is None:
             read_kwargs = dict()
         # flles not supported yet
-        paths: dict = {}
+        paths: dict[str, PathType] = {}
         if isinstance(multiple_paths, str):
             import glob
 
@@ -245,7 +314,7 @@ class IOManager(HookManager):
             return {}
 
         context: ContextInterface = Context({"paths": paths})
-        context = BasicEvents.readall_pre.fire(context)
+        context = cls.pre_readall.fire(context)
         objs = {}
         for key, path in paths.items():
             obj = cls.read(
@@ -259,7 +328,7 @@ class IOManager(HookManager):
             sort_func = kwargs["sort_func"]
             context = sort_func(context)
 
-        context = BasicEvents.readall_post.fire(context)
+        context = cls.post_readall.fire(context)
         if "object" in context:
             return context["object"]
         else:
@@ -268,13 +337,21 @@ class IOManager(HookManager):
     @classmethod
     def write(
         cls,
-        obj,
-        path: PathType = None,
-        file: Filetype = None,
+        obj: Any,
+        path: PathType = Optional[None],
+        file: Optional[FileType] = None,
         ext: str = "",
         *args,
         **kwargs,
     ):
+        """
+        Args:
+            obj: Any object to save.
+            path: File path to write. Currently, only local file system path is available.
+            file: File object such as byte stream to write.
+            ext: The extension name. Used only when the extension is not given in the path.
+            module_name: The module name. Specified only in the case the module is fixed.
+        """
         # implementation for the flle argument is temporal
         # assert path is None or file is Nonr
         # assert ext != "" when file is not None
@@ -292,7 +369,7 @@ class IOManager(HookManager):
         context: ContextInterface = Context(
             {"path": path, "file": file, "object": obj, "Module": Mdl}
         )
-        context = BasicEvents.write_pre.fire(context)
+        context = cls.pre_write.fire(context)
         base_args = context.get("args", ())
         base_kwargs = context.get("kwargs", {})
         base_args = integrate_args(base_args, args)
@@ -314,14 +391,14 @@ class IOManager(HookManager):
             )
         )  ### temporal
         Mdl.write(obj=obj, file=file, path=path, *base_args, **base_kwargs)
-        context = BasicEvents.write_post.fire(context)
+        context = cls.post_write.fire(context)
 
     @classmethod
     def write_all_from_list(
         cls,
-        obj_list: list,
+        obj_list: list[Any],
         output_dir: Optional[PathType] = None,
-        path_ruler=None,
+        path_ruler: Optional[Callable[int, str]] = None,
         write_args: Optional[tuple] = None,
         write_kwargs: Optional[dict] = None,
         *args,
@@ -343,7 +420,7 @@ class IOManager(HookManager):
                 f"obj_list should be python `list` but the actual type is {type(obj_list)}"
             )  # [TODO]: implement some function for value check
 
-        paths: list[str, PathType] = []
+        paths: list[PathType] = []
         if output_dir is not None:
             if path_ruler is None:
                 path_ruler = lambda idx: str(idx)  # noqa: E731
@@ -354,19 +431,19 @@ class IOManager(HookManager):
             raise ValueError("Either output_dir or path_ruler should not be None")
 
         context: ContextInterface = Context({"paths": paths, "objects": obj_list})
-        context = BasicEvents.writeall_pre.fire(context)
+        context = cls.pre_writeall.fire(context)
         for idx, obj in enumerate(obj_list):
             path = paths[idx]
             cls.write(obj=obj, path=path, *write_args, **write_kwargs)
 
-        context = BasicEvents.writeall_post.fire(context)
+        context = cls.post_writeall.fire(context)
 
     @classmethod
     def write_all_from_dict(
         cls,
-        obj_dict: dict,
+        obj_dict: dict[str, Any],
         output_dir: Optional[PathType] = None,
-        path_ruler=None,
+        path_ruler: Optional[Callable[str, str]] = None,
         write_args: Optional[tuple] = None,
         write_kwargs: Optional[dict] = None,
         *args,
@@ -397,9 +474,25 @@ class IOManager(HookManager):
             raise ValueError("Either output_dir or path_ruler should not be None")
 
         context: ContextInterface = Context({"paths": paths, "objects": obj_dict})
-        context = BasicEvents.writeall_pre.fire(context)
+        context = cls.pre_writeall.fire(context)
         for key, obj in obj_dict.items():
             path = paths[key]
             cls.write(obj=obj, path=path, *write_args, **write_kwargs)
 
-        context = BasicEvents.writeall_post.fire(context)
+        context = cls.post_writeall.fire(context)
+
+    @classmethod
+    def activate(cls):
+        cls.factory.activate()
+
+    @classmethod
+    def all_modules(cls):
+        return list(cls.factory.className2Module.keys())
+
+    @classmethod
+    def all_formats(cls):
+        return list(cls.factory.className2Format.keys())
+
+    @classmethod
+    def all_objects(cls):
+        return list(cls.factory.className2Object.keys())

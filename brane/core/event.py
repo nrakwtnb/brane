@@ -2,12 +2,11 @@ from __future__ import annotations
 
 from brane.typing import *  # noqa: F403
 
-# HookFuncType = Hook
-# [ARG]: better name ?
+# [ARG]: better name ? better coding ?
 ObjOrMultipleTypeGenerator = lambda T: Union[T, List[T], Tuple[T], Set[T]]  # noqa: E731
 
 
-def convert_obj_into_list(obj) -> list:  # convert_iterator ?
+def convert_obj_into_list(obj) -> list:  # [ARG]: convert_iterator ?
     if isinstance(obj, list):
         return list(obj)
     elif isinstance(obj, tuple):
@@ -19,6 +18,10 @@ def convert_obj_into_list(obj) -> list:  # convert_iterator ?
 
 
 class Event(EventClassType):
+    # [TODO]: fix flag's specification
+    # * and/or
+    # * allow/denied
+
     # def __new__(cls):
     #    self = super().__new__(cls)### temporal ?
     #    EventManager.add_events(self)
@@ -29,38 +32,41 @@ class Event(EventClassType):
         event_name: str = "",
         hook_funcs: Optional[ObjOrMultipleTypeGenerator(HookClassType)] = None,
     ):
+        self.hooks: list[HookClassType] = []
         if hook_funcs:
             self.hooks = convert_obj_into_list(hook_funcs)
-        else:
-            self.hooks = []
-        self.event_name = event_name
+        self.event_name: str = event_name
+        self.allowed_flags: HookFlagType = None  # fixed in the future
+        self.denied_flags: HookFlagType = None  # fixed in the future
 
-    # def add_hook_func(self, hook_funcs: ObjOrMultipleTypeGenerator(HookFuncType)):
     # @classmethod
     def add_hooks(self, hook_funcs: ObjOrMultipleTypeGenerator(HookClassType)):
         hook_funcs = convert_obj_into_list(hook_funcs)
-        # self.hooks.extend(hook_funcs)
         self.hooks.extend(hook_funcs)
 
     # @classmethod
     def clear_hooks(self):
         self.hooks = []
 
-    def check_flag(self, flag: Optional[Union[str, set(str)]]) -> bool:
+    def check_flag(self, flag: HookFlagType) -> bool:
         if flag is None:
             flag = set()
         elif isinstance(flag, str):
             flag = set(flag)
+        if not isinstance(flag, set):  # flag \in set[str]
+            raise AssertionError(type(flag))
         # [TODO]: implement
         return True
 
-    # def call_hooks(hooks, info):
-    # def fire(self, info):
     # @classmethod
-    def fire(self, info: ContextInterface):
-        # for hook in self.hooks:
+    def fire(self, info: ContextInterface, verbose: bool = False) -> ContextInterface:
         for hook in self.hooks:
+            # [TODO]: use wallus operator in the future when supporting python>=3.8
+            called: bool = False
             if hook.active and self.check_flag(hook.flag) and hook.condition(info):
+                called = True
+                # temporal
+                # [TODO]: (very important) refine the specification and the logic
                 res = hook(info)
                 # if isinstance(res, dict): => if hook.return_as_context: (because it is not true for object is dict)
                 #    info.update(res)
@@ -69,9 +75,23 @@ class Event(EventClassType):
                     pass
                 else:
                     info.update({"object": res})
+            if verbose:
+                active_: bool = self.active
+                if not active_:
+                    print(f"skipped '{hook.hook_name}': non-active")
+                    continue
+                flag_check_: bool = self.check_flag(hook.flag)
+                if not flag_check_:
+                    print(f"skipped '{hook.hook_name}': out of flags")
+                    continue
+                if called:
+                    print(f"called '{hook.hook_name}'")
+                else:
+                    # [ARG]: allow us to access the reason why this is not satisfied ?
+                    print(f"skipped '{hook.hook_name}': out of conditions")
         return info
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "\n".join(
             [f"{i}. {repr(hook)}" for i, hook in enumerate(self.hooks, start=1)]
         )

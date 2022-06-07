@@ -1,3 +1,12 @@
+TXT:
+    default_extension: txt
+    module_name: text
+
+CSV_builtin:
+    default_extension: csv
+    module_name: csv
+    priority: 10
+
 JSON:
     default_extension: json
     module_name: Json

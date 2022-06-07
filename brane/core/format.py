@@ -3,16 +3,14 @@ from __future__ import annotations
 from brane.core.base import BaseSubclassRegister, MetaFalse
 from brane.typing import *  # noqa: F403
 
-# import importlib
-
 
 def normalize_extension_default(ext: str) -> str:
     return ext.strip().lower()
 
 
 class MetaFormat(type):
-    def __new__(cls, classname, bases, class_info):
-        new_class_info = class_info.copy()
+    def __new__(cls, classname: str, bases: tuple[type], class_info: dict):
+        new_class_info: dict = class_info.copy()
         default_extension: Optional[str] = class_info.get("default_extension", None)
         if new_class_info.get("name", None) is None:
             new_class_info["name"] = default_extension
@@ -23,8 +21,9 @@ class MetaFormat(type):
         )
         return type.__new__(cls, classname, bases, new_class_info)
 
+    # [TODO] python>=3.9, move to class as classmethod property
     @property
-    def registered_formats(cls):
+    def registered_formats(cls) -> dict:
         return cls._registered_subclasses
 
 
@@ -33,17 +32,16 @@ class Format(FormatClassType, BaseSubclassRegister, metaclass=MetaFormat):
     priority = 50
     # valid = True
 
-    # Image, Text ... # experimental
-    data_type = None
+    # # Image, Text ... # experimental
+    # data_type = None
     # jpg, png, tsv,... (flexible/variable/dynamical)
     default_extension: Optional[str] = None
-    # integrated from Extension
     variation: list[
         str
     ] = []  # variations ? // use tuple instead of list or replace later ?
 
     @classmethod
-    def check_extension(cls, ext: str):
+    def check_extension(cls, ext: str) -> bool:
         ext_normalized: str = normalize_extension_default(ext)
         return ext_normalized in cls.variation
 
