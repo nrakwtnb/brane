@@ -16,11 +16,12 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="brane.core package" href="brane.core.html" />
-    <link rel="prev" title="What is brane ?" href="../introduction/introduction.html" /> 
+    <link rel="prev" title="Package overview tour" href="../examples/package_overview_tour.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -51,14 +52,23 @@
 <li class="toctree-l2"><a class="reference internal" href="../introduction/introduction.html#i-o-tracking">I/O tracking</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../introduction/introduction.html#id1">What is brane ?</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../introduction/introduction.html#id2">What will brane solves ?</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/package_overview_tour.html">Package overview tour</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/package_overview_tour.html#Read-/-Write-operations-via-eXtended-I/O">Read / Write operations via eXtended-I/O</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/package_overview_tour.html#text">text</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/package_overview_tour.html#csv">csv</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../introduction/introduction.html#id3">Features of brane</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../introduction/introduction.html#id4">Unified I/O interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../introduction/introduction.html#id5">Hook system</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../introduction/introduction.html#id6">I/O tracking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/package_overview_tour.html#Customization">Customization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/package_overview_tour.html#define-own-module">define own module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/package_overview_tour.html#define-new-Module-subclass">define new Module subclass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/package_overview_tour.html#define-new-Format-subclass">define new Format subclass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/package_overview_tour.html#define-new-Object-subclass">define new Object subclass</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/package_overview_tour.html#Hook-system">Hook system</a></li>
 </ul>
 </li>
 </ul>
@@ -120,7 +130,31 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="brane-package">
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="brane-package">
 <h1>brane package<a class="headerlink" href="#brane-package" title="Permalink to this heading"></a></h1>
 <section id="subpackages">
 <h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
@@ -366,6 +400,11 @@
 
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="brane.typing.print">
+<span class="sig-prename descclassname"><span class="pre">brane.typing.</span></span><span class="sig-name descname"><span class="pre">print</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'</span> <span class="pre">'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\n'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flush</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#brane.typing.print" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 </section>
 <section id="module-brane">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-brane" title="Permalink to this heading"></a></h2>
@@ -376,7 +415,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../introduction/introduction.html" class="btn btn-neutral float-left" title="What is brane ?" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../examples/package_overview_tour.html" class="btn btn-neutral float-left" title="Package overview tour" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="brane.core.html" class="btn btn-neutral float-right" title="brane.core package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

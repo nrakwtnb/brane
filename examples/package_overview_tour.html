@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Package overview tour &mdash; brane Bleeding Edge documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="brane package" href="../api/brane.html" />
+    <link rel="prev" title="What is brane ?" href="../introduction/introduction.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> brane
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/introduction.html">What is brane ?</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/introduction.html#what-will-brane-solves">What will brane solves ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/introduction.html#what-does-brane-means">What does brane means ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/introduction.html#features-of-brane">Features of brane</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/introduction.html#unified-i-o-interface">Unified I/O interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/introduction.html#hook-system">Hook system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/introduction.html#i-o-tracking">I/O tracking</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Package overview tour</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Read-/-Write-operations-via-eXtended-I/O">Read / Write operations via eXtended-I/O</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#text">text</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#csv">csv</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#Customization">Customization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#define-own-module">define own module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#define-new-Module-subclass">define new Module subclass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#define-new-Format-subclass">define new Format subclass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#define-new-Object-subclass">define new Object subclass</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#Hook-system">Hook system</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/brane.html">brane package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/brane.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/brane.core.html">brane.core package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/brane.core.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/brane.core.html#module-brane.core.base">brane.core.base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/brane.core.html#module-brane.core.event">brane.core.event module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/brane.core.html#module-brane.core.factory">brane.core.factory module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/brane.core.html#module-brane.core.format">brane.core.format module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/brane.core.html#module-brane.core.hook">brane.core.hook module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/brane.core.html#module-brane.core.iomanager">brane.core.iomanager module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/brane.core.html#module-brane.core.mapper">brane.core.mapper module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/brane.core.html#module-brane.core.module">brane.core.module module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/brane.core.html#module-brane.core.object">brane.core.object module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/brane.core.html#module-brane.core.utils">brane.core.utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/brane.core.html#module-brane.core">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/brane.libs.html">brane.libs package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/brane.libs.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/brane.libs.html#module-brane.libs.hooks">brane.libs.hooks module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/brane.libs.html#module-brane.libs">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/brane.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/brane.html#module-brane.typing">brane.typing module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/brane.html#module-brane">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">brane</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Package overview tour</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/examples/package_overview_tour.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt .copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+.jp-RenderedHTMLCommon table,
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+.jp-RenderedHTMLCommon thead,
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+.jp-RenderedHTMLCommon tr,
+.jp-RenderedHTMLCommon th,
+.jp-RenderedHTMLCommon td,
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+.jp-RenderedHTMLCommon th,
+div.rendered_html th {
+  font-weight: bold;
+}
+.jp-RenderedHTMLCommon tbody tr:nth-child(odd),
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+.jp-RenderedHTMLCommon tbody tr:hover,
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="Package-overview-tour">
+<h1>Package overview tour<a class="headerlink" href="#Package-overview-tour" title="Permalink to this heading"></a></h1>
+<p>This tutorial describes what it can do and how to use it. This does not cover all but shows the most interesting features.</p>
+<p>Let’s read the core I/O interface class: eXtended-I/O</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">brane</span> <span class="kn">import</span> <span class="n">ExtendedIO</span> <span class="k">as</span> <span class="n">xio</span>
+</pre></div>
+</div>
+</div>
+<section id="Read-/-Write-operations-via-eXtended-I/O">
+<h2>Read / Write operations via eXtended-I/O<a class="headerlink" href="#Read-/-Write-operations-via-eXtended-I/O" title="Permalink to this heading"></a></h2>
+<section id="text">
+<h3>text<a class="headerlink" href="#text" title="Permalink to this heading"></a></h3>
+<p>First of all, let’s write the following text as a normal text:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">name,role,birthyear</span>
+<span class="s2">Alice,sender,1978</span>
+<span class="s2">Bob,receiver,1978</span>
+<span class="s2">Carol,,1984</span>
+<span class="s2">Eve,eavesdropper,1988</span>
+<span class="s2">Mallory,attacker,2003</span>
+<span class="s2">Walter,warden,</span>
+<span class="s2">Ivan,issuer,2002</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>It’s very simple. Specify the string and the path.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xio</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot;./text.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>And you can see that this is written as just an ordinary text.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>cat ./text
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+name,role,birthyear
+Alice,sender,1978
+Bob,receiver,1978
+Carol,,1984
+Eve,eavesdropper,1988
+Mallory,attacker,2003
+Walter,warden,
+Ivan,issuer,2002
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text_reload</span> <span class="o">=</span> <span class="n">xio</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;./text.txt&quot;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">text_reload</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text_reload</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+name,role,birthyear
+Alice,sender,1978
+Bob,receiver,1978
+Carol,,1984
+Eve,eavesdropper,1988
+Mallory,attacker,2003
+Walter,warden,
+Ivan,issuer,2002
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">==</span> <span class="n">text_reload</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+</pre></div></div>
+</div>
+<p>The reloaded one is string and same as the orginal one.</p>
+<p>Next, you save this text as csv file. The extension is just the symbol of the format but meaningless to the filesystem.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xio</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot;./actor.csv&quot;</span><span class="p">,</span> <span class="n">module_name</span><span class="o">=</span><span class="s2">&quot;TextIO&quot;</span><span class="p">)</span>   <span class="c1"># [Note]: replaced by &#39;textio&#39; in the future</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="csv">
+<h3>csv<a class="headerlink" href="#csv" title="Permalink to this heading"></a></h3>
+<p>Now try reading the csv file. It’s just a text with a csv extension in the filename.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">xio</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;actor.csv&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>role</th>
+      <th>birthyear</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Alice</td>
+      <td>sender</td>
+      <td>1978.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Bob</td>
+      <td>receiver</td>
+      <td>1978.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Carol</td>
+      <td>NaN</td>
+      <td>1984.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Eve</td>
+      <td>eavesdropper</td>
+      <td>1988.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Mallory</td>
+      <td>attacker</td>
+      <td>2003.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Walter</td>
+      <td>warden</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Ivan</td>
+      <td>issuer</td>
+      <td>2002.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>In this turn, you find that the loaded object is not a text but pandas DataFrame. If you would like to use the bultin’s csv package in some reason, you can do it by passing the module_name as ‘csv’.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">xio</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;actor.csv&quot;</span><span class="p">,</span> <span class="n">module_name</span><span class="o">=</span><span class="s2">&quot;Csv&quot;</span><span class="p">)</span>  <span class="c1"># [Note]: replaced by &#39;csv&#39; in the future</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;class &#39;list&#39;&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[&#39;name&#39;, &#39;role&#39;, &#39;birthyear&#39;],
+ [&#39;Alice&#39;, &#39;sender&#39;, &#39;1978&#39;],
+ [&#39;Bob&#39;, &#39;receiver&#39;, &#39;1978&#39;],
+ [&#39;Carol&#39;, &#39;&#39;, &#39;1984&#39;],
+ [&#39;Eve&#39;, &#39;eavesdropper&#39;, &#39;1988&#39;],
+ [&#39;Mallory&#39;, &#39;attacker&#39;, &#39;2003&#39;],
+ [&#39;Walter&#39;, &#39;warden&#39;, &#39;&#39;],
+ [&#39;Ivan&#39;, &#39;issuer&#39;, &#39;2002&#39;]]
+</pre></div></div>
+</div>
+<p>Again, you can spcify the pandas module for module_name to ensure. It’s better to add type annotation if you know the type of the loaded object.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">=</span> <span class="n">xio</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;actor.csv&quot;</span><span class="p">,</span> <span class="n">module_name</span><span class="o">=</span><span class="s2">&quot;Pandas&quot;</span><span class="p">)</span>  <span class="c1"># [Note]: replaced by &#39;pandas&#39; in the future</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>role</th>
+      <th>birthyear</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Alice</td>
+      <td>sender</td>
+      <td>1978.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Bob</td>
+      <td>receiver</td>
+      <td>1978.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Carol</td>
+      <td>NaN</td>
+      <td>1984.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Eve</td>
+      <td>eavesdropper</td>
+      <td>1988.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Mallory</td>
+      <td>attacker</td>
+      <td>2003.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Walter</td>
+      <td>warden</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Ivan</td>
+      <td>issuer</td>
+      <td>2002.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>Let’s save the pandas dataframe. As you may know, this will save the index too:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xio</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s2">&quot;actor_w_index.csv&quot;</span><span class="p">)</span>
+<span class="o">!</span>cat ./actor_w_index.csv
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+name,role,birthyear
+Alice,sender,1978.0
+Bob,receiver,1978.0
+Carol,,1984.0
+Eve,eavesdropper,1988.0
+Mallory,attacker,2003.0
+Walter,warden,
+Ivan,issuer,2002.0
+</pre></div></div>
+</div>
+<p>Wow, no index appears. This is because some most common parameters are set in advance. For pandas, <code class="docutils literal notranslate"><span class="pre">index=None</span></code> is such a parameter.</p>
+<p>Of course, you can specify the index too.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xio</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">obj</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;actor_w_name_index.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="o">!</span>cat ./actor_w_name_index.csv
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+,name,role,birthyear
+0,Alice,sender,1978.0
+1,Bob,receiver,1978.0
+2,Carol,,1984.0
+3,Eve,eavesdropper,1988.0
+4,Mallory,attacker,2003.0
+5,Walter,warden,
+6,Ivan,issuer,2002.0
+</pre></div></div>
+</div>
+<p>Here, for clarity, we put the keyword arguments like obj and path,</p>
+</section>
+</section>
+<section id="Customization">
+<h2>Customization<a class="headerlink" href="#Customization" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p>consider new extension .hello and a corresponding module Hello</p></li>
+<li><p>it treats the Python dictionary</p></li>
+</ul>
+<p>from brane import Module, Format, Object</p>
+<section id="define-own-module">
+<h3>define own module<a class="headerlink" href="#define-own-module" title="Permalink to this heading"></a></h3>
+<p>For that purpose, let’s define our own format ‘hello’ with its classs implementation as follows.</p>
+<ul class="simple">
+<li><p>header (1st line): a symbol which plays role as a separator in the following lines</p></li>
+<li><p>body (any other sequent line): each line consisting of key and value with the separator specified in the header.</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#from brane.typing import *</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+
+<span class="k">class</span> <span class="nc">HelloClass</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapper</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mapper</span> <span class="o">=</span> <span class="n">mapper</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapper</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">HelloIO</span><span class="p">():</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">sep</span><span class="p">,</span> <span class="o">*</span><span class="n">lines</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+            <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="p">)</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="k">return</span> <span class="n">HelloClass</span><span class="p">(</span><span class="n">mapper</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="n">mapper</span><span class="p">:</span> <span class="n">HelloClass</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sep</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;: &quot;</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sep</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">mapper</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="n">key</span><span class="si">}{</span><span class="n">sep</span><span class="si">}{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Now, test it:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">obj</span> <span class="o">=</span> <span class="n">HelloClass</span><span class="p">(</span><span class="n">mapper</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;Jan&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;Feb&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s2">&quot;Mar&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<p>Save it.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">HelloIO</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">mapper</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;./test.hello&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>cat ./test.hello
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+:
+Jan: 1
+Feb: 2
+Mar: 3
+</pre></div></div>
+</div>
+<p>Load it.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">HelloIO</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./test.hello&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;Jan&#39;: &#39;1&#39;, &#39;Feb&#39;: &#39;2&#39;, &#39;Mar&#39;: &#39;3&#39;}
+</pre></div></div>
+</div>
+<p>Good.</p>
+</section>
+<section id="define-new-Module-subclass">
+<h3>define new Module subclass<a class="headerlink" href="#define-new-Module-subclass" title="Permalink to this heading"></a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">brane.core</span> <span class="kn">import</span> <span class="n">Module</span>
+
+<span class="k">class</span> <span class="nc">HelloModule</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span>  <span class="c1"># ID of this Module class</span>
+    <span class="n">loaded</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># If you define the read/write classmethod directly in th Module subclass, you must set this.</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">HelloIO</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">HelloIO</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">mapper</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>You must define three attributes at this class:</p>
+<ul class="simple">
+<li><p>name (propetry): This is the ID of the new module.</p></li>
+<li><p>read (classmethod): This defines the reading/loading process with the keyword arguments path at least.</p></li>
+<li><p>write (classmethod): This defines the writing/saving process with the keyword arguments obj &amp; path at least.</p></li>
+</ul>
+<p>Test it again.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">HelloModule</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">obj</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;./test.hello&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;Jan&#39;: &#39;1&#39;, &#39;Feb&#39;: &#39;2&#39;, &#39;Mar&#39;: &#39;3&#39;}
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">HelloModule</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">obj</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;./test2.hello&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>cat ./test2.hello
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+:
+Jan: 1
+Feb: 2
+Mar: 3
+</pre></div></div>
+</div>
+<p>No problem at all.</p>
+</section>
+<section id="define-new-Format-subclass">
+<h3>define new Format subclass<a class="headerlink" href="#define-new-Format-subclass" title="Permalink to this heading"></a></h3>
+<p>Next, we must implement another class called <code class="docutils literal notranslate"><span class="pre">Format</span></code> which connect the above reading/writing module and the extension.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">brane.core</span> <span class="kn">import</span> <span class="n">Format</span>
+
+<span class="k">class</span> <span class="nc">HelloFormat</span><span class="p">(</span><span class="n">Format</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span>  <span class="c1"># ID of this Format class</span>
+    <span class="n">module</span> <span class="o">=</span> <span class="n">HelloModule</span>
+    <span class="c1"># module_name = HelloModule.name  # equivalent to &quot;hello&quot; in our case</span>
+    <span class="n">default_extension</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span>  <span class="c1"># the extension in the path</span>
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li><p>name (propetry): This is the ID of the new format.</p></li>
+<li><p>module (property): Assign the correspnding <code class="docutils literal notranslate"><span class="pre">Module</span></code> subclass.</p></li>
+<li><p>default_extension (property): The extension name.</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xio</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;./test.hello&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;Jan&#39;: &#39;1&#39;, &#39;Feb&#39;: &#39;2&#39;, &#39;Mar&#39;: &#39;3&#39;}
+</pre></div></div>
+</div>
+<p>OK, great work ! Now, the brane I/O choose the correct module based on the extension.</p>
+</section>
+<section id="define-new-Object-subclass">
+<h3>define new Object subclass<a class="headerlink" href="#define-new-Object-subclass" title="Permalink to this heading"></a></h3>
+<p>Finally, let’s save our Hello object in our Hello format i.e. with the <code class="docutils literal notranslate"><span class="pre">.hello</span></code> extension.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">brane.core</span> <span class="kn">import</span> <span class="n">Object</span>
+
+<span class="k">class</span> <span class="nc">HelloObject</span><span class="p">(</span><span class="n">Object</span><span class="p">):</span>
+    <span class="nb">format</span> <span class="o">=</span> <span class="n">HelloFormat</span>
+    <span class="n">module</span> <span class="o">=</span> <span class="n">HelloModule</span>
+    <span class="n">object_type</span> <span class="o">=</span> <span class="n">HelloClass</span>
+</pre></div>
+</div>
+</div>
+<p>In our case, it’s still simple:</p>
+<ul class="simple">
+<li><p>module (property): The corresponding <code class="docutils literal notranslate"><span class="pre">Module</span></code> subclass.</p></li>
+<li><p>format (property): The corresponding <code class="docutils literal notranslate"><span class="pre">Format</span></code> subclass.</p></li>
+<li><p>object_type (property): The type of the target objects, here, <code class="docutils literal notranslate"><span class="pre">HelloClass</span></code>.</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xio</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">obj</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;./auto.hello&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>cat ./auto.hello
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+:
+Jan: 1
+Feb: 2
+Mar: 3
+</pre></div></div>
+</div>
+<p>Now, we’ve learned the basic definition &amp; registration of our own I/O to the eXtend-I/O.</p>
+</section>
+</section>
+<section id="Hook-system">
+<h2>Hook system<a class="headerlink" href="#Hook-system" title="Permalink to this heading"></a></h2>
+<p>coming soon…</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../introduction/introduction.html" class="btn btn-neutral float-left" title="What is brane ?" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../api/brane.html" class="btn btn-neutral float-right" title="brane package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Noriaki Watanabe.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
