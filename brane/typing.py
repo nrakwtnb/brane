@@ -105,3 +105,17 @@ class ContextInterface(TypedDict):
     files: Optional[list[FileType]] = None
     Module: Optional[ModuleClassType] = None
     Format: Optional[FormatClassType] = None
+
+
+# used for debug purpose temporalily
+def print(*value, sep=' ', end='\n', file=None, flush=False):
+    import builtins
+    import os
+    import sys
+
+    if file is None:
+        file = sys.stdout
+    if os.environ.get("BRANE_MODE", None) == 'debug':
+        builtins.print(*value, end=end, file=file, flush=flush)
+    else:
+        pass

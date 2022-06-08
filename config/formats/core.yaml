@@ -1,10 +1,10 @@
 TXT:
     default_extension: txt
-    module_name: text
+    module_name: TextIO
 
 CSV_builtin:
     default_extension: csv
-    module_name: csv
+    module_name: Csv
     priority: 10
 
 JSON:

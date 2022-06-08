@@ -22,9 +22,7 @@ def integrate_kwargs(base_kwargs: dict, new_kwargs: dict) -> dict:
     return {**base_kwargs, **new_kwargs}
 
 
-def sort_mapper(
-    mapper: dict[str, Any], key: str, ascending: bool = False
-) -> dict[str, Any]:  # Any should has key
+def sort_mapper(mapper: dict[str, Any], key: str, ascending: bool = False) -> dict[str, Any]:  # Any should has key
     """
     Args:
         mapper:

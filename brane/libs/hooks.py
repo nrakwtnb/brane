@@ -16,12 +16,11 @@ class PILResizeHook(Hook):
         self.size = size
         self.resample = resample
 
-    def condition(self, info: ContextInterface):
+    def condition(self, info: ContextInterface) -> bool:
         obj = info.get("object", None)
-        # return isinstance(obj, PIL_JPEG_Object.object) or isinstance(obj, PIL_PNG_Object.object)
-        return isinstance(
-            obj, Factory.className2Object["PIL_JPEG"].object
-        ) or isinstance(obj, Factory.className2Object["PIL_PNG"].object)
+        is_jpeg = isinstance(obj, Factory.className2Object["PIL_JPEG"].object)
+        is_png = isinstance(obj, Factory.className2Object["PIL_PNG"].object)
+        return is_jpeg or is_png
 
     def __call__(self, info: ContextInterface):
         print("resize")
@@ -33,12 +32,13 @@ import os  # noqa: E402
 
 
 # add candidate suggestion function ?
-def check_path_existence(info):
+def check_path_existence(info: ContextInterface):
     path = info["path"]
-    assert os.path.exists(path), f"The specified path is not found, {path}"
+    assert os.path.exists(str(path)), f"The specified path is not found, {path}"
 
 
-def create_parent_directory(info):
+def create_parent_directory(info: ContextInterface):
     path = info["path"]
-    parent_dir = os.path.dirname(path)
-    os.makedirs(parent_dir, exist_ok=True)
+    parent_dir = os.path.dirname(str(path))
+    if parent_dir:
+        os.makedirs(parent_dir, exist_ok=True)

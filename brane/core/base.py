@@ -7,16 +7,18 @@ from brane.typing import *  # noqa: F403
 
 
 class BaseSubclassRegister(object):
-    valid = True
-    # __registered_subclasses = []# cls.__registered_subclasses でアクセスできない# [ToDo]
+    valid: bool = True
+    # [CHECK]: cannot access to it by `cls.__registered_subclasses`
+    # __registered_subclasses = []
     _registered_subclasses = OrderedDict()  # not list
     priority: int = -1
 
     def __init_subclass__(cls):
-        # [idea memo]: nameがNoneの時は登録しないとか
+        # [ARG]: not register the subclass if name is None ?
         if cls.valid:
             # cls._registered_subclasses.append(cls)
             name = getattr(cls, "name", None)
+
             if name in cls._registered_subclasses:  # for debug
                 print(f"[DEBUG]: overwritten cls.name = {name}, cls = {cls}")
             else:
@@ -30,16 +32,15 @@ class BaseSubclassRegister(object):
                 base._registered_subclasses = OrderedDict(
                     sort_mapper(mapper=cls._registered_subclasses, key="priority")
                 )
-        # これだと継承クラス全体でregistered_moduleをシェア
 
 
 class MetaFalse(type):
-    def __new__(cls, classname: str, bases, class_info):
+    def __new__(cls, classname: str, bases: tuple[type], class_info: dict):
         new_class_info = class_info.copy()
         new_class_info.update({"__bool__": lambda cls: False})
         return type.__new__(cls, classname, bases, new_class_info)
 
-    def __bool__(cls):
+    def __bool__(cls) -> bool:
         return False
 
 

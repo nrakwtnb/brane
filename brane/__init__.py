@@ -1,4 +1,8 @@
-from brane.core.iomanager import IOManager  # noqa: F401
+from brane.core.iomanager import ExtendedIO  # noqa: F401
 
-IOManager.setup_hooks()
-print("brane.__init__.py called")
+ExtendedIO.setup_hooks()
+
+import os  # noqa: E402
+
+if os.environ.get("BRANE_MODE", None) == 'debug':
+    print("brane.__init__.py called")

@@ -16,9 +16,8 @@ class MetaFormat(type):
             new_class_info["name"] = default_extension
         if default_extension not in class_info.get("variation", []):
             new_class_info.setdefault("variation", []).append(default_extension)
-        print(
-            f"[DEBUG]: in MetaFormat default_extension={default_extension} class_info={new_class_info}"
-        )
+
+        print(f"[DEBUG]: in MetaFormat default_extension={default_extension} class_info={new_class_info}")
         return type.__new__(cls, classname, bases, new_class_info)
 
     # [TODO] python>=3.9, move to class as classmethod property
@@ -36,9 +35,7 @@ class Format(FormatClassType, BaseSubclassRegister, metaclass=MetaFormat):
     # data_type = None
     # jpg, png, tsv,... (flexible/variable/dynamical)
     default_extension: Optional[str] = None
-    variation: list[
-        str
-    ] = []  # variations ? // use tuple instead of list or replace later ?
+    variation: list[str] = []  # variations ? // use tuple instead of list or replace later ?
 
     @classmethod
     def check_extension(cls, ext: str) -> bool:
@@ -46,9 +43,7 @@ class Format(FormatClassType, BaseSubclassRegister, metaclass=MetaFormat):
         return ext_normalized in cls.variation
 
 
-class MetaNoneFormat(
-    MetaFormat, MetaFalse
-):  # [MEMO]: deprecated after removing MetaFormat
+class MetaNoneFormat(MetaFormat, MetaFalse):  # [MEMO]: deprecated after removing MetaFormat
     pass
 
 

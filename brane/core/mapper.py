@@ -7,29 +7,27 @@ from brane.typing import *  # noqa: F403
 
 
 class ExtensionMapper(object):  ### rename
-    # [TODO];: caching
+    # [TODO]:: caching
     @classmethod
-    def get_format_class_from_extension(
-        cls, ext: str
-    ) -> FormatClassType:  # ignore: this type is defined later
+    def get_format_class_from_extension(cls, ext: str) -> FormatClassType:  # ignore: this type is defined later
         for _, Fmt in Format.registered_formats.items():
             if Fmt.check_extension(ext):
                 return Fmt
         # [TODO]: エラーをraiseするか、NoneExtensionをreturnするか
-        assert False, "no Format found"  # noqa: B011
+        # assert False, "no Format found" # noqa: B011
         return NoneFormat
 
     @classmethod
     def get_module_class_from_extension(cls, ext: str) -> ModuleClassType:
         Fmt: FormatClassType = cls.get_format_class_from_extension(ext=ext)
         if Fmt:
-            if hasattr(Fmt, "module"):
+            if hasattr(Fmt, "module") and Fmt.module is not None:
                 return Fmt.module
             else:
                 raise AttributeError(f"'module' attribute is not defined at {Fmt}")
         else:
             # [TODO]: エラーをraiseするか、NoneModuleをreturnするか
-            assert False, "no module found"  # noqa: B011
+            # assert False, "no module found" # noqa: B011
             return NoneModule
 
 
@@ -41,9 +39,9 @@ class ObjectFormat2Module(object):
     # [TODO]: use hash ?
     def get_module_from_object(obj, fmt=None) -> ModuleClassType:
         for _, Obj in Object.registered_objects.items():  ### -> global var.
-            # type(obj) == Obj.object # Objにtype-eq評価か、isinstance評価か決めるattributeを付与したので、そちらで制御
             Obj.load_objects()  ### will be removed in the future
             #     -> Objのattributes (objectなどload_objectsでセットされるもの)にアクセスした際に、自動で読み出されるようにするため
+            # type(obj) == Obj.object # Objにtype-eq評価か、isinstance評価か決めるattributeを付与したので、そちらで制御
             if isinstance(obj, Obj.object):
                 if hasattr(Obj, "module") and Obj.module is not None:
                     module = Obj.module
@@ -52,15 +50,12 @@ class ObjectFormat2Module(object):
                     if hasattr(Obj, "format") and Obj.format is not None:
                         fmt = Obj.format
                         print("Obj.format", fmt)
-                    elif (
-                        hasattr(Obj, "format_checker")
-                        and Obj.format_checker is not None
-                    ):
+                    elif hasattr(Obj, "format_checker") and Obj.format_checker is not None:
                         fmt = Obj.format_checker(obj)
                         print("Obj.format_checker", fmt)
                     module = Obj.module_checker(obj, fmt)
                     print("module", module)
                     return module
         # [TODO]: エラーをraiseするか、NoneModuleをreturnするか
-        assert False, "no object found"  # noqa: B011
-        return NoneObject
+        # assert False, "no object found" # noqa: B011
+        return NoneModule

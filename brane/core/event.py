@@ -27,11 +27,7 @@ class Event(EventClassType):
     #    EventManager.add_events(self)
     #    return self
 
-    def __init__(
-        self,
-        event_name: str = "",
-        hook_funcs: Optional[ObjOrMultipleTypeGenerator(HookClassType)] = None,
-    ):
+    def __init__(self, event_name: str = "", hook_funcs: Optional[ObjOrMultipleTypeGenerator(HookClassType)] = None):
         self.hooks: list[HookClassType] = []
         if hook_funcs:
             self.hooks = convert_obj_into_list(hook_funcs)
@@ -92,6 +88,4 @@ class Event(EventClassType):
         return info
 
     def __repr__(self) -> str:
-        return "\n".join(
-            [f"{i}. {repr(hook)}" for i, hook in enumerate(self.hooks, start=1)]
-        )
+        return "\n".join([f"{i}. {repr(hook)}" for i, hook in enumerate(self.hooks, start=1)])

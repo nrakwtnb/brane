@@ -82,13 +82,9 @@ class FunctionHook(Hook):
                     return check_object_type(obj) and condition_func(info)
                 if objs is not None and obj is None:
                     if isinstance(objs, list) or isinstance(objs, tuple):
-                        return all(map(check_object_type, objs)) and condition_func(
-                            info
-                        )
+                        return all(map(check_object_type, objs)) and condition_func(info)
                     elif isinstance(objs, dict):
-                        return all(
-                            map(check_object_type, objs.values())
-                        ) and condition_func(info)
+                        return all(map(check_object_type, objs.values())) and condition_func(info)
                     else:
                         raise NotImplementedError(type(objs))
                 else:

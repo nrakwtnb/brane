@@ -8,12 +8,11 @@ from brane.typing import *  # noqa: F403
 
 
 class MetaModule(type):
-    def __new__(
-        cls, classname: str, bases: tuple[type], class_info: dict
-    ):  # [TODO]: refine typing
+    def __new__(cls, classname: str, bases: tuple[type], class_info: dict):  # [TODO]: refine typing
         new_class_info: dict = class_info.copy()
         if new_class_info.get("name", None) is None:
             new_class_info["name"] = new_class_info.get("module_name", None)
+
         print(f"[DEBUG]: in MetaModule class_info={new_class_info}")
         return type.__new__(cls, classname, bases, new_class_info)
 
@@ -124,9 +123,7 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
             pass
         else:
             # [ARGS]: other error type ?
-            raise ValueError(
-                "neither 'module_read_method_name' nor 'file_read_method_name' is undefined"
-            )
+            raise ValueError("neither 'module_read_method_name' nor 'file_read_method_name' is undefined")
         if cls.transform_name:
             cls.transform = getattr(cls.module, cls.transform_name)
         if cls.transform_info:
@@ -158,13 +155,7 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
         cls.load_modules()
 
     @classmethod
-    def read(
-        cls,
-        path: Optional[PathType] = None,
-        file: Optional[FileType] = None,
-        *args,
-        **kwargs,
-    ) -> Any:
+    def read(cls, path: Optional[PathType] = None, file: Optional[FileType] = None, *args, **kwargs) -> Any:
         """read from path or file stream.
 
         Args:
@@ -178,10 +169,7 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
             raise ValueError("Either path or file argument should be not None.")
 
         # generate the args and keyword args passed to read method
-        base_args_read, base_kwargs_read = (
-            cls.base_args_read,
-            cls.base_kwargs_read.copy(),
-        )
+        base_args_read, base_kwargs_read = cls.base_args_read, cls.base_kwargs_read.copy()
         # [ARG]: unnecessary
         # if cls.generate_params_read:
         #     base_args_read, base_kwargs_read = cls.generate_params_read(base_args_read, base_kwargs_read)
@@ -216,14 +204,7 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
         return obj
 
     @classmethod
-    def write(
-        cls,
-        obj: Any,
-        path: Optional[PathType] = None,
-        file: Optional[FileType] = None,
-        *args,
-        **kwargs,
-    ):
+    def write(cls, obj: Any, path: Optional[PathType] = None, file: Optional[FileType] = None, *args, **kwargs):
         """write objects to the file specified by path object or file object.
 
         Args:
@@ -234,14 +215,9 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
         if path is None and file is None:
             raise ValueError("Either path or file argument should be not None.")
 
-        base_args_write, base_kwargs_write = (
-            cls.base_args_write,
-            cls.base_kwargs_write.copy(),
-        )
+        base_args_write, base_kwargs_write = cls.base_args_write, cls.base_kwargs_write.copy()
         if cls.generate_params_write:
-            base_args_write, base_kwargs_write = cls.generate_params_write(
-                obj, base_args_write, base_kwargs_write
-            )
+            base_args_write, base_kwargs_write = cls.generate_params_write(obj, base_args_write, base_kwargs_write)
 
         args_write = integrate_args(base_args_write, args)
         kwargs_write = integrate_kwargs(base_kwargs_write, kwargs)
@@ -339,28 +315,26 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
                     raise AttributeError()  # [TODO]: error messsage
                 if cls.object_unpacking_type is None:
                     getattr(writer, cls.writer_method_name)(obj)
-                elif cls.object_unpacking_type == "sequence":
+                elif cls.object_unpacking_type == 'sequence':
                     getattr(writer, cls.writer_method_name)(*obj)
-                elif cls.object_unpacking_type == "mapping":
+                elif cls.object_unpacking_type == 'mapping':
                     getattr(writer, cls.writer_method_name)(**obj)
                 else:
-                    raise NotImplementedError(
-                        f"object_unpacking_type: {cls.object_unpacking_type}"
-                    )
+                    raise NotImplementedError(f"object_unpacking_type: {cls.object_unpacking_type}")
             else:  # pass both file & obj at the same time
                 if cls.object_unpacking_type is None:
                     if cls.file_arg_first:
                         cls.module_write_method(file, obj, *args_write, **kwargs_write)
                     else:
                         cls.module_write_method(obj, file, *args_write, **kwargs_write)
-                elif object_unpacking_type == "sequence":
+                elif object_unpacking_type == 'sequence':
                     if len(args_write) > 0:
                         raise AssertionError()  # [TODO]: error messsage
                     if cls.file_arg_first:
                         cls.module_write_method(file, *obj, **kwargs_write)
                     else:
                         cls.module_write_method(*obj, file, **kwargs_write)
-                elif object_unpacking_type == "mapping":
+                elif object_unpacking_type == 'mapping':
                     if len(args_write) > 0:
                         raise AssertionError()  # [TODO]: error messsage
                     args_, kwargs_ = list(), dict()
@@ -382,9 +356,7 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
         elif cls.object_write_method_name:  # object write file
             if not hasattr(obj, cls.object_write_method_name):
                 raise AttributeError()  # [TODO]: error messsage
-            getattr(obj, cls.object_write_method_name)(
-                file, *args_write, **kwargs_write
-            )
+            getattr(obj, cls.object_write_method_name)(file, *args_write, **kwargs_write)
         elif cls.file_write_method_name:  # file write object
             if not hasattr(file, cls.file_write_method_name):
                 raise AttributeError()  # [TODO]: error messsage
@@ -396,9 +368,7 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
             file.close()
 
 
-class MetaNoneModule(
-    MetaModule, MetaFalse
-):  # [MEMO]: deprecated after removing MetaModule
+class MetaNoneModule(MetaModule, MetaFalse):  # [MEMO]: deprecated after removing MetaModule
     pass
 
 
