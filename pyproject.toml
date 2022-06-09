@@ -4,6 +4,12 @@ profile = "black"
 line_length = 119
 
 
+[tool.black]
+line-length = 119
+skip-string-normalization = true
+
+
+
 # [tool.pysen]
 # version = "0.10"
 # 

@@ -13,15 +13,17 @@ Welcome to brane's documentation!
    introduction/introduction.md
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Examples
 
+   examples/package_overview_tour
    examples/unified_interface.md
    examples/hook.md
 
 .. toctree::
    :maxdepth: 2
    :caption: User customization
+   :numbered:
 
    user_def/read.md
    user_def/write.md
