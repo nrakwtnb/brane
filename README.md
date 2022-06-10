@@ -33,11 +33,11 @@ Currently, the conda installation is not supported yet.
 ### Via Github Source
 
 ```sh
-$ pip install git+https://github.com/nrakwtnb/brane.git@<revision>#egg=brane
-$ pipenv install git+https://github.com/nrakwtnb/brane.git@<revision>#egg=brane
+$ pip install git+https://github.com/nrakwtnb/brane.git
+$ pipenv install git+https://github.com/nrakwtnb/brane.git#egg=brane
 ```
 where version can be one of
-* bleeding-edge
+* 0.0.dev0 (bleeding-edge v0)
 
 ## Document
 
@@ -48,6 +48,8 @@ See [Document](https://nrakwtnb.github.io/brane/)
 ### Usage
 
 ### Examples
+
+See [Document](examples)
 
 ## Information
 

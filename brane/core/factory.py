@@ -10,12 +10,12 @@ from brane.core.module import Module
 from brane.core.object import Object
 from brane.typing import *  # noqa: F403
 
-CORE_MODULE_CONFIG_PATH: Path = (Path(__file__) / "../../../" / "./config/modules/core.yaml").resolve()
-THIRDPARTY_MODULE_CONFIG_PATH: Path = (Path(__file__) / "../../../" / "./config/modules/basic.yaml").resolve()
-CORE_FORMAT_CONFIG_PATH: Path = (Path(__file__) / "../../../" / "./config/formats/core.yaml").resolve()
-THIRDPARTY_FORMAT_CONFIG_PATH: Path = (Path(__file__) / "../../../" / "./config/formats/basic.yaml").resolve()
-CORE_OBJECT_CONFIG_PATH: Path = (Path(__file__) / "../../../" / "./config/objects/core.yaml").resolve()
-THIRDPARTY_OBJECT_CONFIG_PATH: Path = (Path(__file__) / "../../../" / "./config/objects/basic.yaml").resolve()
+CORE_MODULE_CONFIG_PATH: Path = (Path(__file__) / "../../" / "./config/modules/core.yaml").resolve()
+THIRDPARTY_MODULE_CONFIG_PATH: Path = (Path(__file__) / "../../" / "./config/modules/basic.yaml").resolve()
+CORE_FORMAT_CONFIG_PATH: Path = (Path(__file__) / "../../" / "./config/formats/core.yaml").resolve()
+THIRDPARTY_FORMAT_CONFIG_PATH: Path = (Path(__file__) / "../../" / "./config/formats/basic.yaml").resolve()
+CORE_OBJECT_CONFIG_PATH: Path = (Path(__file__) / "../../" / "./config/objects/core.yaml").resolve()
+THIRDPARTY_OBJECT_CONFIG_PATH: Path = (Path(__file__) / "../../" / "./config/objects/basic.yaml").resolve()
 
 ClassAttributeType = dict[str, Any]
 ConfigType = dict[str, Union[str, dict]]
