@@ -55,7 +55,7 @@ See [Document](https://nrakwtnb.github.io/brane/).
 
 #### Unified I/O Interface
 
-```pyhon
+```python
 from brane import ExtendedIO as xio
 
 # read a single file
