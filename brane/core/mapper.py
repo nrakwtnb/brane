@@ -6,14 +6,14 @@ from brane.core.object import Object
 from brane.typing import *  # noqa: F403
 
 
-class ExtensionMapper(object):  ### rename
+class ExtensionMapper(object):  # [ARG]: rename ?
     # [TODO]:: caching
     @classmethod
     def get_format_class_from_extension(cls, ext: str) -> FormatClassType:  # ignore: this type is defined later
         for _, Fmt in Format.registered_formats.items():
             if Fmt.check_extension(ext):
                 return Fmt
-        # [TODO]: エラーをraiseするか、NoneExtensionをreturnするか
+        # [ARG]: should we raise some error if non-exist ?
         # assert False, "no Format found" # noqa: B011
         return NoneFormat
 
@@ -26,22 +26,21 @@ class ExtensionMapper(object):  ### rename
             else:
                 raise AttributeError(f"'module' attribute is not defined at {Fmt}")
         else:
-            # [TODO]: エラーをraiseするか、NoneModuleをreturnするか
+            # [ARG]: should we raise some error if non-exist ?
             # assert False, "no module found" # noqa: B011
             return NoneModule
 
 
-# if fmt is given, it priotize
-# if necesaryy, also return format (may be used to decide filename extention)
-
-# In the future, I'd like to use hashed-key for quick search
-class ObjectFormat2Module(object):
-    # [TODO]: use hash ?
+class ObjectFormat2Module(object):  # [ARG]: rename ?
+    # [TODO]: use hash  to faster loading... ( Obj.load_objects takes much time at first )
     def get_module_from_object(obj, fmt=None) -> ModuleClassType:
-        for _, Obj in Object.registered_objects.items():  ### -> global var.
-            Obj.load_objects()  ### will be removed in the future
-            #     -> Objのattributes (objectなどload_objectsでセットされるもの)にアクセスした際に、自動で読み出されるようにするため
-            # type(obj) == Obj.object # Objにtype-eq評価か、isinstance評価か決めるattributeを付与したので、そちらで制御
+        # [TODO]: In the future, I'd like to use hashed-key for quick search
+        # [TDOO]: If fmt is given, it uses it with high priority
+        # [TODO]: If necessary, also returns format (may be used to decide filename extention ?)
+
+        for _, Obj in Object.registered_objects.items():
+            Obj.load_objects()  # [TODO]: may be removed because we do it at the time on accessing to Obj.object right later
+            # [ARG]: should we allow several options to check object natching by adding some attributes for control at Object class ?
             if isinstance(obj, Obj.object):
                 if hasattr(Obj, "module") and Obj.module is not None:
                     module = Obj.module
@@ -49,13 +48,16 @@ class ObjectFormat2Module(object):
                 elif hasattr(Obj, "module_checker") and Obj.module_checker is not None:
                     if hasattr(Obj, "format") and Obj.format is not None:
                         fmt = Obj.format
-                        print("Obj.format", fmt)
+                        print("[DEBUG]: Obj.format", fmt)
                     elif hasattr(Obj, "format_checker") and Obj.format_checker is not None:
                         fmt = Obj.format_checker(obj)
-                        print("Obj.format_checker", fmt)
+                        print("[DEBUG]: Obj.format_checker", fmt)
                     module = Obj.module_checker(obj, fmt)
-                    print("module", module)
+                    print("[DEBUG]: module", module)
                     return module
-        # [TODO]: エラーをraiseするか、NoneModuleをreturnするか
+                else:
+                    print("[DEBUG]: pass", Obj)
+                    pass
+        # [ARG]: should we raise some error if non-exist ?
         # assert False, "no object found" # noqa: B011
         return NoneModule

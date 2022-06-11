@@ -7,12 +7,12 @@ from brane.typing import *  # noqa: F403
 
 class Hook(HookClassType, metaclass=ABCMeta):
     hook_name: Optional[str] = None
-    flag: HookFlagType = None  # other name convention: marker
+    flag: HookFlagType = None  # [ARG]: other name convention: marker
     _active: bool = True
 
     def __init__(self, name: Optional[str] = None, flag: HookFlagType = None):
         self.hook_name: Optional[str] = name
-        self.flag: HookFlagType = flag  # other name convention: marker
+        self.flag: HookFlagType = flag  # [ARG]: other name convention: marker (state again)
         self._active: bool = True
 
     def condition(self, info: ContextInterface) -> bool:
@@ -44,7 +44,7 @@ class FunctionHook(Hook):
         condition_func: Callable[ContextInterface, bool] = lambda info: True,
         name: Optional[str] = None,
         flag: HookFlagType = None,
-        **kwargs_exp
+        **kwargs_exp,
     ):
         """
         Args:

@@ -1,3 +1,5 @@
+logs/
+
 .*.swo
 .*.swp
 tmp_*

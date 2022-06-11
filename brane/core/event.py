@@ -2,8 +2,12 @@ from __future__ import annotations
 
 from brane.typing import *  # noqa: F403
 
-# [ARG]: better name ? better coding ?
-ObjOrMultipleTypeGenerator = lambda T: Union[T, List[T], Tuple[T], Set[T]]  # noqa: E731
+MultipleHookClassType = Union[
+    HookClassType,
+    list[HookClassType],
+    tuple[HookClassType],
+    set[HookClassType],
+]
 
 
 def convert_obj_into_list(obj) -> list:  # [ARG]: convert_iterator ?
@@ -27,7 +31,7 @@ class Event(EventClassType):
     #    EventManager.add_events(self)
     #    return self
 
-    def __init__(self, event_name: str = "", hook_funcs: Optional[ObjOrMultipleTypeGenerator(HookClassType)] = None):
+    def __init__(self, event_name: str = "", hook_funcs: Optional[MultipleHookClassType] = None):
         self.hooks: list[HookClassType] = []
         if hook_funcs:
             self.hooks = convert_obj_into_list(hook_funcs)
@@ -36,8 +40,9 @@ class Event(EventClassType):
         self.denied_flags: HookFlagType = None  # fixed in the future
 
     # @classmethod
-    def add_hooks(self, hook_funcs: ObjOrMultipleTypeGenerator(HookClassType)):
+    def add_hooks(self, hook_funcs: MultipleHookClassType):
         hook_funcs = convert_obj_into_list(hook_funcs)
+        print(f"[DEBUG]: add {hook_funcs} at {self}")
         self.hooks.extend(hook_funcs)
 
     # @classmethod

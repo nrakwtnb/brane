@@ -1,4 +1,4 @@
-from brane.core.iomanager import ExtendedIO  # noqa: F401
+from brane.core.xio import ExtendedIO  # noqa: F401
 
 ExtendedIO.setup_hooks()
 
