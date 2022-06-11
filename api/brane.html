@@ -20,7 +20,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="brane.core package" href="brane.core.html" />
+    <link rel="next" title="brane.config package" href="brane.config.html" />
     <link rel="prev" title="Package overview tour" href="../examples/package_overview_tour.html" /> 
 </head>
 
@@ -76,6 +76,10 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">brane package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="brane.config.html">brane.config package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="brane.config.html#module-brane.config">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="brane.core.html">brane.core package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="brane.core.html#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.base">brane.core.base module</a></li>
@@ -83,17 +87,17 @@
 <li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.factory">brane.core.factory module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.format">brane.core.format module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.hook">brane.core.hook module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.iomanager">brane.core.iomanager module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="brane.core.html#brane-core-iomanager-module">brane.core.iomanager module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.mapper">brane.core.mapper module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.module">brane.core.module module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.object">brane.core.object module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.utils">brane.core.utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.xio">brane.core.xio module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="brane.libs.html">brane.libs package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="brane.libs.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="brane.libs.html#module-brane.libs.hooks">brane.libs.hooks module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="brane.libs.html#subpackages">Subpackages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="brane.libs.html#module-brane.libs">Module contents</a></li>
 </ul>
 </li>
@@ -160,6 +164,10 @@
 <h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="brane.config.html">brane.config package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="brane.config.html#module-brane.config">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="brane.core.html">brane.core package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="brane.core.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brane.core.html#module-brane.core.base">brane.core.base module</a></li>
@@ -167,17 +175,26 @@
 <li class="toctree-l2"><a class="reference internal" href="brane.core.html#module-brane.core.factory">brane.core.factory module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brane.core.html#module-brane.core.format">brane.core.format module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brane.core.html#module-brane.core.hook">brane.core.hook module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brane.core.html#module-brane.core.iomanager">brane.core.iomanager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brane.core.html#brane-core-iomanager-module">brane.core.iomanager module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brane.core.html#module-brane.core.mapper">brane.core.mapper module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brane.core.html#module-brane.core.module">brane.core.module module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brane.core.html#module-brane.core.object">brane.core.object module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brane.core.html#module-brane.core.utils">brane.core.utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brane.core.html#module-brane.core.xio">brane.core.xio module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brane.core.html#module-brane.core">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="brane.libs.html">brane.libs package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="brane.libs.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brane.libs.html#module-brane.libs.hooks">brane.libs.hooks module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brane.libs.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="brane.libs.hooks.html">brane.libs.hooks package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="brane.libs.hooks.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="brane.libs.hooks.html#module-brane.libs.hooks.core">brane.libs.hooks.core module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="brane.libs.hooks.html#module-brane.libs.hooks.image">brane.libs.hooks.image module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="brane.libs.hooks.html#module-brane.libs.hooks">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="brane.libs.html#module-brane.libs">Module contents</a></li>
 </ul>
 </li>
@@ -416,7 +433,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../examples/package_overview_tour.html" class="btn btn-neutral float-left" title="Package overview tour" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="brane.core.html" class="btn btn-neutral float-right" title="brane.core package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="brane.config.html" class="btn btn-neutral float-right" title="brane.config package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

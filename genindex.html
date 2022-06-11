@@ -73,6 +73,10 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/brane.html">brane package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api/brane.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/brane.config.html">brane.config package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/brane.config.html#module-brane.config">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="api/brane.core.html">brane.core package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="api/brane.core.html#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/brane.core.html#module-brane.core.base">brane.core.base module</a></li>
@@ -80,17 +84,17 @@
 <li class="toctree-l4"><a class="reference internal" href="api/brane.core.html#module-brane.core.factory">brane.core.factory module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/brane.core.html#module-brane.core.format">brane.core.format module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/brane.core.html#module-brane.core.hook">brane.core.hook module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/brane.core.html#module-brane.core.iomanager">brane.core.iomanager module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/brane.core.html#brane-core-iomanager-module">brane.core.iomanager module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/brane.core.html#module-brane.core.mapper">brane.core.mapper module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/brane.core.html#module-brane.core.module">brane.core.module module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/brane.core.html#module-brane.core.object">brane.core.object module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/brane.core.html#module-brane.core.utils">brane.core.utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/brane.core.html#module-brane.core.xio">brane.core.xio module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/brane.core.html#module-brane.core">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="api/brane.libs.html">brane.libs package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api/brane.libs.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/brane.libs.html#module-brane.libs.hooks">brane.libs.hooks module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/brane.libs.html#subpackages">Subpackages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/brane.libs.html#module-brane.libs">Module contents</a></li>
 </ul>
 </li>
@@ -154,9 +158,11 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/brane.core.html#brane.core.factory.Factory.activate">activate() (brane.core.factory.Factory class method)</a>
+      <li><a href="api/brane.core.html#brane.core.factory.BraneClassGenerator.activate">activate() (brane.core.factory.BraneClassGenerator class method)</a>
 
       <ul>
+        <li><a href="api/brane.core.html#brane.core.factory.BraneHooksGenerator.activate">(brane.core.factory.BraneHooksGenerator class method)</a>
+</li>
         <li><a href="api/brane.core.html#brane.core.hook.Hook.activate">(brane.core.hook.Hook method)</a>
 </li>
       </ul></li>
@@ -166,11 +172,11 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/brane.core.html#brane.core.event.Event.add_hooks">add_hooks() (brane.core.event.Event method)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.ExtendedIO.all_formats">all_formats() (brane.core.iomanager.ExtendedIO class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.ExtendedIO.all_formats">all_formats() (brane.core.xio.ExtendedIO class method)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.ExtendedIO.all_modules">all_modules() (brane.core.iomanager.ExtendedIO class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.ExtendedIO.all_modules">all_modules() (brane.core.xio.ExtendedIO class method)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.ExtendedIO.all_objects">all_objects() (brane.core.iomanager.ExtendedIO class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.ExtendedIO.all_objects">all_objects() (brane.core.xio.ExtendedIO class method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -212,6 +218,13 @@
 </li>
       </ul></li>
       <li>
+    brane.config
+
+      <ul>
+        <li><a href="api/brane.config.html#module-brane.config">module</a>
+</li>
+      </ul></li>
+      <li>
     brane.core
 
       <ul>
@@ -239,8 +252,6 @@
         <li><a href="api/brane.core.html#module-brane.core.factory">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     brane.core.format
 
@@ -248,18 +259,13 @@
         <li><a href="api/brane.core.html#module-brane.core.format">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     brane.core.hook
 
       <ul>
         <li><a href="api/brane.core.html#module-brane.core.hook">module</a>
-</li>
-      </ul></li>
-      <li>
-    brane.core.iomanager
-
-      <ul>
-        <li><a href="api/brane.core.html#module-brane.core.iomanager">module</a>
 </li>
       </ul></li>
       <li>
@@ -291,6 +297,13 @@
 </li>
       </ul></li>
       <li>
+    brane.core.xio
+
+      <ul>
+        <li><a href="api/brane.core.html#module-brane.core.xio">module</a>
+</li>
+      </ul></li>
+      <li>
     brane.libs
 
       <ul>
@@ -301,7 +314,21 @@
     brane.libs.hooks
 
       <ul>
-        <li><a href="api/brane.libs.html#module-brane.libs.hooks">module</a>
+        <li><a href="api/brane.libs.hooks.html#module-brane.libs.hooks">module</a>
+</li>
+      </ul></li>
+      <li>
+    brane.libs.hooks.core
+
+      <ul>
+        <li><a href="api/brane.libs.hooks.html#module-brane.libs.hooks.core">module</a>
+</li>
+      </ul></li>
+      <li>
+    brane.libs.hooks.image
+
+      <ul>
+        <li><a href="api/brane.libs.hooks.html#module-brane.libs.hooks.image">module</a>
 </li>
       </ul></li>
       <li>
@@ -311,6 +338,10 @@
         <li><a href="api/brane.html#module-brane.typing">module</a>
 </li>
       </ul></li>
+      <li><a href="api/brane.core.html#brane.core.factory.BraneClassGenerator">BraneClassGenerator (class in brane.core.factory)</a>
+</li>
+      <li><a href="api/brane.core.html#brane.core.factory.BraneHooksGenerator">BraneHooksGenerator (class in brane.core.factory)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -321,49 +352,49 @@
 </li>
       <li><a href="api/brane.core.html#brane.core.event.Event.check_flag">check_flag() (brane.core.event.Event method)</a>
 </li>
-      <li><a href="api/brane.libs.html#brane.libs.hooks.check_path_existence">check_path_existence() (in module brane.libs.hooks)</a>
+      <li><a href="api/brane.libs.hooks.html#brane.libs.hooks.core.check_path_existence">check_path_existence() (in module brane.libs.hooks.core)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.factory.Factory.className2Format">className2Format (brane.core.factory.Factory attribute)</a>
+      <li><a href="api/brane.core.html#brane.core.factory.BraneClassGenerator.className2Format">className2Format (brane.core.factory.BraneClassGenerator attribute)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.factory.Factory.className2Module">className2Module (brane.core.factory.Factory attribute)</a>
+      <li><a href="api/brane.core.html#brane.core.factory.BraneClassGenerator.className2Module">className2Module (brane.core.factory.BraneClassGenerator attribute)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.factory.Factory.className2Object">className2Object (brane.core.factory.Factory attribute)</a>
+      <li><a href="api/brane.core.html#brane.core.factory.BraneClassGenerator.className2Object">className2Object (brane.core.factory.BraneClassGenerator attribute)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.clear_all_hooks">clear_all_hooks() (brane.core.iomanager.HookManager class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.clear_all_hooks">clear_all_hooks() (brane.core.xio.HookManager class method)</a>
 </li>
       <li><a href="api/brane.core.html#brane.core.event.Event.clear_hooks">clear_hooks() (brane.core.event.Event method)</a>
 
       <ul>
-        <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.clear_hooks">(brane.core.iomanager.HookManager class method)</a>
+        <li><a href="api/brane.core.html#brane.core.xio.HookManager.clear_hooks">(brane.core.xio.HookManager class method)</a>
 </li>
       </ul></li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.clear_post_read_hook">clear_post_read_hook() (brane.core.iomanager.HookManager class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.clear_post_read_hook">clear_post_read_hook() (brane.core.xio.HookManager class method)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.clear_post_readall_hook">clear_post_readall_hook() (brane.core.iomanager.HookManager class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.clear_post_readall_hook">clear_post_readall_hook() (brane.core.xio.HookManager class method)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.clear_post_write_hook">clear_post_write_hook() (brane.core.iomanager.HookManager class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.clear_post_write_hook">clear_post_write_hook() (brane.core.xio.HookManager class method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.clear_post_writeall_hook">clear_post_writeall_hook() (brane.core.iomanager.HookManager class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.clear_post_writeall_hook">clear_post_writeall_hook() (brane.core.xio.HookManager class method)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.clear_pre_read_hook">clear_pre_read_hook() (brane.core.iomanager.HookManager class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.clear_pre_read_hook">clear_pre_read_hook() (brane.core.xio.HookManager class method)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.clear_pre_readall_hook">clear_pre_readall_hook() (brane.core.iomanager.HookManager class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.clear_pre_readall_hook">clear_pre_readall_hook() (brane.core.xio.HookManager class method)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.clear_pre_write_hook">clear_pre_write_hook() (brane.core.iomanager.HookManager class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.clear_pre_write_hook">clear_pre_write_hook() (brane.core.xio.HookManager class method)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.clear_pre_writeall_hook">clear_pre_writeall_hook() (brane.core.iomanager.HookManager class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.clear_pre_writeall_hook">clear_pre_writeall_hook() (brane.core.xio.HookManager class method)</a>
 </li>
       <li><a href="api/brane.core.html#brane.core.hook.FunctionHook.condition">condition() (brane.core.hook.FunctionHook method)</a>
 
       <ul>
         <li><a href="api/brane.core.html#brane.core.hook.Hook.condition">(brane.core.hook.Hook method)</a>
 </li>
-        <li><a href="api/brane.libs.html#brane.libs.hooks.PILResizeHook.condition">(brane.libs.hooks.PILResizeHook method)</a>
+        <li><a href="api/brane.libs.hooks.html#brane.libs.hooks.image.PILResizeHook.condition">(brane.libs.hooks.image.PILResizeHook method)</a>
 </li>
       </ul></li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.connect_hook_and_event">connect_hook_and_event() (brane.core.iomanager.HookManager class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.connect_hook_and_event">connect_hook_and_event() (brane.core.xio.HookManager class method)</a>
 </li>
       <li><a href="api/brane.core.html#brane.core.base.Context">Context (class in brane.core.base)</a>
 </li>
@@ -371,7 +402,7 @@
 </li>
       <li><a href="api/brane.core.html#brane.core.event.convert_obj_into_list">convert_obj_into_list() (in module brane.core.event)</a>
 </li>
-      <li><a href="api/brane.libs.html#brane.libs.hooks.create_parent_directory">create_parent_directory() (in module brane.libs.hooks)</a>
+      <li><a href="api/brane.libs.hooks.html#brane.libs.hooks.core.create_parent_directory">create_parent_directory() (in module brane.libs.hooks.core)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -393,11 +424,13 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/brane.core.html#brane.core.event.Event">Event (class in brane.core.event)</a>
 </li>
-      <li><a href="api/brane.html#brane.typing.EventClassType">EventClassType (class in brane.typing)</a>
+      <li><a href="api/brane.core.html#brane.core.factory.BraneHooksGenerator.event2hooks">event2hooks (brane.core.factory.BraneHooksGenerator attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/brane.core.html#brane.core.iomanager.ExtendedIO">ExtendedIO (class in brane.core.iomanager)</a>
+      <li><a href="api/brane.html#brane.typing.EventClassType">EventClassType (class in brane.typing)</a>
+</li>
+      <li><a href="api/brane.core.html#brane.core.xio.ExtendedIO">ExtendedIO (class in brane.core.xio)</a>
 </li>
       <li><a href="api/brane.core.html#brane.core.mapper.ExtensionMapper">ExtensionMapper (class in brane.core.mapper)</a>
 </li>
@@ -407,10 +440,6 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/brane.core.html#brane.core.iomanager.ExtendedIO.factory">factory (brane.core.iomanager.ExtendedIO attribute)</a>
-</li>
-      <li><a href="api/brane.core.html#brane.core.factory.Factory">Factory (class in brane.core.factory)</a>
-</li>
       <li><a href="api/brane.core.html#brane.core.base.Context.file">file (brane.core.base.Context attribute)</a>, <a href="api/brane.core.html#id4">[1]</a>
 
       <ul>
@@ -487,15 +516,15 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/brane.core.html#brane.core.factory.Factory.generate_classes_from_configs">generate_classes_from_configs() (brane.core.factory.Factory static method)</a>
+      <li><a href="api/brane.core.html#brane.core.factory.BraneClassGenerator.generate_classes_from_configs">generate_classes_from_configs() (brane.core.factory.BraneClassGenerator static method)</a>
 </li>
       <li><a href="api/brane.core.html#brane.core.module.Module.generate_params_read">generate_params_read (brane.core.module.Module attribute)</a>
 </li>
       <li><a href="api/brane.core.html#brane.core.module.Module.generate_params_write">generate_params_write (brane.core.module.Module attribute)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.get_events">get_events() (brane.core.iomanager.HookManager class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.get_events">get_events() (brane.core.xio.HookManager class method)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.ExtendedIO.get_extension_from_filename">get_extension_from_filename() (brane.core.iomanager.ExtendedIO method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.ExtendedIO.get_extension_from_filename">get_extension_from_filename() (brane.core.xio.ExtendedIO method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -503,7 +532,7 @@
 </li>
       <li><a href="api/brane.core.html#brane.core.mapper.ExtensionMapper.get_format_class_from_extension">get_format_class_from_extension() (brane.core.mapper.ExtensionMapper class method)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.get_hook_class">get_hook_class() (brane.core.iomanager.HookManager class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.get_hook_class">get_hook_class() (brane.core.xio.HookManager class method)</a>
 </li>
       <li><a href="api/brane.core.html#brane.core.mapper.ExtensionMapper.get_module_class_from_extension">get_module_class_from_extension() (brane.core.mapper.ExtensionMapper class method)</a>
 </li>
@@ -520,14 +549,14 @@
       <li><a href="api/brane.core.html#brane.core.hook.Hook.hook_name">hook_name (brane.core.hook.Hook attribute)</a>
 
       <ul>
-        <li><a href="api/brane.libs.html#brane.libs.hooks.PILResizeHook.hook_name">(brane.libs.hooks.PILResizeHook attribute)</a>
+        <li><a href="api/brane.libs.hooks.html#brane.libs.hooks.image.PILResizeHook.hook_name">(brane.libs.hooks.image.PILResizeHook attribute)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/brane.html#brane.typing.HookClassType">HookClassType (class in brane.typing)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager">HookManager (class in brane.core.iomanager)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager">HookManager (class in brane.core.xio)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -541,7 +570,7 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/brane.core.html#brane.core.utils.integrate_kwargs">integrate_kwargs() (in module brane.core.utils)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.IOLogger">IOLogger (class in brane.core.iomanager)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.IOLogger">IOLogger (class in brane.core.xio)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -549,18 +578,26 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/brane.core.html#brane.core.factory.Factory.load_brane_formats">load_brane_formats() (brane.core.factory.Factory class method)</a>
+      <li><a href="api/brane.core.html#brane.core.factory.BraneClassGenerator.load_brane_formats">load_brane_formats() (brane.core.factory.BraneClassGenerator class method)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.factory.Factory.load_brane_modules">load_brane_modules() (brane.core.factory.Factory class method)</a>
+      <li><a href="api/brane.core.html#brane.core.factory.BraneClassGenerator.load_brane_modules">load_brane_modules() (brane.core.factory.BraneClassGenerator class method)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.factory.Factory.load_brane_objects">load_brane_objects() (brane.core.factory.Factory class method)</a>
+      <li><a href="api/brane.core.html#brane.core.factory.BraneClassGenerator.load_brane_objects">load_brane_objects() (brane.core.factory.BraneClassGenerator class method)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.factory.Factory.load_config">load_config() (brane.core.factory.Factory static method)</a>
+      <li><a href="api/brane.core.html#brane.core.factory.BraneClassGenerator.load_config">load_config() (brane.core.factory.BraneClassGenerator static method)</a>
+
+      <ul>
+        <li><a href="api/brane.core.html#brane.core.factory.BraneHooksGenerator.load_config">(brane.core.factory.BraneHooksGenerator static method)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.module.Module.load_modules">load_modules() (brane.core.module.Module class method)</a>
+      </ul></li>
+      <li><a href="api/brane.core.html#brane.core.factory.BraneHooksGenerator.load_event2hooks">load_event2hooks() (brane.core.factory.BraneHooksGenerator class method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/brane.core.html#brane.core.factory.BraneHooksGenerator.load_hooks_from_config">load_hooks_from_config() (brane.core.factory.BraneHooksGenerator static method)</a>
+</li>
+      <li><a href="api/brane.core.html#brane.core.module.Module.load_modules">load_modules() (brane.core.module.Module class method)</a>
+</li>
       <li><a href="api/brane.core.html#brane.core.object.Object.load_objects">load_objects() (brane.core.object.Object class method)</a>
 </li>
       <li><a href="api/brane.core.html#brane.core.module.Module.loaded">loaded (brane.core.module.Module attribute)</a>
@@ -569,9 +606,9 @@
         <li><a href="api/brane.html#brane.typing.ModuleClassType.loaded">(brane.typing.ModuleClassType attribute)</a>
 </li>
       </ul></li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.IOLogger.log">log (brane.core.iomanager.IOLogger attribute)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.IOLogger.log">log (brane.core.xio.IOLogger attribute)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.ExtendedIO.logger">logger (brane.core.iomanager.ExtendedIO attribute)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.ExtendedIO.logger">logger (brane.core.xio.ExtendedIO attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -597,6 +634,8 @@
       <ul>
         <li><a href="api/brane.html#module-brane">brane</a>
 </li>
+        <li><a href="api/brane.config.html#module-brane.config">brane.config</a>
+</li>
         <li><a href="api/brane.core.html#module-brane.core">brane.core</a>
 </li>
         <li><a href="api/brane.core.html#module-brane.core.base">brane.core.base</a>
@@ -609,8 +648,6 @@
 </li>
         <li><a href="api/brane.core.html#module-brane.core.hook">brane.core.hook</a>
 </li>
-        <li><a href="api/brane.core.html#module-brane.core.iomanager">brane.core.iomanager</a>
-</li>
         <li><a href="api/brane.core.html#module-brane.core.mapper">brane.core.mapper</a>
 </li>
         <li><a href="api/brane.core.html#module-brane.core.module">brane.core.module</a>
@@ -619,9 +656,15 @@
 </li>
         <li><a href="api/brane.core.html#module-brane.core.utils">brane.core.utils</a>
 </li>
+        <li><a href="api/brane.core.html#module-brane.core.xio">brane.core.xio</a>
+</li>
         <li><a href="api/brane.libs.html#module-brane.libs">brane.libs</a>
 </li>
-        <li><a href="api/brane.libs.html#module-brane.libs.hooks">brane.libs.hooks</a>
+        <li><a href="api/brane.libs.hooks.html#module-brane.libs.hooks">brane.libs.hooks</a>
+</li>
+        <li><a href="api/brane.libs.hooks.html#module-brane.libs.hooks.core">brane.libs.hooks.core</a>
+</li>
+        <li><a href="api/brane.libs.hooks.html#module-brane.libs.hooks.image">brane.libs.hooks.image</a>
 </li>
         <li><a href="api/brane.html#module-brane.typing">brane.typing</a>
 </li>
@@ -750,8 +793,6 @@
         <li><a href="api/brane.html#brane.typing.ContextInterface.objects">(brane.typing.ContextInterface attribute)</a>
 </li>
       </ul></li>
-      <li><a href="api/brane.core.html#brane.core.event.ObjOrMultipleTypeGenerator">ObjOrMultipleTypeGenerator() (in module brane.core.event)</a>
-</li>
       <li><a href="api/brane.core.html#brane.core.module.Module.open_mode_for_read">open_mode_for_read (brane.core.module.Module attribute)</a>
 
       <ul>
@@ -782,25 +823,25 @@
         <li><a href="api/brane.html#brane.typing.ContextInterface.paths">(brane.typing.ContextInterface attribute)</a>
 </li>
       </ul></li>
-      <li><a href="api/brane.libs.html#brane.libs.hooks.PILResizeHook">PILResizeHook (class in brane.libs.hooks)</a>
+      <li><a href="api/brane.libs.hooks.html#brane.libs.hooks.image.PILResizeHook">PILResizeHook (class in brane.libs.hooks.image)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.post_read">post_read (brane.core.iomanager.HookManager attribute)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.post_read">post_read (brane.core.xio.HookManager attribute)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.post_readall">post_readall (brane.core.iomanager.HookManager attribute)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.post_readall">post_readall (brane.core.xio.HookManager attribute)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.post_write">post_write (brane.core.iomanager.HookManager attribute)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.post_write">post_write (brane.core.xio.HookManager attribute)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.post_writeall">post_writeall (brane.core.iomanager.HookManager attribute)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.post_writeall">post_writeall (brane.core.xio.HookManager attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.pre_read">pre_read (brane.core.iomanager.HookManager attribute)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.pre_read">pre_read (brane.core.xio.HookManager attribute)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.pre_readall">pre_readall (brane.core.iomanager.HookManager attribute)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.pre_readall">pre_readall (brane.core.xio.HookManager attribute)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.pre_write">pre_write (brane.core.iomanager.HookManager attribute)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.pre_write">pre_write (brane.core.xio.HookManager attribute)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.pre_writeall">pre_writeall (brane.core.iomanager.HookManager attribute)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.pre_writeall">pre_writeall (brane.core.xio.HookManager attribute)</a>
 </li>
       <li><a href="api/brane.html#brane.typing.print">print() (in module brane.typing)</a>
 </li>
@@ -822,33 +863,33 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/brane.core.html#brane.core.iomanager.ExtendedIO.read">read() (brane.core.iomanager.ExtendedIO class method)</a>
+      <li><a href="api/brane.core.html#brane.core.module.Module.read">read() (brane.core.module.Module class method)</a>
 
       <ul>
-        <li><a href="api/brane.core.html#brane.core.module.Module.read">(brane.core.module.Module class method)</a>
+        <li><a href="api/brane.core.html#brane.core.xio.ExtendedIO.read">(brane.core.xio.ExtendedIO class method)</a>
 </li>
       </ul></li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.ExtendedIO.read_all_as_dict">read_all_as_dict() (brane.core.iomanager.ExtendedIO class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.ExtendedIO.read_all_as_dict">read_all_as_dict() (brane.core.xio.ExtendedIO class method)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.ExtendedIO.read_all_as_list">read_all_as_list() (brane.core.iomanager.ExtendedIO class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.ExtendedIO.read_all_as_list">read_all_as_list() (brane.core.xio.ExtendedIO class method)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.register_post_read_hook">register_post_read_hook() (brane.core.iomanager.HookManager class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.register_post_read_hook">register_post_read_hook() (brane.core.xio.HookManager class method)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.register_post_readall_hook">register_post_readall_hook() (brane.core.iomanager.HookManager class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.register_post_readall_hook">register_post_readall_hook() (brane.core.xio.HookManager class method)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.register_post_write_hook">register_post_write_hook() (brane.core.iomanager.HookManager class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.register_post_write_hook">register_post_write_hook() (brane.core.xio.HookManager class method)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.register_post_writeall_hook">register_post_writeall_hook() (brane.core.iomanager.HookManager class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.register_post_writeall_hook">register_post_writeall_hook() (brane.core.xio.HookManager class method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.register_pre_read_hook">register_pre_read_hook() (brane.core.iomanager.HookManager class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.register_pre_read_hook">register_pre_read_hook() (brane.core.xio.HookManager class method)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.register_pre_readall_hook">register_pre_readall_hook() (brane.core.iomanager.HookManager class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.register_pre_readall_hook">register_pre_readall_hook() (brane.core.xio.HookManager class method)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.register_pre_write_hook">register_pre_write_hook() (brane.core.iomanager.HookManager class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.register_pre_write_hook">register_pre_write_hook() (brane.core.xio.HookManager class method)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.register_pre_writeall_hook">register_pre_writeall_hook() (brane.core.iomanager.HookManager class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.register_pre_writeall_hook">register_pre_writeall_hook() (brane.core.xio.HookManager class method)</a>
 </li>
       <li><a href="api/brane.core.html#brane.core.format.MetaFormat.registered_formats">registered_formats (brane.core.format.MetaFormat property)</a>
 </li>
@@ -856,7 +897,7 @@
 </li>
       <li><a href="api/brane.core.html#brane.core.object.MetaObject.registered_objects">registered_objects (brane.core.object.MetaObject property)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.ExtendedIO.reload">reload() (brane.core.iomanager.ExtendedIO class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.ExtendedIO.reload">reload() (brane.core.xio.ExtendedIO class method)</a>
 </li>
       <li><a href="api/brane.core.html#brane.core.module.Module.reload_modules">reload_modules() (brane.core.module.Module class method)</a>
 </li>
@@ -866,7 +907,7 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/brane.core.html#brane.core.iomanager.HookManager.setup_hooks">setup_hooks() (brane.core.iomanager.HookManager class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.HookManager.setup_hooks">setup_hooks() (brane.core.xio.HookManager class method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -928,17 +969,17 @@
 <h2 id="W">W</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/brane.core.html#brane.core.iomanager.ExtendedIO.write">write() (brane.core.iomanager.ExtendedIO class method)</a>
+      <li><a href="api/brane.core.html#brane.core.module.Module.write">write() (brane.core.module.Module class method)</a>
 
       <ul>
-        <li><a href="api/brane.core.html#brane.core.module.Module.write">(brane.core.module.Module class method)</a>
+        <li><a href="api/brane.core.html#brane.core.xio.ExtendedIO.write">(brane.core.xio.ExtendedIO class method)</a>
 </li>
       </ul></li>
-      <li><a href="api/brane.core.html#brane.core.iomanager.ExtendedIO.write_all_from_dict">write_all_from_dict() (brane.core.iomanager.ExtendedIO class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.ExtendedIO.write_all_from_dict">write_all_from_dict() (brane.core.xio.ExtendedIO class method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/brane.core.html#brane.core.iomanager.ExtendedIO.write_all_from_list">write_all_from_list() (brane.core.iomanager.ExtendedIO class method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.ExtendedIO.write_all_from_list">write_all_from_list() (brane.core.xio.ExtendedIO class method)</a>
 </li>
       <li><a href="api/brane.core.html#brane.core.module.Module.writer_method_name">writer_method_name (brane.core.module.Module attribute)</a>
 

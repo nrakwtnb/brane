@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>brane &mdash; brane Bleeding Edge documentation</title>
+  <title>brane.libs.hooks package &mdash; brane Bleeding Edge documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,7 +19,8 @@
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="brane.libs package" href="brane.libs.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -71,9 +72,9 @@
 </li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="brane.html">brane package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="brane.html#subpackages">Subpackages</a><ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="brane.html">brane package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="brane.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="brane.config.html">brane.config package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="brane.config.html#module-brane.config">Module contents</a></li>
 </ul>
@@ -94,8 +95,8 @@
 <li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="brane.libs.html">brane.libs package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="brane.libs.html#subpackages">Subpackages</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="brane.libs.html">brane.libs package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="brane.libs.html#subpackages">Subpackages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="brane.libs.html#module-brane.libs">Module contents</a></li>
 </ul>
 </li>
@@ -122,9 +123,11 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>brane</li>
+          <li><a href="brane.html">brane package</a> &raquo;</li>
+          <li><a href="brane.libs.html">brane.libs package</a> &raquo;</li>
+      <li>brane.libs.hooks package</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/api/modules.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/api/brane.libs.hooks.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -156,52 +159,54 @@
     text-align: unset;
 }
 </style>
-<section id="brane">
-<h1>brane<a class="headerlink" href="#brane" title="Permalink to this heading"></a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="brane.html">brane package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="brane.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="brane.config.html">brane.config package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="brane.config.html#module-brane.config">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="brane.core.html">brane.core package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="brane.core.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.base">brane.core.base module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.event">brane.core.event module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.factory">brane.core.factory module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.format">brane.core.format module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.hook">brane.core.hook module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="brane.core.html#brane-core-iomanager-module">brane.core.iomanager module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.mapper">brane.core.mapper module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.module">brane.core.module module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.object">brane.core.object module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.utils">brane.core.utils module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core.xio">brane.core.xio module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="brane.core.html#module-brane.core">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="brane.libs.html">brane.libs package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="brane.libs.html#subpackages">Subpackages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="brane.libs.html#module-brane.libs">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="brane.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brane.html#module-brane.typing">brane.typing module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brane.html#module-brane">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</div>
+<section id="brane-libs-hooks-package">
+<h1>brane.libs.hooks package<a class="headerlink" href="#brane-libs-hooks-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-brane.libs.hooks.core">
+<span id="brane-libs-hooks-core-module"></span><h2>brane.libs.hooks.core module<a class="headerlink" href="#module-brane.libs.hooks.core" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="brane.libs.hooks.core.check_path_existence">
+<span class="sig-prename descclassname"><span class="pre">brane.libs.hooks.core.</span></span><span class="sig-name descname"><span class="pre">check_path_existence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="brane.html#brane.typing.ContextInterface" title="brane.typing.ContextInterface"><span class="pre">ContextInterface</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#brane.libs.hooks.core.check_path_existence" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="brane.libs.hooks.core.create_parent_directory">
+<span class="sig-prename descclassname"><span class="pre">brane.libs.hooks.core.</span></span><span class="sig-name descname"><span class="pre">create_parent_directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="brane.html#brane.typing.ContextInterface" title="brane.typing.ContextInterface"><span class="pre">ContextInterface</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#brane.libs.hooks.core.create_parent_directory" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-brane.libs.hooks.image">
+<span id="brane-libs-hooks-image-module"></span><h2>brane.libs.hooks.image module<a class="headerlink" href="#module-brane.libs.hooks.image" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="brane.libs.hooks.image.PILResizeHook">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.libs.hooks.image.</span></span><span class="sig-name descname"><span class="pre">PILResizeHook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resample</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#brane.libs.hooks.image.PILResizeHook" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="brane.core.html#brane.core.hook.Hook" title="brane.core.hook.Hook"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hook</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.libs.hooks.image.PILResizeHook.hook_name">
+<span class="sig-name descname"><span class="pre">hook_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'PILResize'</span></em><a class="headerlink" href="#brane.libs.hooks.image.PILResizeHook.hook_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="brane.libs.hooks.image.PILResizeHook.condition">
+<span class="sig-name descname"><span class="pre">condition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="brane.html#brane.typing.ContextInterface" title="brane.typing.ContextInterface"><span class="pre">ContextInterface</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#brane.libs.hooks.image.PILResizeHook.condition" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-brane.libs.hooks">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-brane.libs.hooks" title="Permalink to this heading"></a></h2>
+</section>
 </section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="brane.libs.html" class="btn btn-neutral float-left" title="brane.libs package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
 
   <hr/>
 
