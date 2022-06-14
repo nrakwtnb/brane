@@ -25,56 +25,35 @@ except ImportError:
 # define the types for universal objects
 
 
-def _generate_file_type():
+def _generate_file_related_types():
     import io
     import pathlib
 
+    class IO(Protocol):
+        def open(file):
+            pass
+
+    from fsspec.asyn import AsyncFileSystem
+
     PathType = Union[str, pathlib.Path]
-    FileType = Union[PathType, io.TextIOWrapper]  # [TODO]: more types should be added
-    return PathType, FileType
+    FileType = Union[io._io._IOBase]  # [TODO]: more types should be added
+    IOType = Union[IO, AsyncFileSystem]  # [TODO]: more types should be added
+    return PathType, FileType, IOType
 
 
-PathType, FileType = _generate_file_type()
-del _generate_file_type
+PathType, FileType, IOType = _generate_file_related_types()
+del _generate_file_related_types
 
 
 # define the package specific types
 
 
 class ModuleClassType:
-    _registered_subclasses: dict
-    priority: int
-    name: Optional[str]
-    module: Any
+    name: str
     loaded: bool
-    module_read_method: Optional[Callable]
-    module_read_method_name: Optional[str]
-    file_read_method_name: Optional[str]
-    file_open_for_read: bool
-    open_mode_for_read: dict[str, Any]
-    transform: Optional[Callable]
-    transform_name: Optional[str]
-    transform_info: Optional[tuple[str, ...]]
-
-    module_write_method: Callable = None
-    module_write_method_name: Optional[str]
-    writer_method_name: Optional[str]
-    object_write_method_name: Optional[str]
-    file_write_method_name: Optional[str]
-    file_open_for_write: bool
-    open_mode_for_write: dict[str, Any]
-
-    file_arg_first: bool
-    object_unpacking_type: str
-    file_keyword_at_write: Optional[str]
-    obj_keyword_at_write: Optional[str]
-
-    base_args_read: tuple
-    base_kwargs_read: dict
-    base_args_write: tuple
-    base_kwargs_write: dict
-    # generate_params_read
-    # generate_params_write
+    reload_modules: Callable
+    read: Callable
+    write: Callable
 
 
 class FormatClassType:

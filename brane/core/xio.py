@@ -1,6 +1,13 @@
 from __future__ import annotations
 
+import builtins
+import collections
+import os
+import string
 from pathlib import Path
+
+import fsspec
+from fsspec.registry import known_implementations
 
 from brane.core.base import Context
 from brane.core.event import Event
@@ -11,9 +18,11 @@ from brane.core.mapper import ExtensionMapper, ObjectFormat2Module
 from brane.core.utils import get_extension_from_filname_default, integrate_args, integrate_kwargs
 from brane.typing import *  # noqa: F403
 
+HookType = Union[Hook, collections.abc.Callable]
+
 
 class HookManager(object):
-    """"""
+    """ """
 
     pre_read = Event(event_name="pre_read")
     post_read = Event(event_name="post_read")
@@ -28,8 +37,9 @@ class HookManager(object):
     _hook_generator = BraneHooksGenerator()
 
     #  This is a temporal class.
-    # [ARGS]:
+    # [ARG]:
     # * moved to hook.py ?
+    # [TODO]:
     # * consider better class name if exists
     # * refactor this class
 
@@ -44,51 +54,177 @@ class HookManager(object):
         return name2event
 
     @classmethod
-    def get_hook_class(cls, hook, **hook_kwargs):
+    def show_events(cls):
+        for event_name, event in cls.get_events().items():
+            builtins.print(f"Event: {event_name}")
+            if len(event):
+                builtins.print(event)
+            else:
+                builtins.print(" No hooks are registered")
+            print(30 * "-")
+
+    @classmethod
+    def _get_hook_class(cls, hook: HookType, **hook_kwargs):
         if isinstance(hook, Hook):
             return hook
-        else:  ### detail check ?
+        elif isinstance(hook, collections.abc.Callable):
             return FunctionHook(hook, **hook_kwargs)
+        else:
+            raise AssertionError()
 
     @classmethod
-    def connect_hook_and_event(cls, event, hook, **hook_kwargs):
-        hook = cls.get_hook_class(hook, **hook_kwargs)
-        event.add_hooks(hook)
+    def connect_hook_and_event(
+        cls,
+        event: EventClassType,
+        hook: HookType,
+        ref_index: Optional[int] = None,
+        ref_name: Optional[str] = None,
+        loc: Union['before', 'after'] = 'after',
+        **hook_kwargs,
+    ):
+        hook = cls._get_hook_class(hook, **hook_kwargs)
+        event.add_hooks(hook, ref_index=ref_index, ref_name=ref_name, loc=loc)
 
     @classmethod
-    def register_pre_read_hook(cls, hook, **hook_kwargs):
-        cls.connect_hook_and_event(cls.pre_read, hook, **hook_kwargs)
+    def register_pre_read_hook(
+        cls,
+        hook: HookType,
+        ref_index: Optional[int] = None,
+        ref_name: Optional[str] = None,
+        loc: Union['before', 'after'] = 'after',
+        **hook_kwargs,
+    ):
+        """Add new hook which runs before loading.
+
+        Args:
+            hook: The hook to register. It should be a function or an instance of the Hook Class.
+        """
+        cls.connect_hook_and_event(cls.pre_read, hook, ref_index=ref_index, ref_name=ref_name, loc=loc, **hook_kwargs)
 
     @classmethod
-    def register_post_read_hook(cls, hook, **hook_kwargs):
-        cls.connect_hook_and_event(cls.post_read, hook, **hook_kwargs)
+    def register_post_read_hook(
+        cls,
+        hook: HookType,
+        ref_index: Optional[int] = None,
+        ref_name: Optional[str] = None,
+        loc: Union['before', 'after'] = 'after',
+        **hook_kwargs,
+    ):
+        """Add new hook which runs after loading.
+
+        Args:
+            hook: The hook to register. It should be a function or an instance of the Hook Class.
+        """
+        cls.connect_hook_and_event(cls.post_read, hook, ref_index=ref_index, ref_name=ref_name, loc=loc, **hook_kwargs)
 
     @classmethod
-    def register_pre_write_hook(cls, hook, **hook_kwargs):
-        cls.connect_hook_and_event(cls.pre_write, hook, **hook_kwargs)
+    def register_pre_write_hook(
+        cls,
+        hook: HookType,
+        ref_index: Optional[int] = None,
+        ref_name: Optional[str] = None,
+        loc: Union['before', 'after'] = 'after',
+        **hook_kwargs,
+    ):
+        """Add new hook which runs before saving.
+
+        Args:
+            hook: The hook to register. It should be a function or an instance of the Hook Class.
+        """
+        cls.connect_hook_and_event(cls.pre_write, hook, ref_index=ref_index, ref_name=ref_name, loc=loc, **hook_kwargs)
 
     @classmethod
-    def register_post_write_hook(cls, hook, **hook_kwargs):
-        cls.connect_hook_and_event(cls.post_write, hook, **hook_kwargs)
+    def register_post_write_hook(
+        cls,
+        hook: HookType,
+        ref_index: Optional[int] = None,
+        ref_name: Optional[str] = None,
+        loc: Union['before', 'after'] = 'after',
+        **hook_kwargs,
+    ):
+        """Add new hook which runs after saving.
+
+        Args:
+            hook: The hook to register. It should be a function or an instance of the Hook Class.
+        """
+        cls.connect_hook_and_event(
+            cls.post_write, hook, ref_index=ref_index, ref_name=ref_name, loc=loc, **hook_kwargs
+        )
 
     @classmethod
-    def register_pre_readall_hook(cls, hook, **hook_kwargs):
-        cls.connect_hook_and_event(cls.pre_readall, hook, **hook_kwargs)
+    def register_pre_readall_hook(
+        cls,
+        hook: HookType,
+        ref_index: Optional[int] = None,
+        ref_name: Optional[str] = None,
+        loc: Union['before', 'after'] = 'after',
+        **hook_kwargs,
+    ):
+        """Add new hook which runs before loading all.
+
+        Args:
+            hook: The hook to register. It should be a function or an instance of the Hook Class.
+        """
+        cls.connect_hook_and_event(
+            cls.pre_readall, hook, ref_index=ref_index, ref_name=ref_name, loc=loc, **hook_kwargs
+        )
 
     @classmethod
-    def register_pre_writeall_hook(cls, hook, **hook_kwargs):
-        cls.connect_hook_and_event(cls.pre_writeall, hook, **hook_kwargs)
+    def register_post_readall_hook(
+        cls,
+        hook: HookType,
+        ref_index: Optional[int] = None,
+        ref_name: Optional[str] = None,
+        loc: Union['before', 'after'] = 'after',
+        **hook_kwargs,
+    ):
+        """Add new hook which runs after loading all.
+
+        Args:
+            hook: The hook to register. It should be a function or an instance of the Hook Class.
+        """
+        cls.connect_hook_and_event(
+            cls.post_readall, hook, ref_index=ref_index, ref_name=ref_name, loc=loc, **hook_kwargs
+        )
 
     @classmethod
-    def register_post_readall_hook(cls, hook, **hook_kwargs):
-        cls.connect_hook_and_event(cls.post_readall, hook, **hook_kwargs)
+    def register_pre_writeall_hook(
+        cls,
+        hook: HookType,
+        ref_index: Optional[int] = None,
+        ref_name: Optional[str] = None,
+        loc: Union['before', 'after'] = 'after',
+        **hook_kwargs,
+    ):
+        """Add new hook which runs before saving all.
+
+        Args:
+            hook: The hook to register. It should be a function or an instance of the Hook Class.
+        """
+        cls.connect_hook_and_event(
+            cls.pre_writeall, hook, ref_index=ref_index, ref_name=ref_name, loc=loc, **hook_kwargs
+        )
 
     @classmethod
-    def register_post_writeall_hook(cls, hook, **hook_kwargs):
-        cls.connect_hook_and_event(cls.post_writeall, hook, **hook_kwargs)
+    def register_post_writeall_hook(
+        cls,
+        hook: HookType,
+        ref_index: Optional[int] = None,
+        ref_name: Optional[str] = None,
+        loc: Union['before', 'after'] = 'after',
+        **hook_kwargs,
+    ):
+        """Add new hook which runs after saving all.
+
+        Args:
+            hook: The hook to register. It should be a function or an instance of the Hook Class.
+        """
+        cls.connect_hook_and_event(
+            cls.post_writeall, hook, ref_index=ref_index, ref_name=ref_name, loc=loc, **hook_kwargs
+        )
 
     @classmethod
-    def clear_hooks(cls, event):
+    def clear_hooks(cls, event: EventClassType):
         event.clear_hooks()
 
     @classmethod
@@ -147,7 +283,7 @@ class IOLogger(object):
 
 
 class ExtendedIO(HookManager):
-    """"""
+    """ """
 
     # [ARGS]
     # * refactor for better implementation
@@ -156,6 +292,52 @@ class ExtendedIO(HookManager):
 
     get_extension_from_filename = get_extension_from_filname_default
     logger = IOLogger()
+    kept_storage_options = dict()
+
+    def set_storage_option(cls, protocol: str, storage_options: dict):
+        self.kept_storage_options[protocol] = storage_options
+
+    @staticmethod
+    def get_protocol(path: PathType) -> str:
+        path_str = str(path)
+
+        if ":" not in path_str:
+            try:
+                path_str = os.path.abspath(path_str)
+            except:
+                raise OSError(f"Invalid path: {path_str}")  # [TODO]: refine error
+
+        start_with_sep: bool = path_str.startswith(os.path.sep)
+        if start_with_sep:  # Linux, Unix (MacOS, ...)
+            return "file"
+
+        idx: int = path_str.find(":")
+        if idx == -1:
+            raise NotImplementedError
+        protocol: str = path_str[:idx]
+        if protocol in known_implementations.keys():
+            return protocol
+        elif protocol in string.ascii_letters:  # Windows
+            return "file"
+        else:
+            raise NotImplementedError(protocol)
+
+    @classmethod
+    def get_filesystem(
+        cls, path: PathType, storage_options: dict
+    ) -> dict[str, Any]:  # [TODO]: define type for filesystem (Protocol class with open method for example)
+        protocol: Optional[str] = cls.get_protocol(path)
+
+        if protocol == 'file':
+            return {"protocol": "file", "filesystem": builtins}
+        elif protocol in known_implementations.keys():  # [ARG]: similar logic appears in get_protocol method
+            if protocol in cls.kept_storage_options:
+                new_storage_options = {**cls.kept_storage_options[protocol], **storage_options}
+            else:
+                new_storage_options = storage_options
+            return {"protocol": protocol, "filesystem": fsspec.filesystem(protocol, **new_storage_options)}
+        else:
+            raise NotImplementedError
 
     @classmethod
     def read(
@@ -166,6 +348,7 @@ class ExtendedIO(HookManager):
         module_name: str = "",
         read_args: Optional[tuple] = None,
         read_kwargs: Optional[dict] = None,
+        storage_options: dict = {},
         *args,
         **kwargs,
     ) -> Any:
@@ -209,9 +392,14 @@ class ExtendedIO(HookManager):
                 raise NotImplementedError(f"Cannot find the corresponding module for given extension {ext}")
         Mdl.load_modules()
 
+        fs_info: dict = {}
+        if path:
+            fs_info = cls.get_filesystem(path=path, storage_options=storage_options)
+        protocol = fs_info.get("protocol", None)
+
         context: ContextInterface = Context(
-            {"path": path, "file": file, "ext": ext, "Module": Mdl}
-        )  # add Fmt as supplementary ?
+            {"path": path, "file": file, "ext": ext, "protocol": protocol, "Module": Mdl}
+        )  # [ARG]: add Fmt as supplementary ?
         context = cls.pre_read.fire(context)
         base_args = context.get("args", ())
         base_kwargs = context.get("kwargs", {})
@@ -222,10 +410,22 @@ class ExtendedIO(HookManager):
 
         path = context["path"]
         file = context["file"]
+        io = fs_info["filesystem"]
         cls.logger.log.append(
-            ("read", {"path": path, "file": file, "ext": ext, "module": Mdl.name, "args": args, "kwargs": kwargs})
+            (
+                "read",
+                {
+                    "path": path,
+                    "file": file,
+                    "ext": ext,
+                    "module": Mdl.name,
+                    "args": base_args,
+                    "kwargs": base_kwargs,
+                    "fs_info": fs_info,
+                },
+            )
         )  ### temporal
-        obj = Mdl.read(path=path, file=file, *base_args, **base_kwargs)
+        obj = Mdl.read(path=path, file=file, io=io, *base_args, **base_kwargs)
 
         context.update({"object": obj})
         context = cls.post_read.fire(context)
@@ -352,9 +552,10 @@ class ExtendedIO(HookManager):
         module_name: str = "",
         write_args: Optional[tuple] = None,
         write_kwargs: Optional[dict] = None,
+        storage_options: dict = {},
         *args,
         **kwargs,
-    ):
+    ) -> Any:
         """
         Args:
             obj: Any object to save.
@@ -399,7 +600,14 @@ class ExtendedIO(HookManager):
                 raise NotImplementedError(f"Cannot find the corresponding module for given object type {type(obj)}")
         Mdl.load_modules()
 
-        context: ContextInterface = Context({"path": path, "file": file, "object": obj, "Module": Mdl})
+        fs_info: dict = {}
+        if path:
+            fs_info = cls.get_filesystem(path=path, storage_options=storage_options)
+        protocol = fs_info.get("protocol", None)
+
+        context: ContextInterface = Context(
+            {"path": path, "file": file, "object": obj, "protocol": protocol, "Module": Mdl}
+        )
         context = cls.pre_write.fire(context)
         base_args = context.get("args", ())
         base_kwargs = context.get("kwargs", {})
@@ -410,11 +618,14 @@ class ExtendedIO(HookManager):
 
         path = context["path"]
         file = context["file"]
-        cls.logger.log.append(
-            ("write", {"path": path, "file": file, "ext": ext, "module": Mdl.name, "args": args, "kwargs": kwargs})
-        )  ### temporal
-        Mdl.write(obj=obj, file=file, path=path, *base_args, **base_kwargs)
+        obj = context["object"]
+        io = fs_info["filesystem"]
+        # cls.logger.log.append( ("write", {
+        #    "path": path, "file": file, "ext": ext, "module": Mdl.name, "args": args, "kwargs": kwargs
+        # } ) )  ### temporal
+        Mdl.write(obj=obj, file=file, path=path, io=io, *base_args, **base_kwargs)
         context = cls.post_write.fire(context)
+        return None
 
     @classmethod
     def write_all_from_list(

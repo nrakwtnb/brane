@@ -55,20 +55,33 @@ See [Document](https://nrakwtnb.github.io/brane/).
 
 #### Unified I/O Interface
 
-```pyhon
+```python
 from brane import ExtendedIO as xio
 
 # read a single file
 path: str = "<path to load>"
 obj = xio.read(path)
 
+# read from remote storages
+remote_path: str = "s3://<bucket>/<blob>"  # valid only if your environment detects AWS config
+remote_path: str = "gcs://<bucket>/<blob>"  # valid only if your environment detects GCP config
+read_kwargs = dict(arg1=param1, arg2=param2, ...)  # arg1, arg2, ... are arguments for the read method of the internally loaded module depending on the extension
+obj = xio.read(path=remote_path, **read_kwargs)
+
 # read multiple files
 path_list: list[str] = ["<path1>", "<path2>", ...]
 objs = xio.read_all_as_list(path_list)
 
+
 # write
 save_path: str = "<path to save>"
 xio.write(obj, save_path)
+
+# write into remote storages
+remote_path: str = "s3://<bucket>/<blob>"  # valid only if your environment detects AWS config
+remote_path: str = "gcs://<bucket>/<blob>"  # valid only if your environment detects GCP config
+write_kwargs = dict(arg1=param1, arg2=param2, ...)  # arg1, arg2, ... are arguments for the write method of the internally loaded module depending on the extension and the object to save
+xio.write(obj=obj, path=remote_path, **write_kwargs)
 
 # write multiple objects
 output_dir: str = "<output_dir>"
