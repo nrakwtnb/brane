@@ -29,3 +29,11 @@ Pandas_DataFrame:
         - pandas
         - DataFrame
     priority: 90
+
+Pyyaml_Dict:
+    format_name: YAML
+    module_name: Pyyaml
+    object_type_info:
+        - builtins
+        - dict
+    priority: 20

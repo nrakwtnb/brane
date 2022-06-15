@@ -7,6 +7,7 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
+   brane.config
    brane.core
    brane.libs
 

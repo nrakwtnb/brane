@@ -17,6 +17,14 @@ Json:
     base_kwargs_write:
         indent: 2
 
+Wave:
+    module_name: wave
+
+    file_open_for_read: true
+    module_read_method_name: open
+
+    # write is not supported yet
+
 Csv:
     module_name: csv
 

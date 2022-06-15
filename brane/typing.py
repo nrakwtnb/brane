@@ -3,15 +3,12 @@ from __future__ import annotations
 from typing import (  # noqa: F401
     Any,
     Callable,
-    Dict,
+    Container,
     Generator,
     Generic,
-    List,
     NamedTuple,
     Optional,
     Sequence,
-    Set,
-    Tuple,
     TypeVar,
     Union,
 )

@@ -101,6 +101,22 @@ class Event(EventClassType):
         # self.hooks.extend(hook_funcs)
 
     # @classmethod
+    def remove_hooks(self, hook_names: Union[str, Container[str]], strict: bool = False):
+        # [MEMO]: When strict = True, it requires all the hook id should appear exactly once
+        if strict:
+            raise NotImplementedError
+
+        if isinstance(hook_names, str):
+            hook_name = [hook_names]
+
+        def check_no_inclusion_of_hook_name(hook: HookClassType) -> bool:
+            nonlocal hook_names
+            return hook.hook_name not in hook_names
+
+        new_hooks = list(filter(check_no_inclusion_of_hook_name, self.hooks))
+        self.hooks = new_hooks
+
+    # @classmethod
     def clear_hooks(self):
         self.hooks = []
 

@@ -223,8 +223,18 @@ class HookManager(object):
             cls.post_writeall, hook, ref_index=ref_index, ref_name=ref_name, loc=loc, **hook_kwargs
         )
 
+    @staticmethod
+    def remove_hooks_for_event(event: EventClassType, hook_names: Container[str], *args, **kwargs):
+        # [ARG]: renamed as disconnect
+        event.remove_hooks(hook_names=hook_names)
+
     @classmethod
-    def clear_hooks(cls, event: EventClassType):
+    def remove_hooks(cls, hook_names: Union[str, Container[str]], *args, **kwargs):
+        for event in cls.get_events().values():
+            event.remove_hooks(hook_names=hook_names)
+
+    @staticmethod
+    def clear_hooks(event: EventClassType):
         event.clear_hooks()
 
     @classmethod
@@ -304,7 +314,7 @@ class ExtendedIO(HookManager):
         if ":" not in path_str:
             try:
                 path_str = os.path.abspath(path_str)
-            except:
+            except:  # noqa: E722
                 raise OSError(f"Invalid path: {path_str}")  # [TODO]: refine error
 
         start_with_sep: bool = path_str.startswith(os.path.sep)

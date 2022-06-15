@@ -14,3 +14,7 @@ JSON:
 PKL:
     default_extension: pkl
     module_name: Pickle
+
+WAV:
+    default_extension: wav
+    module_name: Wave

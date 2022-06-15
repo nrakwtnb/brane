@@ -1,16 +1,13 @@
 brane.libs package
 ==================
 
-Submodules
-----------
+Subpackages
+-----------
 
-brane.libs.hooks module
------------------------
+.. toctree::
+   :maxdepth: 4
 
-.. automodule:: brane.libs.hooks
-   :members:
-   :undoc-members:
-   :show-inheritance:
+   brane.libs.hooks
 
 Module contents
 ---------------
