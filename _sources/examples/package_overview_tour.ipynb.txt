@@ -94,7 +94,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "xio.write(text, \"./text.txt\")"
+    "xio.write(text, \"text.txt\")"
    ]
   },
   {
@@ -115,19 +115,12 @@
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "name,role,birthyear\r\n",
-      "Alice,sender,1978\r\n",
-      "Bob,receiver,1978\r\n",
-      "Carol,,1984\r\n",
-      "Eve,eavesdropper,1988\r\n",
-      "Mallory,attacker,2003\r\n",
-      "Walter,warden,\r\n",
-      "Ivan,issuer,2002"
+      "cat: ./text: No such file or directory\r\n"
      ]
     }
    ],
    "source": [
-    "!cat ./text"
+    "!cat ./text  # this line works for Linux"
    ]
   },
   {
@@ -152,7 +145,7 @@
     }
    ],
    "source": [
-    "text_reload = xio.read(\"./text.txt\")\n",
+    "text_reload = xio.read(\"text.txt\")\n",
     "assert type(text_reload) == str\n",
     "print(text_reload)"
    ]
@@ -201,7 +194,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "xio.write(text, \"./actor.csv\", module_name=\"TextIO\")   # [Note]: replaced by 'textio' in the future"
+    "xio.write(text, \"actor.csv\", module_name=\"TextIO\")   # [Note]: replaced by 'textio' in the future"
    ]
   },
   {
@@ -524,7 +517,7 @@
    ],
    "source": [
     "xio.write(df, \"actor_w_index.csv\")\n",
-    "!cat ./actor_w_index.csv"
+    "!cat ./actor_w_index.csv   # [Note]: replaced by 'textio' in the future"
    ]
   },
   {
@@ -610,7 +603,7 @@
    "id": "bb82ddbc",
    "metadata": {},
    "source": [
-    "### define own module"
+    "### Define own module"
    ]
   },
   {
@@ -631,7 +624,6 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "#from brane.typing import *\n",
     "from __future__ import annotations\n",
     "from typing import Union\n",
     "\n",
@@ -699,7 +691,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "HelloIO.dump(mapper=obj, path=\"./test.hello\")"
+    "HelloIO.dump(mapper=obj, path=\"test.hello\")"
    ]
   },
   {
@@ -749,7 +741,7 @@
     }
    ],
    "source": [
-    "HelloIO.load(path=\"./test.hello\")"
+    "HelloIO.load(path=\"test.hello\")"
    ]
   },
   {
@@ -765,7 +757,7 @@
    "id": "c2559c94",
    "metadata": {},
    "source": [
-    "### define new Module subclass"
+    "### Define new Module subclass"
    ]
   },
   {
@@ -779,7 +771,6 @@
     "\n",
     "class HelloModule(Module):\n",
     "    name = \"hello\"  # ID of this Module class\n",
-    "    loaded = True  # If you define the read/write classmethod directly in th Module subclass, you must set this.\n",
     "\n",
     "    @classmethod\n",
     "    def read(cls, path: str, *args, **kwargs):\n",
@@ -828,7 +819,7 @@
     }
    ],
    "source": [
-    "HelloModule.read(obj=obj, path=\"./test.hello\")"
+    "HelloModule.read(obj=obj, path=\"test.hello\")"
    ]
   },
   {
@@ -838,7 +829,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "HelloModule.write(obj=obj, path=\"./test2.hello\")"
+    "HelloModule.write(obj=obj, path=\"test2.hello\")"
    ]
   },
   {
@@ -875,7 +866,7 @@
    "id": "c1d65143",
    "metadata": {},
    "source": [
-    "### define new Format subclass"
+    "### Define new Format subclass"
    ]
   },
   {
@@ -898,7 +889,6 @@
     "class HelloFormat(Format):\n",
     "    name = \"hello\"  # ID of this Format class\n",
     "    module = HelloModule\n",
-    "    # module_name = HelloModule.name  # equivalent to \"hello\" in our case\n",
     "    default_extension = \"hello\"  # the extension in the path"
    ]
   },
@@ -932,7 +922,7 @@
     }
    ],
    "source": [
-    "xio.read(\"./test.hello\")"
+    "xio.read(\"test.hello\")"
    ]
   },
   {
@@ -948,7 +938,7 @@
    "id": "6371a92c",
    "metadata": {},
    "source": [
-    "### define new Object subclass"
+    "### Define new Object subclass"
    ]
   },
   {
@@ -993,7 +983,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "xio.write(obj=obj, path=\"./auto.hello\")"
+    "xio.write(obj=obj, path=\"auto.hello\")"
    ]
   },
   {
@@ -1014,7 +1004,7 @@
     }
    ],
    "source": [
-    "!cat ./auto.hello"
+    "!cat ./auto.hello  # this line works for Linux"
    ]
   },
   {
@@ -1030,17 +1020,627 @@
    "id": "13dfc396",
    "metadata": {},
    "source": [
-    "## Hook system\n",
+    "## Hook system"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "9c63079e",
+   "metadata": {},
+   "source": [
+    "### Check the pre-existing hooks"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ea82f529",
+   "metadata": {},
+   "source": [
+    "Let's save the following text to a new directory named `quotes`:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "id": "991af930",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "text = \"\"\"\n",
+    "Nobody ever figures out what life is all about, and it doesn't matter.\n",
+    "Explore the world.\n",
+    "Nearly everything is really interesting if you go into it deeply enough.\n",
+    "\"\"\".strip()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6df8087c",
+   "metadata": {},
+   "source": [
+    "First, try it without making the directory."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 28,
+   "id": "e2baaa5f",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[Errno 2] No such file or directory: 'quotes/most_like.txt'\n"
+     ]
+    }
+   ],
+   "source": [
+    "try:\n",
+    "    with open(\"quotes/most_like.txt\", \"w\") as f:\n",
+    "        f.write(text)\n",
+    "except FileNotFoundError as e:\n",
+    "    print(e)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "a80d6685",
+   "metadata": {},
+   "source": [
+    "Of course, it fails as we expected. However,"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "id": "9c354480",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "xio.write(obj=text, path=\"quotes/most_like.txt\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "id": "3ddde0ba",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Nobody ever figures out what life is all about, and it doesn't matter.\r\n",
+      "Explore the world.\r\n",
+      "Nearly everything is really interesting if you go into it deeply enough."
+     ]
+    }
+   ],
+   "source": [
+    "!cat quotes/most_like.txt  # this line works for Linux"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "532ea02c",
+   "metadata": {},
+   "source": [
+    "where no previous error happens if we save it through eXtend-I/O ! The reason is that this called a hook function which creates the missing directory before saving. This can be checked by accessing the attribute `pre_write`:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 31,
+   "id": "eb5e81da",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "1. 1e53467d3f5de7fb: <function create_parent_directory at 0x7f6fb8742e50>"
+      ]
+     },
+     "execution_count": 31,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "xio.pre_write"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e172383c",
+   "metadata": {},
+   "source": [
+    "where you see two strings at least except a number on top:\n",
+    "* a hex sequence is a hook ID automatically assigned on the left\n",
+    "* `<function create_parent_directory at ...>` points to the python function named `create_parent_directory` which is exactly called at the above execution."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "1267faac",
+   "metadata": {},
+   "source": [
+    "### Add new hook"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 32,
+   "id": "6ff3d7a0",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "\"Nobody ever figures out what life is all about, and it doesn't matter.\\nExplore the world.\\nNearly everything is really interesting if you go into it deeply enough.\""
+      ]
+     },
+     "execution_count": 32,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "xio.read(\"quotes/most_like.txt\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "205c956f",
+   "metadata": {},
+   "source": [
+    "Let's consider new hooks:\n",
+    "* remove the line break (`\\n`) on loading any text\n",
+    "* put the copyright symbol on the last on saving any text"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "65f4b5ed",
+   "metadata": {},
+   "source": [
+    "First of all, check the default behaviour:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 33,
+   "id": "61f7ca2b",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "\"Nobody ever figures out what life is all about, and it doesn't matter.\\nExplore the world.\\nNearly everything is really interesting if you go into it deeply enough.\""
+      ]
+     },
+     "execution_count": 33,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "xio.read(\"quotes/most_like.txt\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "bd20e092",
+   "metadata": {},
+   "source": [
+    "OK. Now, define a function replacing any line break by a space."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 34,
+   "id": "c14dc884",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def remove_linebreaks(context):\n",
+    "    obj = context[\"object\"]  # Currently, you must put this line for all hooks. Then, `obj` variable is the loaded object on loading.\n",
+    "    if isinstance(obj, str):\n",
+    "        return obj.replace(\"\\n\", \" \")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "28037f30",
+   "metadata": {},
+   "source": [
+    "And add it."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 35,
+   "id": "f1e80a40",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "xio.register_post_read_hook(hook=remove_linebreaks)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "3ade914d",
+   "metadata": {},
+   "source": [
+    "Now, read it again"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 36,
+   "id": "a642fdf5",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "\"Nobody ever figures out what life is all about, and it doesn't matter. Explore the world. Nearly everything is really interesting if you go into it deeply enough.\""
+      ]
+     },
+     "execution_count": 36,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "loaded_text: str = xio.read(\"quotes/most_like.txt\")\n",
+    "loaded_text"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e4d21a09",
+   "metadata": {},
+   "source": [
+    "You see no line breaks now."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "2c3d2395",
+   "metadata": {},
+   "source": [
+    "Next, let'a add copyright on the last line for every text."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 37,
+   "id": "e5cdf48e",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'© 2022 Richard P.Feynman'"
+      ]
+     },
+     "execution_count": 37,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "import datetime\n",
     "\n",
-    "coming soon..."
+    "author_name: str = \"Richard P.Feynman\"\n",
+    "copyright: str = f\"© {datetime.datetime.today().year} {author_name}\"\n",
+    "#copyright: str = f\"(C) {datetime.datetime.today().year} {author_name}\"\n",
+    "copyright"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c4291cd4",
+   "metadata": {},
+   "source": [
+    "In the same way as above, define the function and register it:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 38,
+   "id": "0abaa38f",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def append_copyright(context):\n",
+    "    obj = context[\"object\"]\n",
+    "    if isinstance(obj, str):\n",
+    "        return obj + \"\\n\" + copyright"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 39,
+   "id": "581f4e18",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "xio.register_pre_write_hook(hook=append_copyright)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "73d6db0d",
+   "metadata": {},
+   "source": [
+    "You see the two hooks are not registered at the pre-write hooks."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 40,
+   "id": "4c83db01",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "1. 1e53467d3f5de7fb: <function create_parent_directory at 0x7f6fb8742e50>\n",
+       "2. b76a82cc12dc7c98: <function append_copyright at 0x7f6f89894040>"
+      ]
+     },
+     "execution_count": 40,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "xio.pre_write"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "5d7f38f2",
+   "metadata": {},
+   "source": [
+    "Write the text again,"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 41,
+   "id": "54aa0bc0",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "xio.write(obj=loaded_text, path=\"quotes/most_like_with_copyright.txt\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "52002770",
+   "metadata": {},
+   "source": [
+    "then you check that the new text includes the copyright at the bottom !"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 42,
+   "id": "eaf36478",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Nobody ever figures out what life is all about, and it doesn't matter. Explore the world. Nearly everything is really interesting if you go into it deeply enough.\r\n",
+      "© 2022 Richard P.Feynman"
+     ]
+    }
+   ],
+   "source": [
+    "!cat ./quotes/most_like_with_copyright.txt"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "26330437",
+   "metadata": {},
+   "source": [
+    "Finally, let's comment how to check all the registered hooks and to remove unnecessary hooks.\n",
+    "The check is easy: just call `show_events` methods."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 43,
+   "id": "a1fe780b",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Event: post_read\n",
+      "1. 383c172cfeb50988: <function remove_linebreaks at 0x7f6f8a162670>\n",
+      "Event: post_readall\n",
+      " No hooks are registered\n",
+      "Event: post_write\n",
+      " No hooks are registered\n",
+      "Event: post_writeall\n",
+      " No hooks are registered\n",
+      "Event: pre_read\n",
+      "1. bf81e0d209c0b106: <function check_path_existence at 0x7f6fb8742ca0>\n",
+      "Event: pre_readall\n",
+      " No hooks are registered\n",
+      "Event: pre_write\n",
+      "1. 1e53467d3f5de7fb: <function create_parent_directory at 0x7f6fb8742e50>\n",
+      "2. b76a82cc12dc7c98: <function append_copyright at 0x7f6f89894040>\n",
+      "Event: pre_writeall\n",
+      " No hooks are registered\n"
+     ]
+    }
+   ],
+   "source": [
+    "xio.show_events()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "8824a0aa",
+   "metadata": {},
+   "source": [
+    "Now, consider removing the hook we add at the post-reading: `remove_linebreaks`. The hook name/id is given by"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 44,
+   "id": "617c505a",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'383c172cfeb50988'"
+      ]
+     },
+     "execution_count": 44,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# This is just temporal function to get the 1st hook id\n",
+    "# Of course, you can take it from the above hook list and copy it\n",
+    "def get_hook_names(event) -> list[str]:\n",
+    "    return [ hook.hook_name for hook in event.hooks ]\n",
+    "\n",
+    "hook_id = next(iter(get_hook_names(xio.post_read)))\n",
+    "hook_id"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 45,
+   "id": "5f58c89b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "xio.remove_hooks(hook_id)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "71742996",
+   "metadata": {},
+   "source": [
+    "Now, it's gone as you see in the below."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 46,
+   "id": "98971cf9",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Event: post_read\n",
+      " No hooks are registered\n",
+      "Event: post_readall\n",
+      " No hooks are registered\n",
+      "Event: post_write\n",
+      " No hooks are registered\n",
+      "Event: post_writeall\n",
+      " No hooks are registered\n",
+      "Event: pre_read\n",
+      "1. bf81e0d209c0b106: <function check_path_existence at 0x7f6fb8742ca0>\n",
+      "Event: pre_readall\n",
+      " No hooks are registered\n",
+      "Event: pre_write\n",
+      "1. 1e53467d3f5de7fb: <function create_parent_directory at 0x7f6fb8742e50>\n",
+      "2. b76a82cc12dc7c98: <function append_copyright at 0x7f6f89894040>\n",
+      "Event: pre_writeall\n",
+      " No hooks are registered\n"
+     ]
+    }
+   ],
+   "source": [
+    "xio.show_events()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "feb13d8b",
+   "metadata": {},
+   "source": [
+    "If you remove all, you can call the following method `clear_all_hooks` but it erases all the registered hooks.\n",
+    "Note: Of course, if you restart the session, you will see the initally registered hooks when the X-I/O is loaded."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 47,
+   "id": "047d0ef8",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "xio.clear_all_hooks()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 48,
+   "id": "1b5c478c",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Event: post_read\n",
+      " No hooks are registered\n",
+      "Event: post_readall\n",
+      " No hooks are registered\n",
+      "Event: post_write\n",
+      " No hooks are registered\n",
+      "Event: post_writeall\n",
+      " No hooks are registered\n",
+      "Event: pre_read\n",
+      " No hooks are registered\n",
+      "Event: pre_readall\n",
+      " No hooks are registered\n",
+      "Event: pre_write\n",
+      " No hooks are registered\n",
+      "Event: pre_writeall\n",
+      " No hooks are registered\n"
+     ]
+    }
+   ],
+   "source": [
+    "xio.show_events()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "76c6704f",
+   "metadata": {},
+   "source": [
+    "Now, you did a great job and know our package well !"
    ]
   }
  ],
  "metadata": {
   "kernelspec": {
-   "display_name": "IOManager_Exp_Py39",
+   "display_name": "Python 3",
    "language": "python",
-   "name": "iomanager_exp_py39"
+   "name": "python3"
   },
   "language_info": {
    "codemirror_mode": {
@@ -1063,7 +1663,12 @@
    "title_cell": "Table of Contents",
    "title_sidebar": "Contents",
    "toc_cell": false,
-   "toc_position": {},
+   "toc_position": {
+    "height": "calc(100% - 180px)",
+    "left": "10px",
+    "top": "150px",
+    "width": "340.083px"
+   },
    "toc_section_display": true,
    "toc_window_display": true
   }

@@ -64,13 +64,17 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#Customization">Customization</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#define-own-module">define own module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#define-new-Module-subclass">define new Module subclass</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#define-new-Format-subclass">define new Format subclass</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#define-new-Object-subclass">define new Object subclass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Define-own-module">Define own module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Define-new-Module-subclass">Define new Module subclass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Define-new-Format-subclass">Define new Format subclass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Define-new-Object-subclass">Define new Object subclass</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#Hook-system">Hook system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Hook-system">Hook system</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Check-the-pre-existing-hooks">Check the pre-existing hooks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Add-new-hook">Add new hook</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -453,7 +457,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xio</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot;./text.txt&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xio</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot;text.txt&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -462,7 +466,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>cat ./text
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>cat ./text  # this line works <span class="k">for</span> Linux
 </pre></div>
 </div>
 </div>
@@ -471,21 +475,14 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-name,role,birthyear
-Alice,sender,1978
-Bob,receiver,1978
-Carol,,1984
-Eve,eavesdropper,1988
-Mallory,attacker,2003
-Walter,warden,
-Ivan,issuer,2002
+cat: ./text: No such file or directory
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text_reload</span> <span class="o">=</span> <span class="n">xio</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;./text.txt&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text_reload</span> <span class="o">=</span> <span class="n">xio</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;text.txt&quot;</span><span class="p">)</span>
 <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">text_reload</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">text_reload</span><span class="p">)</span>
 </pre></div>
@@ -529,7 +526,7 @@ True
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xio</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot;./actor.csv&quot;</span><span class="p">,</span> <span class="n">module_name</span><span class="o">=</span><span class="s2">&quot;TextIO&quot;</span><span class="p">)</span>   <span class="c1"># [Note]: replaced by &#39;textio&#39; in the future</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xio</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot;actor.csv&quot;</span><span class="p">,</span> <span class="n">module_name</span><span class="o">=</span><span class="s2">&quot;TextIO&quot;</span><span class="p">)</span>   <span class="c1"># [Note]: replaced by &#39;textio&#39; in the future</span>
 </pre></div>
 </div>
 </div>
@@ -766,7 +763,7 @@ True
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xio</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s2">&quot;actor_w_index.csv&quot;</span><span class="p">)</span>
-<span class="o">!</span>cat ./actor_w_index.csv
+<span class="o">!</span>cat ./actor_w_index.csv   # <span class="o">[</span>Note<span class="o">]</span>: replaced by <span class="s1">&#39;textio&#39;</span> <span class="k">in</span> the future
 </pre></div>
 </div>
 </div>
@@ -821,8 +818,8 @@ Ivan,issuer,2002.0
 <li><p>it treats the Python dictionary</p></li>
 </ul>
 <p>from brane import Module, Format, Object</p>
-<section id="define-own-module">
-<h3>define own module<a class="headerlink" href="#define-own-module" title="Permalink to this heading"></a></h3>
+<section id="Define-own-module">
+<h3>Define own module<a class="headerlink" href="#Define-own-module" title="Permalink to this heading"></a></h3>
 <p>For that purpose, let’s define our own format ‘hello’ with its classs implementation as follows.</p>
 <ul class="simple">
 <li><p>header (1st line): a symbol which plays role as a separator in the following lines</p></li>
@@ -832,8 +829,7 @@ Ivan,issuer,2002.0
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#from brane.typing import *</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
 
 <span class="k">class</span> <span class="nc">HelloClass</span><span class="p">():</span>
@@ -882,7 +878,7 @@ Ivan,issuer,2002.0
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">HelloIO</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">mapper</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;./test.hello&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">HelloIO</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">mapper</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;test.hello&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -910,7 +906,7 @@ Mar: 3
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">HelloIO</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./test.hello&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">HelloIO</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;test.hello&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -925,8 +921,8 @@ Mar: 3
 </div>
 <p>Good.</p>
 </section>
-<section id="define-new-Module-subclass">
-<h3>define new Module subclass<a class="headerlink" href="#define-new-Module-subclass" title="Permalink to this heading"></a></h3>
+<section id="Define-new-Module-subclass">
+<h3>Define new Module subclass<a class="headerlink" href="#Define-new-Module-subclass" title="Permalink to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
@@ -935,7 +931,6 @@ Mar: 3
 
 <span class="k">class</span> <span class="nc">HelloModule</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span>  <span class="c1"># ID of this Module class</span>
-    <span class="n">loaded</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># If you define the read/write classmethod directly in th Module subclass, you must set this.</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -958,7 +953,7 @@ Mar: 3
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">HelloModule</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">obj</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;./test.hello&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">HelloModule</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">obj</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;test.hello&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -975,7 +970,7 @@ Mar: 3
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">HelloModule</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">obj</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;./test2.hello&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">HelloModule</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">obj</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;test2.hello&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1000,8 +995,8 @@ Mar: 3
 </div>
 <p>No problem at all.</p>
 </section>
-<section id="define-new-Format-subclass">
-<h3>define new Format subclass<a class="headerlink" href="#define-new-Format-subclass" title="Permalink to this heading"></a></h3>
+<section id="Define-new-Format-subclass">
+<h3>Define new Format subclass<a class="headerlink" href="#Define-new-Format-subclass" title="Permalink to this heading"></a></h3>
 <p>Next, we must implement another class called <code class="docutils literal notranslate"><span class="pre">Format</span></code> which connect the above reading/writing module and the extension.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
@@ -1012,7 +1007,6 @@ Mar: 3
 <span class="k">class</span> <span class="nc">HelloFormat</span><span class="p">(</span><span class="n">Format</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span>  <span class="c1"># ID of this Format class</span>
     <span class="n">module</span> <span class="o">=</span> <span class="n">HelloModule</span>
-    <span class="c1"># module_name = HelloModule.name  # equivalent to &quot;hello&quot; in our case</span>
     <span class="n">default_extension</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span>  <span class="c1"># the extension in the path</span>
 </pre></div>
 </div>
@@ -1026,7 +1020,7 @@ Mar: 3
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xio</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;./test.hello&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xio</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;test.hello&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1041,8 +1035,8 @@ Mar: 3
 </div>
 <p>OK, great work ! Now, the brane I/O choose the correct module based on the extension.</p>
 </section>
-<section id="define-new-Object-subclass">
-<h3>define new Object subclass<a class="headerlink" href="#define-new-Object-subclass" title="Permalink to this heading"></a></h3>
+<section id="Define-new-Object-subclass">
+<h3>Define new Object subclass<a class="headerlink" href="#Define-new-Object-subclass" title="Permalink to this heading"></a></h3>
 <p>Finally, let’s save our Hello object in our Hello format i.e. with the <code class="docutils literal notranslate"><span class="pre">.hello</span></code> extension.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
@@ -1067,7 +1061,7 @@ Mar: 3
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xio</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">obj</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;./auto.hello&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xio</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">obj</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;auto.hello&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1075,7 +1069,7 @@ Mar: 3
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>cat ./auto.hello
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>cat ./auto.hello  # this line works <span class="k">for</span> Linux
 </pre></div>
 </div>
 </div>
@@ -1095,7 +1089,397 @@ Mar: 3
 </section>
 <section id="Hook-system">
 <h2>Hook system<a class="headerlink" href="#Hook-system" title="Permalink to this heading"></a></h2>
-<p>coming soon…</p>
+<section id="Check-the-pre-existing-hooks">
+<h3>Check the pre-existing hooks<a class="headerlink" href="#Check-the-pre-existing-hooks" title="Permalink to this heading"></a></h3>
+<p>Let’s save the following text to a new directory named <code class="docutils literal notranslate"><span class="pre">quotes</span></code>:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Nobody ever figures out what life is all about, and it doesn&#39;t matter.</span>
+<span class="s2">Explore the world.</span>
+<span class="s2">Nearly everything is really interesting if you go into it deeply enough.</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>First, try it without making the directory.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;quotes/most_like.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">FileNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[Errno 2] No such file or directory: &#39;quotes/most_like.txt&#39;
+</pre></div></div>
+</div>
+<p>Of course, it fails as we expected. However,</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xio</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">obj</span><span class="o">=</span><span class="n">text</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;quotes/most_like.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>cat quotes/most_like.txt  # this line works <span class="k">for</span> Linux
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Nobody ever figures out what life is all about, and it doesn&#39;t matter.
+Explore the world.
+Nearly everything is really interesting if you go into it deeply enough.
+</pre></div></div>
+</div>
+<p>where no previous error happens if we save it through eXtend-I/O ! The reason is that this called a hook function which creates the missing directory before saving. This can be checked by accessing the attribute <code class="docutils literal notranslate"><span class="pre">pre_write</span></code>:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xio</span><span class="o">.</span><span class="n">pre_write</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1. 1e53467d3f5de7fb: &lt;function create_parent_directory at 0x7f6fb8742e50&gt;
+</pre></div></div>
+</div>
+<p>where you see two strings at least except a number on top: * a hex sequence is a hook ID automatically assigned on the left * <code class="docutils literal notranslate"><span class="pre">&lt;function</span> <span class="pre">create_parent_directory</span> <span class="pre">at</span> <span class="pre">...&gt;</span></code> points to the python function named <code class="docutils literal notranslate"><span class="pre">create_parent_directory</span></code> which is exactly called at the above execution.</p>
+</section>
+<section id="Add-new-hook">
+<h3>Add new hook<a class="headerlink" href="#Add-new-hook" title="Permalink to this heading"></a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xio</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;quotes/most_like.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#34;Nobody ever figures out what life is all about, and it doesn&#39;t matter.\nExplore the world.\nNearly everything is really interesting if you go into it deeply enough.&#34;
+</pre></div></div>
+</div>
+<p>Let’s consider new hooks: * remove the line break (<code class="docutils literal notranslate"><span class="pre">\n</span></code>) on loading any text * put the copyright symbol on the last on saving any text</p>
+<p>First of all, check the default behaviour:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xio</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;quotes/most_like.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#34;Nobody ever figures out what life is all about, and it doesn&#39;t matter.\nExplore the world.\nNearly everything is really interesting if you go into it deeply enough.&#34;
+</pre></div></div>
+</div>
+<p>OK. Now, define a function replacing any line break by a space.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">remove_linebreaks</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;object&quot;</span><span class="p">]</span>  <span class="c1"># Currently, you must put this line for all hooks. Then, `obj` variable is the loaded object on loading.</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>And add it.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xio</span><span class="o">.</span><span class="n">register_post_read_hook</span><span class="p">(</span><span class="n">hook</span><span class="o">=</span><span class="n">remove_linebreaks</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Now, read it again</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">loaded_text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">xio</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;quotes/most_like.txt&quot;</span><span class="p">)</span>
+<span class="n">loaded_text</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#34;Nobody ever figures out what life is all about, and it doesn&#39;t matter. Explore the world. Nearly everything is really interesting if you go into it deeply enough.&#34;
+</pre></div></div>
+</div>
+<p>You see no line breaks now.</p>
+<p>Next, let’a add copyright on the last line for every text.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
+
+<span class="n">author_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Richard P.Feynman&quot;</span>
+<span class="n">copyright</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;© </span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">author_name</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="c1">#copyright: str = f&quot;(C) {datetime.datetime.today().year} {author_name}&quot;</span>
+<span class="n">copyright</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;© 2022 Richard P.Feynman&#39;
+</pre></div></div>
+</div>
+<p>In the same way as above, define the function and register it:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">append_copyright</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;object&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">obj</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">copyright</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xio</span><span class="o">.</span><span class="n">register_pre_write_hook</span><span class="p">(</span><span class="n">hook</span><span class="o">=</span><span class="n">append_copyright</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>You see the two hooks are not registered at the pre-write hooks.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xio</span><span class="o">.</span><span class="n">pre_write</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1. 1e53467d3f5de7fb: &lt;function create_parent_directory at 0x7f6fb8742e50&gt;
+2. b76a82cc12dc7c98: &lt;function append_copyright at 0x7f6f89894040&gt;
+</pre></div></div>
+</div>
+<p>Write the text again,</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xio</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">obj</span><span class="o">=</span><span class="n">loaded_text</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;quotes/most_like_with_copyright.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>then you check that the new text includes the copyright at the bottom !</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>cat ./quotes/most_like_with_copyright.txt
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Nobody ever figures out what life is all about, and it doesn&#39;t matter. Explore the world. Nearly everything is really interesting if you go into it deeply enough.
+© 2022 Richard P.Feynman
+</pre></div></div>
+</div>
+<p>Finally, let’s comment how to check all the registered hooks and to remove unnecessary hooks. The check is easy: just call <code class="docutils literal notranslate"><span class="pre">show_events</span></code> methods.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xio</span><span class="o">.</span><span class="n">show_events</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Event: post_read
+1. 383c172cfeb50988: &lt;function remove_linebreaks at 0x7f6f8a162670&gt;
+Event: post_readall
+ No hooks are registered
+Event: post_write
+ No hooks are registered
+Event: post_writeall
+ No hooks are registered
+Event: pre_read
+1. bf81e0d209c0b106: &lt;function check_path_existence at 0x7f6fb8742ca0&gt;
+Event: pre_readall
+ No hooks are registered
+Event: pre_write
+1. 1e53467d3f5de7fb: &lt;function create_parent_directory at 0x7f6fb8742e50&gt;
+2. b76a82cc12dc7c98: &lt;function append_copyright at 0x7f6f89894040&gt;
+Event: pre_writeall
+ No hooks are registered
+</pre></div></div>
+</div>
+<p>Now, consider removing the hook we add at the post-reading: <code class="docutils literal notranslate"><span class="pre">remove_linebreaks</span></code>. The hook name/id is given by</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This is just temporal function to get the 1st hook id</span>
+<span class="c1"># Of course, you can take it from the above hook list and copy it</span>
+<span class="k">def</span> <span class="nf">get_hook_names</span><span class="p">(</span><span class="n">event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="p">[</span> <span class="n">hook</span><span class="o">.</span><span class="n">hook_name</span> <span class="k">for</span> <span class="n">hook</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">hooks</span> <span class="p">]</span>
+
+<span class="n">hook_id</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">get_hook_names</span><span class="p">(</span><span class="n">xio</span><span class="o">.</span><span class="n">post_read</span><span class="p">)))</span>
+<span class="n">hook_id</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;383c172cfeb50988&#39;
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xio</span><span class="o">.</span><span class="n">remove_hooks</span><span class="p">(</span><span class="n">hook_id</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Now, it’s gone as you see in the below.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xio</span><span class="o">.</span><span class="n">show_events</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Event: post_read
+ No hooks are registered
+Event: post_readall
+ No hooks are registered
+Event: post_write
+ No hooks are registered
+Event: post_writeall
+ No hooks are registered
+Event: pre_read
+1. bf81e0d209c0b106: &lt;function check_path_existence at 0x7f6fb8742ca0&gt;
+Event: pre_readall
+ No hooks are registered
+Event: pre_write
+1. 1e53467d3f5de7fb: &lt;function create_parent_directory at 0x7f6fb8742e50&gt;
+2. b76a82cc12dc7c98: &lt;function append_copyright at 0x7f6f89894040&gt;
+Event: pre_writeall
+ No hooks are registered
+</pre></div></div>
+</div>
+<p>If you remove all, you can call the following method <code class="docutils literal notranslate"><span class="pre">clear_all_hooks</span></code> but it erases all the registered hooks. Note: Of course, if you restart the session, you will see the initally registered hooks when the X-I/O is loaded.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xio</span><span class="o">.</span><span class="n">clear_all_hooks</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xio</span><span class="o">.</span><span class="n">show_events</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Event: post_read
+ No hooks are registered
+Event: post_readall
+ No hooks are registered
+Event: post_write
+ No hooks are registered
+Event: post_writeall
+ No hooks are registered
+Event: pre_read
+ No hooks are registered
+Event: pre_readall
+ No hooks are registered
+Event: pre_write
+ No hooks are registered
+Event: pre_writeall
+ No hooks are registered
+</pre></div></div>
+</div>
+<p>Now, you did a great job and know our package well !</p>
+</section>
 </section>
 </section>
 
