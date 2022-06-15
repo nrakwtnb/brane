@@ -2,8 +2,10 @@ Pillow:
     name: Pillow
     module_name: PIL.Image
 
+    # [TODO]: will be repalced in the future
     module_read_method_name: open
 
+    # [TODO]: will be repalced in the future
     object_write_method_name: save
 
 CV2:
@@ -81,3 +83,10 @@ Toml:
     file_open_for_write: true
     module_write_method_name: dump
     file_arg_first: false
+
+OpenPyxl:
+    module_name: openpyxl
+
+    module_read_method_name: load_workbook
+
+    object_write_method_name: save

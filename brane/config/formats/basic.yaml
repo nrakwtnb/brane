@@ -33,3 +33,7 @@ NPY:
 NPZ:
     default_extension: npz
     module_name: Numpy
+
+XLSX:
+    default_extension: xlsx
+    module_name: OpenPyxl

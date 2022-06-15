@@ -28,9 +28,13 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
 
     Args:
         name:
+        loaded:
+        reload_modules:
+        read:
+        write:
+
         module_name:
         module:
-        loaded:
 
         module_read_method_name:
         module_read_method:
@@ -40,6 +44,7 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
         transform:
         transform_name:
         transform_info:
+        object_transform_method_name:
 
         module_write_method_name:
         module_write_method:
@@ -61,9 +66,15 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
         generate_params_read:
         generate_params_write:
 
+        filesystems:
+
     Note:
         Argument version v0.0
     """
+
+    # [ARG]: may split two type of classes
+    # 1. Base Module class which should be inheritated
+    # 2. Config Module class defined here
 
     _registered_subclasses: dict = {}
     priority: int = 50
@@ -85,6 +96,7 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
     transform: Optional[Callable] = None
     transform_name: Optional[str] = None
     transform_info: Optional[tuple[str, ...]] = None
+    object_transform_method_name: Optional[str] = None
 
     module_write_method: Callable = None
     module_write_method_name: Optional[str] = None
@@ -106,27 +118,32 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
     generate_params_read = None  # unnecessary ?
     generate_params_write = None
 
+    filesystems: dict = {}
+
     @classmethod
     def load_modules(cls):
         """lazy loading of modules and setting their attributes or methods to this class."""
         if cls.loaded:
             return None
 
-        if cls.module_name:
+        if getattr(cls, "module_name", None):
             if cls.module is None:
                 cls.module = importlib.import_module(cls.module_name)
 
         # set read method
-        if cls.module_read_method_name:
+        if getattr(cls, "module_read_method_name", None):
             cls.module_read_method = getattr(cls.module, cls.module_read_method_name)
-        elif cls.file_read_method_name:
+        elif getattr(cls, "file_read_method_name", None):
             pass
         else:
-            # [ARGS]: other error type ?
-            raise ValueError("neither 'module_read_method_name' nor 'file_read_method_name' is undefined")
-        if cls.transform_name:
+            pass
+            # # [ARGS]: other error type ?
+            # raise ValueError(
+            #     "neither 'module_read_method_name' nor 'file_read_method_name' is undefined"
+            # )
+        if getattr(cls, "transform_name", None):
             cls.transform = getattr(cls.module, cls.transform_name)
-        if cls.transform_info:
+        if getattr(cls, "transform_info", None):
             transform_module_name, *attrs = cls.transform_info
             method = importlib.import_module(transform_module_name)
             for attr in attrs:
@@ -134,17 +151,18 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
             cls.transform = method
 
         # set write method
-        if cls.module_write_method_name:
+        if getattr(cls, "module_write_method_name", None):
             cls.module_write_method = getattr(cls.module, cls.module_write_method_name)
-        elif cls.object_write_method_name:
+        elif getattr(cls, "object_write_method_name", None):
             pass
-        elif cls.file_write_method_name:
+        elif getattr(cls, "file_write_method_name", None):
             pass
         else:
-            # [ARGS]: other error type ?
-            raise ValueError(
-                "neither 'module_write_method_name', 'object_write_method_name' nor 'file_write_method_name' is undefined"
-            )
+            pass
+            # # [ARGS]: other error type ?
+            # raise ValueError(
+            #     "neither 'module_write_method_name', 'object_write_method_name' nor 'file_write_method_name' is undefined"
+            # )
 
         cls.loaded = True
 
@@ -155,7 +173,14 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
         cls.load_modules()
 
     @classmethod
-    def read(cls, path: Optional[PathType] = None, file: Optional[FileType] = None, *args, **kwargs) -> Any:
+    def read(
+        cls,
+        path: Optional[PathType] = None,
+        file: Optional[FileType] = None,
+        io: Optional[IOType] = None,
+        *args,
+        **kwargs,
+    ) -> Any:
         """read from path or file stream.
 
         Args:
@@ -179,7 +204,7 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
 
         if file is None:
             if cls.file_open_for_read:
-                file = open(path, **cls.open_mode_for_read)
+                file = io.open(path, **cls.open_mode_for_read)
             else:
                 file = path
         assert file is not None
@@ -196,6 +221,10 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
         # do post-process
         if cls.transform:
             obj = cls.transform(obj)
+        if cls.object_transform_method_name:
+            if not hasattr(obj, cls.object_transform_method_name):
+                raise AttributeError()  # [TODO]: error messsage
+            obj = getattr(obj, cls.object_transform_method_name)()
 
         if cls.file_open_for_read:
             file.close()
@@ -204,7 +233,15 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
         return obj
 
     @classmethod
-    def write(cls, obj: Any, path: Optional[PathType] = None, file: Optional[FileType] = None, *args, **kwargs):
+    def write(
+        cls,
+        obj: Any,
+        path: Optional[PathType] = None,
+        file: Optional[FileType] = None,
+        io: Optional[IOType] = None,
+        *args,
+        **kwargs,
+    ) -> Any:
         """write objects to the file specified by path object or file object.
 
         Args:
@@ -224,7 +261,7 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
 
         if file is None:
             if cls.file_open_for_write:
-                file = open(path, **cls.open_mode_for_write)
+                file = io.open(path, **cls.open_mode_for_write)
             else:
                 file = path
 

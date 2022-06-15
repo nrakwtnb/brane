@@ -84,6 +84,14 @@ brane.core.utils module
    :undoc-members:
    :show-inheritance:
 
+brane.core.xio module
+---------------------
+
+.. automodule:: brane.core.xio
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 

@@ -5,6 +5,26 @@ from abc import ABCMeta, abstractmethod
 from brane.typing import *  # noqa: F403
 
 
+def generate_hash_from_objects(*immutable_objects) -> str:
+    import math
+    import sys
+
+    SYS_SIZE = sys.maxsize + 1 * 2  # = 2**32 or 2**64
+
+    def get_binary_hash(obj, size: int) -> str:
+        binary = bin(hash(obj) % size)[2:]
+        length = int(math.log2(size))
+        if 2**length < size:
+            length += 1
+        return binary.zfill(length)
+
+    concat_binary = ""
+    for obj in immutable_objects:
+        concat_binary += get_binary_hash(obj, size=SYS_SIZE)
+    total_length_for_hex = (len(concat_binary) - 1) // 4 + 1
+    return hex(int(concat_binary, 2))[2:].zfill(total_length_for_hex)
+
+
 class Hook(HookClassType, metaclass=ABCMeta):
     hook_name: Optional[str] = None
     flag: HookFlagType = None  # [ARG]: other name convention: marker
@@ -59,6 +79,11 @@ class FunctionHook(Hook):
             container_type (None|'list'|'tuple'|'dict'):
             is_multiple_objects (bool):
         """
+        if name is None:
+            import hashlib
+
+            python_hash_value = generate_hash_from_objects(func, condition_func)
+            name = hashlib.md5(python_hash_value.encode()).hexdigest()[::2]
         super().__init__(name=name, flag=flag)
         self.hook_func = func
 
@@ -116,7 +141,8 @@ class FunctionHook(Hook):
         return self.condition_func(info)
 
     def __repr__(self) -> str:
-        if self.hook_name is not None:
-            return self.hook_name
-        else:
-            return repr(self.hook_func)
+        return f"{self.hook_name}: {repr(self.hook_func)}"
+        # if self.hook_name is not None:
+        #    return self.hook_name
+        # else:
+        #    return repr(self.hook_func)

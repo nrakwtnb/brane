@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import builtins
+
 from brane.typing import *  # noqa: F403
 
 MultipleHookClassType = Union[
@@ -39,11 +41,80 @@ class Event(EventClassType):
         self.allowed_flags: HookFlagType = None  # fixed in the future
         self.denied_flags: HookFlagType = None  # fixed in the future
 
+    def __len__(self) -> int:
+        return len(self.hooks)
+
+    def get_hook_names(self, exclude_none: bool = True) -> list[Optional[str]]:
+        return [hook.hook_name for hook in self.hooks if not exclude_none or hook.hook_name is not None]
+
+    def search_hook_name_with_index(self, target_name: str, exact: bool = False) -> tuple[int, str]:
+        if exact:
+            name_with_target = [
+                (idx, name) for idx, name in enumerate(self.get_hook_names(exclude_none=True)) if name == target_name
+            ]
+        else:
+            name_with_target = [
+                (idx, name)
+                for idx, name in enumerate(self.get_hook_names(exclude_none=True))
+                if name.startswith(target_name)
+            ]
+        if len(name_with_target) == 0:
+            raise ValueError("No match.")
+        elif len(name_with_target) == 1:
+            return next(iter(name_with_target))
+        else:
+            raise ValueError("Not unique.")
+
     # @classmethod
-    def add_hooks(self, hook_funcs: MultipleHookClassType):
+    def add_hooks(
+        self,
+        hook_funcs: MultipleHookClassType,
+        ref_index: Optional[int] = None,
+        ref_name: Optional[str] = None,
+        loc: Union['before', 'after'] = 'after',
+    ):
+        num_registered_hooks = len(self.hooks)
+        if ref_name:
+            ref_index, _ = self.search_hook_name_with_index(target_name=ref_name, exact=False)
+        elif ref_index is None:
+            ref_index = num_registered_hooks
+        elif -num_registered_hooks <= ref_index < 0:
+            ref_index += num_registered_hooks
+        elif 0 <= ref_index <= num_registered_hooks:
+            pass
+        else:
+            raise ValueError(
+                f"`ref_index` should be between {-num_registered_hooks} and {num_registered_hooks} but actually {ref_index}"
+            )
+
         hook_funcs = convert_obj_into_list(hook_funcs)
         print(f"[DEBUG]: add {hook_funcs} at {self}")
-        self.hooks.extend(hook_funcs)
+        if loc == 'before':
+            hooks_former = self.hooks[:ref_index]
+            hooks_latter = self.hooks[ref_index:]
+        elif loc == 'after':
+            hooks_former = self.hooks[: ref_index + 1]
+            hooks_latter = self.hooks[ref_index + 1 :]
+        else:
+            raise AssertionError(loc)
+        self.hooks = hooks_former + hook_funcs + hooks_latter
+        # self.hooks.extend(hook_funcs)
+
+    # @classmethod
+    def remove_hooks(self, hook_names: Union[str, Container[str]], strict: bool = False):
+        # [MEMO]: When strict = True, it requires all the hook id should appear exactly once
+        if strict:
+            raise NotImplementedError
+
+        if isinstance(hook_names, str):
+            hook_name = [hook_names]
+
+        def check_no_inclusion_of_hook_name(hook: HookClassType) -> bool:
+            nonlocal hook_names
+            return hook.hook_name not in hook_names
+
+        new_hooks = list(filter(check_no_inclusion_of_hook_name, self.hooks))
+        self.hooks = new_hooks
 
     # @classmethod
     def clear_hooks(self):
@@ -79,17 +150,17 @@ class Event(EventClassType):
             if verbose:
                 active_: bool = self.active
                 if not active_:
-                    print(f"skipped '{hook.hook_name}': non-active")
+                    builtins.print(f"skipped '{hook.hook_name}': non-active")
                     continue
                 flag_check_: bool = self.check_flag(hook.flag)
                 if not flag_check_:
-                    print(f"skipped '{hook.hook_name}': out of flags")
+                    builtins.print(f"skipped '{hook.hook_name}': out of flags")
                     continue
                 if called:
-                    print(f"called '{hook.hook_name}'")
+                    builtins.print(f"called '{hook.hook_name}'")
                 else:
                     # [ARG]: allow us to access the reason why this is not satisfied ?
-                    print(f"skipped '{hook.hook_name}': out of conditions")
+                    builtins.print(f"skipped '{hook.hook_name}': out of conditions")
         return info
 
     def __repr__(self) -> str:
