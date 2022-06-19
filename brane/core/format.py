@@ -23,6 +23,8 @@ class MetaFormat(type):
     # [TODO] python>=3.9, move to class as classmethod property
     @property
     def registered_formats(cls) -> dict:
+        # [ARG]: It assumes it is used as mixin with BaseSubclassRegister.
+        #     And this line raises mypy error ("MetaFormat" has no attribute "_registered_subclasses").
         return cls._registered_subclasses
 
 

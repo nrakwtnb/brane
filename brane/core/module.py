@@ -19,6 +19,8 @@ class MetaModule(type):
     # [TODO] python>=3.9, move to class as classmethod property
     @property
     def registered_modules(cls) -> dict:  # [TODO]: refine typing
+        # [ARG]: It assumes it is used as mixin with BaseSubclassRegister.
+        #     And this line raises mypy error ("MetaModule" has no attribute "_registered_subclasses").
         return cls._registered_subclasses
 
 
@@ -98,7 +100,7 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
     transform_info: Optional[tuple[str, ...]] = None
     object_transform_method_name: Optional[str] = None
 
-    module_write_method: Callable = None
+    module_write_method: Optional[Callable] = None
     module_write_method_name: Optional[str] = None
     writer_method_name: Optional[str] = None
     object_write_method_name: Optional[str] = None
@@ -107,7 +109,7 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
     open_mode_for_write: dict[str, Any] = {"mode": "w"}
 
     file_arg_first: bool = True
-    object_unpacking_type: str = None
+    object_unpacking_type: Optional[Literal['sequence', 'mapping']] = None
     file_keyword_at_write: Optional[str] = None
     obj_keyword_at_write: Optional[str] = None
 

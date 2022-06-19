@@ -9,8 +9,7 @@ from brane.typing import *  # noqa: F403
 class BaseSubclassRegister(object):
     valid: bool = True
     # [CHECK]: cannot access to it by `cls.__registered_subclasses`
-    # __registered_subclasses = []
-    _registered_subclasses = OrderedDict()  # not list
+    _registered_subclasses: dict[str, type] = OrderedDict()  # not list
     priority: int = -1
 
     def __init_subclass__(cls):
@@ -52,16 +51,24 @@ class Context(ContextInterface):
         objects
         path
         paths
+        protocol
         file
         files
+        args
+        kwargs
         Module
+        Format
 
     """
 
-    object = None
-    objects = None
-    path = None
-    paths = None
-    file = None
-    files = None
-    Module = None
+    object: Optional[Any] = None
+    objects: Union[None, Any, list[Any], dict[str, Any]] = None
+    path: Optional[PathType] = None
+    paths: Union[None, list[PathType], dict[str, PathType]] = None
+    protocol: Optional[str] = None
+    file: Optional[FileType] = None
+    files: Union[None, list[FileType], dict[str, FileType]] = None
+    args: tuple = ()
+    kwargs: dict[str, Any] = {}  # [ARG]: mutable -> immutable
+    Module: Optional[ModuleClassType] = None
+    Format: Optional[FormatClassType] = None

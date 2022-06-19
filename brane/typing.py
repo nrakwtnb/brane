@@ -14,9 +14,9 @@ from typing import (  # noqa: F401
 )
 
 try:
-    from typing import Protocol, TypedDict  # noqa: F401 # >=3.8
+    from typing import Literal, Protocol, TypedDict  # noqa: F401 # >=3.8
 except ImportError:
-    from typing_extensions import Protocol, TypedDict  # noqa: F401 # <=3.7
+    from typing_extensions import Literal, Protocol, TypedDict  # noqa: F401 # <=3.7
 
 
 # define the types for universal objects
@@ -48,39 +48,51 @@ del _generate_file_related_types
 class ModuleClassType:
     name: str
     loaded: bool
+    load_modules: Callable
     reload_modules: Callable
     read: Callable
     write: Callable
 
 
 class FormatClassType:
-    pass
+    module: ModuleClassType
 
 
 class ObjectClassType:
-    pass
-
-
-class HookClassType:
-    pass
-
-
-class EventClassType:
-    pass
+    module: ModuleClassType
+    format: FormatClassType
+    object: Any
 
 
 HookFlagType = Optional[Union[str, set[str]]]
 
 
-class ContextInterface(TypedDict):
-    object: Optional[Any] = None
-    objects: Optional[list[Any]] = None
-    path: Optional[PathType] = None
-    paths: Optional[list[PathType]] = None
-    file: Optional[FileType] = None
-    files: Optional[list[FileType]] = None
-    Module: Optional[ModuleClassType] = None
-    Format: Optional[FormatClassType] = None
+class HookClassType(Callable):
+    hook_name: Optional[str]
+    flag: HookFlagType
+    active: bool
+    condition: Callable[ContextInterface, bool]
+
+
+class EventClassType:
+    clear_hooks: Callable
+    add_hooks: Callable
+    remove_hooks: Callable
+
+
+class ContextInterface(TypedDict, total=False):
+    object: Optional[Any]
+    objects: Union[None, Any, list[Any], dict[str, Any]]
+    path: Optional[PathType]
+    paths: Union[None, list[PathType], dict[str, PathType]]
+    ext: Optional[str]
+    protocol: Optional[str]
+    file: Optional[FileType]
+    files: Union[None, list[FileType], dict[str, FileType]]
+    args: tuple
+    kwargs: dict[str, Any]  # [ARG]: mutable -> immutable
+    Module: Optional[ModuleClassType]
+    Format: Optional[FormatClassType]
 
 
 # used for debug purpose temporalily

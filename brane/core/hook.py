@@ -82,8 +82,8 @@ class FunctionHook(Hook):
         if name is None:
             import hashlib
 
-            python_hash_value = generate_hash_from_objects(func, condition_func)
-            name = hashlib.md5(python_hash_value.encode()).hexdigest()[::2]
+            python_hash_value: str = generate_hash_from_objects(func, condition_func)
+            name: str = hashlib.md5(python_hash_value.encode()).hexdigest()[::2]
         super().__init__(name=name, flag=flag)
         self.hook_func = func
 

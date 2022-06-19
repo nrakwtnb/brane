@@ -46,6 +46,7 @@ class HookManager(object):
     # @property [TODO]: use when python>=3.9
     @classmethod
     def get_events(cls) -> dict[str, Event]:
+        """Get events managing hooks."""
         name2event: dict[str, Event] = dict()
         for attr in dir(cls):
             event = getattr(cls, attr)
@@ -55,6 +56,7 @@ class HookManager(object):
 
     @classmethod
     def show_events(cls):
+        """Show all registered hooks at each event."""
         for event_name, event in cls.get_events().items():
             builtins.print(f"Event: {event_name}")
             if len(event):
@@ -79,7 +81,7 @@ class HookManager(object):
         hook: HookType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
-        loc: Union['before', 'after'] = 'after',
+        loc: Literal['before', 'after'] = 'after',
         **hook_kwargs,
     ):
         hook = cls._get_hook_class(hook, **hook_kwargs)
@@ -91,7 +93,7 @@ class HookManager(object):
         hook: HookType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
-        loc: Union['before', 'after'] = 'after',
+        loc: Literal['before', 'after'] = 'after',
         **hook_kwargs,
     ):
         """Add new hook which runs before loading.
@@ -107,7 +109,7 @@ class HookManager(object):
         hook: HookType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
-        loc: Union['before', 'after'] = 'after',
+        loc: Literal['before', 'after'] = 'after',
         **hook_kwargs,
     ):
         """Add new hook which runs after loading.
@@ -123,7 +125,7 @@ class HookManager(object):
         hook: HookType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
-        loc: Union['before', 'after'] = 'after',
+        loc: Literal['before', 'after'] = 'after',
         **hook_kwargs,
     ):
         """Add new hook which runs before saving.
@@ -139,7 +141,7 @@ class HookManager(object):
         hook: HookType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
-        loc: Union['before', 'after'] = 'after',
+        loc: Literal['before', 'after'] = 'after',
         **hook_kwargs,
     ):
         """Add new hook which runs after saving.
@@ -157,7 +159,7 @@ class HookManager(object):
         hook: HookType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
-        loc: Union['before', 'after'] = 'after',
+        loc: Literal['before', 'after'] = 'after',
         **hook_kwargs,
     ):
         """Add new hook which runs before loading all.
@@ -175,7 +177,7 @@ class HookManager(object):
         hook: HookType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
-        loc: Union['before', 'after'] = 'after',
+        loc: Literal['before', 'after'] = 'after',
         **hook_kwargs,
     ):
         """Add new hook which runs after loading all.
@@ -193,7 +195,7 @@ class HookManager(object):
         hook: HookType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
-        loc: Union['before', 'after'] = 'after',
+        loc: Literal['before', 'after'] = 'after',
         **hook_kwargs,
     ):
         """Add new hook which runs before saving all.
@@ -211,7 +213,7 @@ class HookManager(object):
         hook: HookType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
-        loc: Union['before', 'after'] = 'after',
+        loc: Literal['before', 'after'] = 'after',
         **hook_kwargs,
     ):
         """Add new hook which runs after saving all.
@@ -239,38 +241,47 @@ class HookManager(object):
 
     @classmethod
     def clear_pre_read_hook(cls):
+        """Remove all the registered hooks which run before loading."""
         cls.clear_hooks(cls.pre_read)
 
     @classmethod
     def clear_post_read_hook(cls):
+        """Remove all the registered hooks which run after loading."""
         cls.clear_hooks(cls.post_read)
 
     @classmethod
     def clear_pre_write_hook(cls):
+        """Remove all the registered hooks which run before saving."""
         cls.clear_hooks(cls.pre_write)
 
     @classmethod
     def clear_post_write_hook(cls):
+        """Remove all the registered hooks which run after saving."""
         cls.clear_hooks(cls.post_write)
 
     @classmethod
     def clear_pre_readall_hook(cls):
+        """Remove all the registered hooks which run before loading all."""
         cls.clear_hooks(cls.pre_readall)
 
     @classmethod
-    def clear_pre_writeall_hook(cls):
-        cls.clear_hooks(cls.pre_writeall)
-
-    @classmethod
     def clear_post_readall_hook(cls):
+        """Remove all the registered hooks which run after loading all."""
         cls.clear_hooks(cls.post_readall)
 
     @classmethod
+    def clear_pre_writeall_hook(cls):
+        """Remove all the registered hooks which run before saving all."""
+        cls.clear_hooks(cls.pre_writeall)
+
+    @classmethod
     def clear_post_writeall_hook(cls):
+        """Remove all the registered hooks which run after saving all."""
         cls.clear_hooks(cls.post_writeall)
 
     @classmethod
     def clear_all_hooks(cls):
+        """Remove all the registered hooks at any event."""
         for event in cls.get_events().values():
             cls.clear_hooks(event)
 
@@ -308,7 +319,7 @@ class ExtendedIO(HookManager):
         self.kept_storage_options[protocol] = storage_options
 
     @staticmethod
-    def get_protocol(path: PathType) -> str:
+    def _get_protocol(path: PathType) -> str:
         path_str = str(path)
 
         if ":" not in path_str:
@@ -333,14 +344,14 @@ class ExtendedIO(HookManager):
             raise NotImplementedError(protocol)
 
     @classmethod
-    def get_filesystem(
+    def _get_filesystem(
         cls, path: PathType, storage_options: dict
     ) -> dict[str, Any]:  # [TODO]: define type for filesystem (Protocol class with open method for example)
-        protocol: Optional[str] = cls.get_protocol(path)
+        protocol: Optional[str] = cls._get_protocol(path)
 
         if protocol == 'file':
             return {"protocol": "file", "filesystem": builtins}
-        elif protocol in known_implementations.keys():  # [ARG]: similar logic appears in get_protocol method
+        elif protocol in known_implementations.keys():  # [ARG]: similar logic appears in _get_protocol method
             if protocol in cls.kept_storage_options:
                 new_storage_options = {**cls.kept_storage_options[protocol], **storage_options}
             else:
@@ -404,7 +415,7 @@ class ExtendedIO(HookManager):
 
         fs_info: dict = {}
         if path:
-            fs_info = cls.get_filesystem(path=path, storage_options=storage_options)
+            fs_info = cls._get_filesystem(path=path, storage_options=storage_options)
         protocol = fs_info.get("protocol", None)
 
         context: ContextInterface = Context(
@@ -450,7 +461,7 @@ class ExtendedIO(HookManager):
         read_kwargs: Optional[dict] = None,
         *args,
         **kwargs,
-    ) -> list[Any]:
+    ) -> Union[list[Any], Any]:
         """
         Args:
             multiple_paths: Several file paths to read once. The glob format is also allowed.
@@ -479,7 +490,7 @@ class ExtendedIO(HookManager):
         else:
             raise NotImplementedError
         if len(paths) == 0:
-            return {}
+            return []
 
         context: ContextInterface = Context({"paths": paths})
         context = cls.pre_readall.fire(context)
@@ -508,7 +519,7 @@ class ExtendedIO(HookManager):
         read_kwargs: Optional[dict] = None,
         *args,
         **kwargs,
-    ) -> dict[str, Any]:
+    ) -> Union[dict[str, Any], Any]:
         if read_args is None:
             read_args = tuple()
         if read_kwargs is None:
@@ -612,7 +623,7 @@ class ExtendedIO(HookManager):
 
         fs_info: dict = {}
         if path:
-            fs_info = cls.get_filesystem(path=path, storage_options=storage_options)
+            fs_info = cls._get_filesystem(path=path, storage_options=storage_options)
         protocol = fs_info.get("protocol", None)
 
         context: ContextInterface = Context(

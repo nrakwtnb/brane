@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib
 import os
+from pathlib import Path
 
 import yaml
 
@@ -30,9 +31,10 @@ class BraneClassGenerator(object):  # [ARG]: rename class name ?
         self.activate()
 
     @staticmethod
-    def load_config(config_path: str) -> ConfigType:
+    def load_config(config_path: PathType) -> ConfigType:
         cfg: ConfigType = {}
-        if os.path.exists(config_path):
+        # if os.path.exists(str(config_path)):  [ARG]: which to use
+        if Path(config_path).exists():
             with open(config_path, "r") as f:
                 cfg = yaml.safe_load(f)
         return cfg
@@ -44,6 +46,7 @@ class BraneClassGenerator(object):  # [ARG]: rename class name ?
         cls: type,
         apply_attributes: Optional[Callable[[str, ClassAttributeType], ClassAttributeType]] = None,
     ) -> dict[str, type]:
+        # [TODO]: use generics: type of return's value can be of ModuleClassType, FormatClassType or ObjectClassType depending on cls
         name2class: dict[str, type] = {}
         for config in config_list:
             name2class_for_cfg: dict[str, type] = {
@@ -153,13 +156,16 @@ class BraneHooksGenerator(object):
     @staticmethod
     def load_config(config_path: PathType) -> ConfigType:
         cfg: ConfigType = {}
-        if os.path.exists(config_path):
+        # if os.path.exists(str(config_path)):  [ARG]: which to use
+        if Path(config_path).exists():
             with open(config_path, "r") as f:
                 cfg = yaml.safe_load(f)
         return cfg
 
     @staticmethod
-    def load_hooks_from_config(cfg: ConfigType) -> list:  # [TODO]: refine return type
+    def load_hooks_from_config(
+        cfg: ConfigType,
+    ) -> dict[str, list[Union[Callable, HookClassType]]]:  # [TODO]: refine return type
         # [TODO]: reduce the depth of nested for-and-if-statements
         # [TODO]: allow Functionhook arguments (flg, condition, ...)
         if cfg["version"] != 'dev.0':

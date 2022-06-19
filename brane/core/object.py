@@ -16,14 +16,14 @@ class MetaObject(type):
 
     # [TODO] python>=3.9, move to class as classmethod property
     @property
-    def object(cls):
+    def object(cls) -> Any:
         cls.load_objects()
         print("@Meta:", cls)
         return cls.object_type
 
     # [TODO] python>=3.9, move to class as classmethod property
     @property
-    def registered_objects(cls):
+    def registered_objects(cls) -> dict:
         return cls._registered_subclasses
 
 
@@ -44,7 +44,7 @@ class Object(ObjectClassType, BaseSubclassRegister, metaclass=MetaObject):
 
     @classmethod
     def load_objects(cls):
-        if cls.object_type_info:
+        if getattr(cls, "object_type_info", None):
             module_name, *obj_attr = cls.object_type_info
             module = importlib.import_module(module_name)
             obj = module

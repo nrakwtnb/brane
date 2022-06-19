@@ -14,6 +14,7 @@ Then, we can save time, get less human error and make codes readable.
 
 Requirements
 * PyYAML
+* fsspec
 * typing-extension (Python 3.7)
 
 You also need other modules for reading or writing depending on use cases.
@@ -35,15 +36,17 @@ Currently, the conda installation is not supported yet.
 ```sh
 $ pip install git+https://github.com/nrakwtnb/brane.git
 $ pipenv install git+https://github.com/nrakwtnb/brane.git#egg=brane
+$ poetry add git+https://github.com/nrakwtnb/brane.git
 ```
 
 If you'd like to specify the version, try
 ```sh
 $ pip install git+https://github.com/nrakwtnb/brane.git@<version>#egg=brane
 $ pipenv install git+https://github.com/nrakwtnb/brane.git@<version>#egg=brane
+$ poetry add git+https://github.com/nrakwtnb/brane.git#<version>
 ```
 where the version can be one of
-* 0.0dev0
+* 0.0.dev0
 
 ## Document
 

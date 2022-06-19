@@ -34,6 +34,6 @@ def sort_mapper(mapper: dict[str, Any], key: str, ascending: bool = False) -> di
     )  # [TODO]: Any is dictionary case
 
 
-def get_extension_from_filname_default(path: str) -> str:
-    ext = os.path.splitext(path)[1][1:]
+def get_extension_from_filname_default(path: PathType) -> str:
+    ext = os.path.splitext(str(path))[1][1:]
     return ext

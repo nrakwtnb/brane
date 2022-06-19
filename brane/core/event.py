@@ -50,13 +50,16 @@ class Event(EventClassType):
     def search_hook_name_with_index(self, target_name: str, exact: bool = False) -> tuple[int, str]:
         if exact:
             name_with_target = [
-                (idx, name) for idx, name in enumerate(self.get_hook_names(exclude_none=True)) if name == target_name
+                (idx, name)
+                for idx, name in enumerate(self.get_hook_names(exclude_none=True))
+                if name is not None and name == target_name
             ]
         else:
+            # mypy error: List comprehension has incompatible type List[Tuple[int, Optional[str]]]; expected List[Tuple[int, str]]
             name_with_target = [
                 (idx, name)
                 for idx, name in enumerate(self.get_hook_names(exclude_none=True))
-                if name.startswith(target_name)
+                if name is not None and name.startswith(target_name)
             ]
         if len(name_with_target) == 0:
             raise ValueError("No match.")
@@ -71,7 +74,7 @@ class Event(EventClassType):
         hook_funcs: MultipleHookClassType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
-        loc: Union['before', 'after'] = 'after',
+        loc: Literal['before', 'after'] = 'after',
     ):
         num_registered_hooks = len(self.hooks)
         if ref_name:
@@ -98,7 +101,6 @@ class Event(EventClassType):
         else:
             raise AssertionError(loc)
         self.hooks = hooks_former + hook_funcs + hooks_latter
-        # self.hooks.extend(hook_funcs)
 
     # @classmethod
     def remove_hooks(self, hook_names: Union[str, Container[str]], strict: bool = False):
@@ -148,8 +150,7 @@ class Event(EventClassType):
                 else:
                     info.update({"object": res})
             if verbose:
-                active_: bool = self.active
-                if not active_:
+                if not hook.active:
                     builtins.print(f"skipped '{hook.hook_name}': non-active")
                     continue
                 flag_check_: bool = self.check_flag(hook.flag)
