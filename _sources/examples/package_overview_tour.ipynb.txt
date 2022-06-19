@@ -10,10 +10,22 @@
   },
   {
    "cell_type": "markdown",
+   "id": "d1278d27",
+   "metadata": {},
+   "source": [
+    "Requirement on the shell:\n",
+    "* Need `cat` command. If you use Windows command prompts, replace `cat` by `type` at each IPython magic line starting with `!`.\n",
+    "\n",
+    "Requirement on python packages:\n",
+    "* pandas: `pip install pandas`"
+   ]
+  },
+  {
+   "cell_type": "markdown",
    "id": "ed0f8fc5",
    "metadata": {},
    "source": [
-    "This tutorial describes what it can do and how to use it. This does not cover all but shows the most interesting features."
+    "This tutorial describes what our package can do and how to use it. This does not cover all functions or use cases but shows the most interesting features."
    ]
   },
   {
@@ -21,7 +33,7 @@
    "id": "9d4d5347",
    "metadata": {},
    "source": [
-    "Let's read the core I/O interface class: eXtended-I/O"
+    "Let's load the core I/O interface class: eXtended-I/O abbreviated as X-I/O or XIO"
    ]
   },
   {
@@ -57,7 +69,7 @@
    "id": "55db96d8",
    "metadata": {},
    "source": [
-    "First of all, let's write the following text as a normal text:"
+    "First of all, let's save the following text as a normal text file with XIO:"
    ]
   },
   {
@@ -84,7 +96,7 @@
    "id": "f088efdc",
    "metadata": {},
    "source": [
-    "It's very simple. Specify the string and the path."
+    "It's very simple. Specify the text and the path to write."
    ]
   },
   {
@@ -115,12 +127,27 @@
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "cat: ./text: No such file or directory\r\n"
+      "name,role,birthyear\r\n",
+      "Alice,sender,1978\r\n",
+      "Bob,receiver,1978\r\n",
+      "Carol,,1984\r\n",
+      "Eve,eavesdropper,1988\r\n",
+      "Mallory,attacker,2003\r\n",
+      "Walter,warden,\r\n",
+      "Ivan,issuer,2002"
      ]
     }
    ],
    "source": [
-    "!cat ./text  # this line works for Linux"
+    "!cat ./text.txt  # this line works for Linux"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7e627aab",
+   "metadata": {},
+   "source": [
+    "The reading the saved file is also simple:"
    ]
   },
   {
@@ -151,6 +178,14 @@
    ]
   },
   {
+   "cell_type": "markdown",
+   "id": "1924e45a",
+   "metadata": {},
+   "source": [
+    "The reloaded one is of string type and same as the orginal one."
+   ]
+  },
+  {
    "cell_type": "code",
    "execution_count": 6,
    "id": "f795b847",
@@ -173,18 +208,10 @@
   },
   {
    "cell_type": "markdown",
-   "id": "8cd1d25c",
-   "metadata": {},
-   "source": [
-    "The reloaded one is string and same as the orginal one."
-   ]
-  },
-  {
-   "cell_type": "markdown",
    "id": "0523c477",
    "metadata": {},
    "source": [
-    "Next, you save this text as csv file. The extension is just the symbol of the format but meaningless to the filesystem."
+    "Next, save this text as a csv file."
    ]
   },
   {
@@ -194,7 +221,41 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "xio.write(text, \"actor.csv\", module_name=\"TextIO\")   # [Note]: replaced by 'textio' in the future"
+    "xio.write(text, \"actor.csv\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6c57ce4f",
+   "metadata": {},
+   "source": [
+    "Notice the extension is just the symbol of the format but meaningless to the filesystem.\n",
+    "In this case, the content of this file is still text itself."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "076e5794",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "name,role,birthyear\r\n",
+      "Alice,sender,1978\r\n",
+      "Bob,receiver,1978\r\n",
+      "Carol,,1984\r\n",
+      "Eve,eavesdropper,1988\r\n",
+      "Mallory,attacker,2003\r\n",
+      "Walter,warden,\r\n",
+      "Ivan,issuer,2002"
+     ]
+    }
+   ],
+   "source": [
+    "!cat ./actor.csv  # this line works for Linux"
    ]
   },
   {
@@ -215,7 +276,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": 9,
    "id": "92c2de1c",
    "metadata": {
     "scrolled": true
@@ -312,7 +373,7 @@
        "6     Ivan        issuer     2002.0"
       ]
      },
-     "execution_count": 8,
+     "execution_count": 9,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -328,13 +389,13 @@
    "id": "221b2fca",
    "metadata": {},
    "source": [
-    "In this turn, you find that the loaded object is not a text but pandas DataFrame.\n",
-    "If you would like to use the bultin's csv package in some reason, you can do it by passing the module_name as 'csv'."
+    "In this turn, we find that the loaded object is not a text but pandas DataFrame.\n",
+    "If you would like to use the builtin's csv package in some reason, you can do it by passing the module_name as 'csv'."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": 10,
    "id": "ba503cc3",
    "metadata": {},
    "outputs": [
@@ -358,7 +419,7 @@
        " ['Ivan', 'issuer', '2002']]"
       ]
      },
-     "execution_count": 9,
+     "execution_count": 10,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -374,12 +435,12 @@
    "id": "6009a145",
    "metadata": {},
    "source": [
-    "Again, you can spcify the pandas module for module_name to ensure. It's better to add type annotation if you know the type of the loaded object."
+    "Again, you can specify the path argument and the pandas module for module_name to ensure. It's better to add type annotation if you know the type of the loaded object."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
+   "execution_count": 11,
    "id": "bf29fb28",
    "metadata": {},
    "outputs": [
@@ -474,14 +535,14 @@
        "6     Ivan        issuer     2002.0"
       ]
      },
-     "execution_count": 10,
+     "execution_count": 11,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
     "import pandas as pd\n",
-    "df: pd.DataFrame = xio.read(\"actor.csv\", module_name=\"Pandas\")  # [Note]: replaced by 'pandas' in the future\n",
+    "df: pd.DataFrame = xio.read(path=\"actor.csv\", module_name=\"Pandas\")  # [Note]: replaced by 'pandas' in the future\n",
     "print(type(df))\n",
     "df"
    ]
@@ -496,7 +557,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 11,
+   "execution_count": 12,
    "id": "eaf4ce01",
    "metadata": {},
    "outputs": [
@@ -517,7 +578,7 @@
    ],
    "source": [
     "xio.write(df, \"actor_w_index.csv\")\n",
-    "!cat ./actor_w_index.csv   # [Note]: replaced by 'textio' in the future"
+    "!cat ./actor_w_index.csv   # this line works for Linux"
    ]
   },
   {
@@ -539,7 +600,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 12,
+   "execution_count": 13,
    "id": "859679d3",
    "metadata": {
     "scrolled": true
@@ -562,7 +623,7 @@
    ],
    "source": [
     "xio.write(obj=df, path=\"actor_w_name_index.csv\", index=True)\n",
-    "!cat ./actor_w_name_index.csv"
+    "!cat ./actor_w_name_index.csv  # this line works for Linux"
    ]
   },
   {
@@ -586,16 +647,10 @@
    "id": "d4f1bcf5",
    "metadata": {},
    "source": [
-    "* consider new extension .hello and a corresponding module Hello\n",
-    "* it treats the Python dictionary"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "e61c824c",
-   "metadata": {},
-   "source": [
-    "from brane import Module, Format, Object"
+    "In yhis section, we\n",
+    "\n",
+    "* treat the Python dictionary but define its wrapper class\n",
+    "* consider new own format or extension .hello"
    ]
   },
   {
@@ -611,15 +666,15 @@
    "id": "7252556c",
    "metadata": {},
    "source": [
-    "For that purpose, let's define our own format 'hello' with its classs implementation as follows.\n",
+    "For that purpose, let's define our own format 'hello' with its class' implementation as follows:\n",
     "\n",
     "* header (1st line): a symbol which plays role as a separator in the following lines\n",
-    "* body (any other sequent line): each line consisting of key and value with the separator specified in the header."
+    "* body (any other sequent lines): each line consisting of key and value with the separator specified in the header."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 13,
+   "execution_count": 14,
    "id": "b3ac9183",
    "metadata": {},
    "outputs": [],
@@ -628,13 +683,15 @@
     "from typing import Union\n",
     "\n",
     "class HelloClass():\n",
+    "    # hello object which wraps a Python dictionary\n",
     "    def __init__(self, mapper: dict[str, Union[str, int]]):\n",
     "        self.mapper = mapper\n",
     "\n",
-    "    def __repr__(self):\n",
+    "    def __repr__(self) -> str:\n",
     "        return self.mapper.__repr__()\n",
     "\n",
     "class HelloIO():\n",
+    "    # hello format IO module\n",
     "    @staticmethod\n",
     "    def load(path: str):\n",
     "        with open(path, \"r\") as f:\n",
@@ -664,7 +721,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 14,
+   "execution_count": 15,
    "id": "a20e9341",
    "metadata": {},
    "outputs": [],
@@ -686,7 +743,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 15,
+   "execution_count": 16,
    "id": "5b6cf98d",
    "metadata": {},
    "outputs": [],
@@ -696,7 +753,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 16,
+   "execution_count": 17,
    "id": "cb22ccf4",
    "metadata": {},
    "outputs": [
@@ -725,7 +782,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 17,
+   "execution_count": 18,
    "id": "7d93a225",
    "metadata": {},
    "outputs": [
@@ -735,7 +792,7 @@
        "{'Jan': '1', 'Feb': '2', 'Mar': '3'}"
       ]
      },
-     "execution_count": 17,
+     "execution_count": 18,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -761,8 +818,17 @@
    ]
   },
   {
+   "cell_type": "markdown",
+   "id": "5eb2f553",
+   "metadata": {},
+   "source": [
+    "Next task is to register our hello format to X-I/O. For that purpose, let's define a new class inheritating the Module class.\n",
+    "This class defines the common interface i.e. it has read & write method."
+   ]
+  },
+  {
    "cell_type": "code",
-   "execution_count": 18,
+   "execution_count": 19,
    "id": "5ad3c463",
    "metadata": {},
    "outputs": [],
@@ -803,7 +869,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 19,
+   "execution_count": 20,
    "id": "95b72e32",
    "metadata": {},
    "outputs": [
@@ -813,7 +879,7 @@
        "{'Jan': '1', 'Feb': '2', 'Mar': '3'}"
       ]
      },
-     "execution_count": 19,
+     "execution_count": 20,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -824,7 +890,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 20,
+   "execution_count": 21,
    "id": "a07807ff",
    "metadata": {},
    "outputs": [],
@@ -834,7 +900,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 21,
+   "execution_count": 22,
    "id": "b85cb1be",
    "metadata": {},
    "outputs": [
@@ -874,12 +940,13 @@
    "id": "f0b74cf8",
    "metadata": {},
    "source": [
-    "Next, we must implement another class called `Format` which connect the above reading/writing module and the extension."
+    "At this stage, there is no connection between HelloModule and the hello extension shown in paths.\n",
+    "Then, we must implement another class called `Format` which connect the above reading/writing module and the extension."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 22,
+   "execution_count": 23,
    "id": "df9f93a1",
    "metadata": {},
    "outputs": [],
@@ -904,7 +971,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 23,
+   "execution_count": 24,
    "id": "787b14a9",
    "metadata": {
     "scrolled": true
@@ -916,7 +983,7 @@
        "{'Jan': '1', 'Feb': '2', 'Mar': '3'}"
       ]
      },
-     "execution_count": 23,
+     "execution_count": 24,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -951,7 +1018,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 24,
+   "execution_count": 25,
    "id": "4ba15ab1",
    "metadata": {},
    "outputs": [],
@@ -978,7 +1045,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 25,
+   "execution_count": 26,
    "id": "9851c6ad",
    "metadata": {},
    "outputs": [],
@@ -988,7 +1055,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 26,
+   "execution_count": 27,
    "id": "3916ff1b",
    "metadata": {},
    "outputs": [
@@ -1041,7 +1108,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 27,
+   "execution_count": 28,
    "id": "991af930",
    "metadata": {},
    "outputs": [],
@@ -1063,7 +1130,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 28,
+   "execution_count": 29,
    "id": "e2baaa5f",
    "metadata": {},
    "outputs": [
@@ -1093,7 +1160,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 29,
+   "execution_count": 30,
    "id": "9c354480",
    "metadata": {},
    "outputs": [],
@@ -1103,7 +1170,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 30,
+   "execution_count": 31,
    "id": "3ddde0ba",
    "metadata": {},
    "outputs": [
@@ -1126,22 +1193,22 @@
    "id": "532ea02c",
    "metadata": {},
    "source": [
-    "where no previous error happens if we save it through eXtend-I/O ! The reason is that this called a hook function which creates the missing directory before saving. This can be checked by accessing the attribute `pre_write`:"
+    "where no previous error happens if we save it through X-I/O ! The reason is that this called a hook function which creates the missing directory before saving. This can be checked by accessing the attribute `pre_write`:"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 31,
+   "execution_count": 32,
    "id": "eb5e81da",
    "metadata": {},
    "outputs": [
     {
      "data": {
       "text/plain": [
-       "1. 1e53467d3f5de7fb: <function create_parent_directory at 0x7f6fb8742e50>"
+       "1. 051a5b6675784311: <function create_parent_directory at 0x7fc6b819b940>"
       ]
      },
-     "execution_count": 31,
+     "execution_count": 32,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1166,27 +1233,6 @@
    "metadata": {},
    "source": [
     "### Add new hook"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 32,
-   "id": "6ff3d7a0",
-   "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "\"Nobody ever figures out what life is all about, and it doesn't matter.\\nExplore the world.\\nNearly everything is really interesting if you go into it deeply enough.\""
-      ]
-     },
-     "execution_count": 32,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
-   "source": [
-    "xio.read(\"quotes/most_like.txt\")"
    ]
   },
   {
@@ -1335,7 +1381,6 @@
     "\n",
     "author_name: str = \"Richard P.Feynman\"\n",
     "copyright: str = f\"© {datetime.datetime.today().year} {author_name}\"\n",
-    "#copyright: str = f\"(C) {datetime.datetime.today().year} {author_name}\"\n",
     "copyright"
    ]
   },
@@ -1387,8 +1432,8 @@
     {
      "data": {
       "text/plain": [
-       "1. 1e53467d3f5de7fb: <function create_parent_directory at 0x7f6fb8742e50>\n",
-       "2. b76a82cc12dc7c98: <function append_copyright at 0x7f6f89894040>"
+       "1. 051a5b6675784311: <function create_parent_directory at 0x7fc6b819b940>\n",
+       "2. 616ae0f48d16d731: <function append_copyright at 0x7fc681a70ee0>"
       ]
      },
      "execution_count": 40,
@@ -1465,7 +1510,7 @@
      "output_type": "stream",
      "text": [
       "Event: post_read\n",
-      "1. 383c172cfeb50988: <function remove_linebreaks at 0x7f6f8a162670>\n",
+      "1. 9cd9fd333173c85c: <function remove_linebreaks at 0x7fc68233eca0>\n",
       "Event: post_readall\n",
       " No hooks are registered\n",
       "Event: post_write\n",
@@ -1473,12 +1518,12 @@
       "Event: post_writeall\n",
       " No hooks are registered\n",
       "Event: pre_read\n",
-      "1. bf81e0d209c0b106: <function check_path_existence at 0x7f6fb8742ca0>\n",
+      "1. 7be62be3ee1009a5: <function check_path_existence at 0x7fc6b819b790>\n",
       "Event: pre_readall\n",
       " No hooks are registered\n",
       "Event: pre_write\n",
-      "1. 1e53467d3f5de7fb: <function create_parent_directory at 0x7f6fb8742e50>\n",
-      "2. b76a82cc12dc7c98: <function append_copyright at 0x7f6f89894040>\n",
+      "1. 051a5b6675784311: <function create_parent_directory at 0x7fc6b819b940>\n",
+      "2. 616ae0f48d16d731: <function append_copyright at 0x7fc681a70ee0>\n",
       "Event: pre_writeall\n",
       " No hooks are registered\n"
      ]
@@ -1505,7 +1550,7 @@
     {
      "data": {
       "text/plain": [
-       "'383c172cfeb50988'"
+       "'9cd9fd333173c85c'"
       ]
      },
      "execution_count": 44,
@@ -1560,12 +1605,12 @@
       "Event: post_writeall\n",
       " No hooks are registered\n",
       "Event: pre_read\n",
-      "1. bf81e0d209c0b106: <function check_path_existence at 0x7f6fb8742ca0>\n",
+      "1. 7be62be3ee1009a5: <function check_path_existence at 0x7fc6b819b790>\n",
       "Event: pre_readall\n",
       " No hooks are registered\n",
       "Event: pre_write\n",
-      "1. 1e53467d3f5de7fb: <function create_parent_directory at 0x7f6fb8742e50>\n",
-      "2. b76a82cc12dc7c98: <function append_copyright at 0x7f6f89894040>\n",
+      "1. 051a5b6675784311: <function create_parent_directory at 0x7fc6b819b940>\n",
+      "2. 616ae0f48d16d731: <function append_copyright at 0x7fc681a70ee0>\n",
       "Event: pre_writeall\n",
       " No hooks are registered\n"
      ]
