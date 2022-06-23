@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import builtins
+import dataclasses
 
+from brane.core.utils import sort_mapper
 from brane.typing import *  # noqa: F403
 
 MultipleHookClassType = Union[
@@ -10,9 +12,10 @@ MultipleHookClassType = Union[
     tuple[HookClassType],
     set[HookClassType],
 ]
+T = TypeVar('T')
 
 
-def convert_obj_into_list(obj) -> list:  # [ARG]: convert_iterator ?
+def convert_obj_into_list(obj: T) -> list[T]:  # [ARG]: convert_iterator ?
     if isinstance(obj, list):
         return list(obj)
     elif isinstance(obj, tuple):
@@ -23,8 +26,16 @@ def convert_obj_into_list(obj) -> list:  # [ARG]: convert_iterator ?
         return [obj]
 
 
+@dataclasses.dataclass
+class MarkerRule:  # [ARG]: use TypedDict, namedtuple or dataclass
+    # name: Union[str, int]
+    marker: str
+    action: Literal['allowed', 'denied']  # [TODO]: rename the field name
+    priority: int
+
+
 class Event(EventClassType):
-    # [TODO]: fix flag's specification
+    # [TODO]: fix marker's specification
     # * and/or
     # * allow/denied
 
@@ -38,8 +49,9 @@ class Event(EventClassType):
         if hook_funcs:
             self.hooks = convert_obj_into_list(hook_funcs)
         self.event_name: str = event_name
-        self.allowed_flags: HookFlagType = None  # fixed in the future
-        self.denied_flags: HookFlagType = None  # fixed in the future
+        self.marker_rules: dict[str, MarkerRule] = {}
+        # self.allowed_markers: HookMarkerType = None  # fixed in the future
+        # self.denied_markers: HookMarkerType = None  # fixed in the future
 
     def __len__(self) -> int:
         return len(self.hooks)
@@ -122,14 +134,41 @@ class Event(EventClassType):
     def clear_hooks(self):
         self.hooks = []
 
-    def check_flag(self, flag: HookFlagType) -> bool:
-        if flag is None:
-            flag = set()
-        elif isinstance(flag, str):
-            flag = set(flag)
-        if not isinstance(flag, set):  # flag \in set[str]
-            raise AssertionError(type(flag))
-        # [TODO]: implement
+    def add_marker_rule(
+        self, name: Union[str, int], marker: str, action: Literal['allowed', 'denied'], priority: Optional[int] = None
+    ):
+        # [TODO]: automatic name assignment
+        if name in self.marker_rules:
+            raise KeyError(name)  # [TODO]: define KeyExistenceError or add new arg to ignore / replace
+        priority_list = [rule.priority for rule in self.marker_rules.values()]
+        if priority is None:
+            priority = min(priority_list, default=10) - 10
+        elif priority in priority_list:
+            raise ValueError(priority)  # [TODO]; define PriorityOverkapError
+
+        self.marker_rules.update({name: MarkerRule(marker=marker, action=action, priority=priority)})
+        self.marker_rules = sort_mapper(mapper=self.marker_rules, key="priority")
+
+    def remove_marker_rule(self, name: Union[str, int]) -> MarkerRule:
+        return self.marker_rules.pop(name)
+
+    def clean_marker_rules(self):
+        self.marker_rules = dict()
+
+    def check_marker(self, marker: HookMarkerType) -> bool:
+        if marker is None:
+            marker = set()
+        elif isinstance(marker, str):
+            marker = set(marker)
+
+        for name, rule in self.marker_rules.items():
+            if rule.marker in marker:
+                if rule.action == 'allowed':
+                    return True
+                elif rule.action == 'denied':
+                    return False
+                else:
+                    raise NotImplementedError()  # This error is not checked when typining is completed
         return True
 
     # @classmethod
@@ -137,7 +176,7 @@ class Event(EventClassType):
         for hook in self.hooks:
             # [TODO]: use wallus operator in the future when supporting python>=3.8
             called: bool = False
-            if hook.active and self.check_flag(hook.flag) and hook.condition(info):
+            if hook.active and self.check_marker(hook.marker) and hook.condition(info):
                 called = True
                 # temporal
                 # [TODO]: (very important) refine the specification and the logic
@@ -153,9 +192,9 @@ class Event(EventClassType):
                 if not hook.active:
                     builtins.print(f"skipped '{hook.hook_name}': non-active")
                     continue
-                flag_check_: bool = self.check_flag(hook.flag)
-                if not flag_check_:
-                    builtins.print(f"skipped '{hook.hook_name}': out of flags")
+                marker_check_: bool = self.check_marker(hook.marker)
+                if not marker_check_:
+                    builtins.print(f"skipped '{hook.hook_name}': out of markers")
                     continue
                 if called:
                     builtins.print(f"called '{hook.hook_name}'")

@@ -29,7 +29,7 @@ class MetaFormat(type):
 
 
 class Format(FormatClassType, BaseSubclassRegister, metaclass=MetaFormat):
-    _registered_subclasses = {}
+    _registered_subclasses: dict[str, FormatClassType] = {}
     priority = 50
     # valid = True
 

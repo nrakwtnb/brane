@@ -78,7 +78,7 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
     # 1. Base Module class which should be inheritated
     # 2. Config Module class defined here
 
-    _registered_subclasses: dict = {}
+    _registered_subclasses: dict[str, ModuleClassType] = {}
     priority: int = 50
 
     # should be unqiue. package name specifed at pip install is usually set
@@ -366,14 +366,14 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
                         cls.module_write_method(file, obj, *args_write, **kwargs_write)
                     else:
                         cls.module_write_method(obj, file, *args_write, **kwargs_write)
-                elif object_unpacking_type == 'sequence':
+                elif cls.object_unpacking_type == 'sequence':
                     if len(args_write) > 0:
                         raise AssertionError()  # [TODO]: error messsage
                     if cls.file_arg_first:
                         cls.module_write_method(file, *obj, **kwargs_write)
                     else:
                         cls.module_write_method(*obj, file, **kwargs_write)
-                elif object_unpacking_type == 'mapping':
+                elif cls.object_unpacking_type == 'mapping':
                     if len(args_write) > 0:
                         raise AssertionError()  # [TODO]: error messsage
                     args_, kwargs_ = list(), dict()

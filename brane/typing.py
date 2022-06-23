@@ -7,6 +7,7 @@ from typing import (  # noqa: F401
     Generator,
     Generic,
     NamedTuple,
+    NewType,
     Optional,
     Sequence,
     TypeVar,
@@ -64,12 +65,12 @@ class ObjectClassType:
     object: Any
 
 
-HookFlagType = Optional[Union[str, set[str]]]
+HookMarkerType = Optional[Union[str, set[str]]]
 
 
 class HookClassType(Callable):
     hook_name: Optional[str]
-    flag: HookFlagType
+    marker: HookMarkerType
     active: bool
     condition: Callable[ContextInterface, bool]
 

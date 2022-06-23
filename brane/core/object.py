@@ -28,7 +28,7 @@ class MetaObject(type):
 
 
 class Object(ObjectClassType, BaseSubclassRegister, metaclass=MetaObject):
-    _registered_subclasses: dict = {}
+    _registered_subclasses: dict[str, ObjectClassType] = {}
     priority = 50
 
     format: Optional[FormatClassType] = None  # required

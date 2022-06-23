@@ -286,11 +286,11 @@ class HookManager(object):
             cls.clear_hooks(event)
 
     @classmethod
-    def setup_hooks(cls, hook_config_paths: Optional[list[PathType]] = None):  # temporal name
+    def setup_hooks(
+        cls, hook_config_paths: Optional[list[PathType]] = None, use_builtin_config: bool = True
+    ):  # temporal name
         # [TODO]: refactoring
-        cls._hook_generator.activate(config_paths=hook_config_paths)
-        # cls.register_pre_read_hook(check_path_existence)  # read_pre.add_hooks(FunctionHook(check_path_existence))
-        # cls.register_pre_write_hook(create_parent_directory)  # write_pre.add_hooks(FunctionHook(create_parent_directory))
+        cls._hook_generator.setup(config_paths=hook_config_paths)
         for event_name, hooks in cls._hook_generator.event2hooks.items():
             event = getattr(cls, event_name)
             assert isinstance(event, Event)
@@ -315,8 +315,9 @@ class ExtendedIO(HookManager):
     logger = IOLogger()
     kept_storage_options = dict()
 
+    @classmethod
     def set_storage_option(cls, protocol: str, storage_options: dict):
-        self.kept_storage_options[protocol] = storage_options
+        cls.kept_storage_options[protocol] = storage_options
 
     @staticmethod
     def _get_protocol(path: PathType) -> str:
@@ -736,7 +737,7 @@ class ExtendedIO(HookManager):
 
     @classmethod
     def reload(cls, config_paths: Optional[list[PathType]] = None, hook_config_paths: Optional[list[PathType]] = None):
-        cls._factory.activate(config_paths=config_paths)
+        cls._factory.setup(config_paths=config_paths)
         cls.setup_hooks(hook_config_paths=hook_config_paths)
 
     @classmethod

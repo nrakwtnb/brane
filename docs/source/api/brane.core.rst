@@ -44,14 +44,6 @@ brane.core.hook module
    :undoc-members:
    :show-inheritance:
 
-brane.core.iomanager module
----------------------------
-
-.. automodule:: brane.core.iomanager
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 brane.core.mapper module
 ------------------------
 
