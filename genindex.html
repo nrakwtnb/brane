@@ -88,7 +88,6 @@
 <li class="toctree-l4"><a class="reference internal" href="api/brane.core.html#module-brane.core.factory">brane.core.factory module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/brane.core.html#module-brane.core.format">brane.core.format module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/brane.core.html#module-brane.core.hook">brane.core.hook module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/brane.core.html#brane-core-iomanager-module">brane.core.iomanager module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/brane.core.html#module-brane.core.mapper">brane.core.mapper module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/brane.core.html#module-brane.core.module">brane.core.module module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/brane.core.html#module-brane.core.object">brane.core.object module</a></li>
@@ -163,6 +162,8 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/brane.core.html#brane.core.event.MarkerRule.action">action (brane.core.event.MarkerRule attribute)</a>
+</li>
       <li><a href="api/brane.core.html#brane.core.factory.BraneClassGenerator.activate">activate() (brane.core.factory.BraneClassGenerator class method)</a>
 
       <ul>
@@ -182,6 +183,8 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/brane.core.html#brane.core.event.Event.add_hooks">add_hooks() (brane.core.event.Event method)</a>
+</li>
+      <li><a href="api/brane.core.html#brane.core.event.Event.add_marker_rule">add_marker_rule() (brane.core.event.Event method)</a>
 </li>
       <li><a href="api/brane.core.html#brane.core.xio.ExtendedIO.all_formats">all_formats() (brane.core.xio.ExtendedIO class method)</a>
 </li>
@@ -351,7 +354,7 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/brane.core.html#brane.core.format.Format.check_extension">check_extension() (brane.core.format.Format class method)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.event.Event.check_flag">check_flag() (brane.core.event.Event method)</a>
+      <li><a href="api/brane.core.html#brane.core.event.Event.check_marker">check_marker() (brane.core.event.Event method)</a>
 </li>
       <li><a href="api/brane.libs.hooks.html#brane.libs.hooks.core.check_path_existence">check_path_existence() (in module brane.libs.hooks.core)</a>
 </li>
@@ -360,6 +363,8 @@
       <li><a href="api/brane.core.html#brane.core.factory.BraneClassGenerator.className2Module">className2Module (brane.core.factory.BraneClassGenerator attribute)</a>
 </li>
       <li><a href="api/brane.core.html#brane.core.factory.BraneClassGenerator.className2Object">className2Object (brane.core.factory.BraneClassGenerator attribute)</a>
+</li>
+      <li><a href="api/brane.core.html#brane.core.event.Event.clean_marker_rules">clean_marker_rules() (brane.core.event.Event method)</a>
 </li>
       <li><a href="api/brane.core.html#brane.core.xio.HookManager.clear_all_hooks">clear_all_hooks() (brane.core.xio.HookManager class method)</a>
 </li>
@@ -475,18 +480,12 @@
         <li><a href="api/brane.html#brane.typing.ContextInterface.files">(brane.typing.ContextInterface attribute)</a>
 </li>
       </ul></li>
-      <li><a href="api/brane.core.html#brane.core.module.Module.filesystems">filesystems (brane.core.module.Module attribute)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/brane.core.html#brane.core.module.Module.filesystems">filesystems (brane.core.module.Module attribute)</a>
+</li>
       <li><a href="api/brane.core.html#brane.core.event.Event.fire">fire() (brane.core.event.Event method)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.hook.Hook.flag">flag (brane.core.hook.Hook attribute)</a>
-
-      <ul>
-        <li><a href="api/brane.html#brane.typing.HookClassType.flag">(brane.typing.HookClassType attribute)</a>
-</li>
-      </ul></li>
       <li><a href="api/brane.core.html#brane.core.base.Context.Format">Format (brane.core.base.Context attribute)</a>, <a href="api/brane.core.html#id10">[1]</a>
 </li>
       <li><a href="api/brane.core.html#brane.core.object.Object.format">format (brane.core.object.Object attribute)</a>
@@ -500,6 +499,8 @@
       <li><a href="api/brane.core.html#brane.core.object.Object.format_checker">format_checker (brane.core.object.Object attribute)</a>
 </li>
       <li><a href="api/brane.html#brane.typing.FormatClassType">FormatClassType (class in brane.typing)</a>
+</li>
+      <li><a href="api/brane.core.html#brane.core.factory.FormatConfigType">FormatConfigType (class in brane.core.factory)</a>
 </li>
       <li><a href="api/brane.core.html#brane.core.hook.FunctionHook">FunctionHook (class in brane.core.hook)</a>
 </li>
@@ -553,6 +554,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/brane.html#brane.typing.HookClassType">HookClassType (class in brane.typing)</a>
 </li>
+      <li><a href="api/brane.core.html#brane.core.factory.HookConfigType">HookConfigType (class in brane.core.factory)</a>
+</li>
       <li><a href="api/brane.core.html#brane.core.xio.HookManager">HookManager (class in brane.core.xio)</a>
 </li>
   </ul></td>
@@ -597,21 +600,19 @@
 </li>
       <li><a href="api/brane.core.html#brane.core.factory.BraneClassGenerator.load_brane_objects">load_brane_objects() (brane.core.factory.BraneClassGenerator class method)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.factory.BraneClassGenerator.load_config">load_config() (brane.core.factory.BraneClassGenerator static method)</a>
-
-      <ul>
-        <li><a href="api/brane.core.html#brane.core.factory.BraneHooksGenerator.load_config">(brane.core.factory.BraneHooksGenerator static method)</a>
+      <li><a href="api/brane.core.html#brane.core.factory.load_config">load_config() (in module brane.core.factory)</a>
 </li>
-      </ul></li>
       <li><a href="api/brane.core.html#brane.core.factory.BraneHooksGenerator.load_event2hooks">load_event2hooks() (brane.core.factory.BraneHooksGenerator class method)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.factory.BraneHooksGenerator.load_hooks_from_config">load_hooks_from_config() (brane.core.factory.BraneHooksGenerator static method)</a>
+      <li><a href="api/brane.core.html#brane.core.factory.BraneHooksGenerator.load_hooks_from_config">load_hooks_from_config() (brane.core.factory.BraneHooksGenerator class method)</a>
+</li>
+      <li><a href="api/brane.html#brane.typing.ModuleClassType.load_modules">load_modules (brane.typing.ModuleClassType attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/brane.html#brane.typing.ModuleClassType.load_modules">load_modules (brane.typing.ModuleClassType attribute)</a>
-</li>
       <li><a href="api/brane.core.html#brane.core.module.Module.load_modules">load_modules() (brane.core.module.Module class method)</a>
+</li>
+      <li><a href="api/brane.core.html#brane.core.factory.load_multiple_config">load_multiple_config() (in module brane.core.factory)</a>
 </li>
       <li><a href="api/brane.core.html#brane.core.object.Object.load_objects">load_objects() (brane.core.object.Object class method)</a>
 </li>
@@ -631,6 +632,16 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/brane.core.html#brane.core.event.MarkerRule.marker">marker (brane.core.event.MarkerRule attribute)</a>
+
+      <ul>
+        <li><a href="api/brane.core.html#brane.core.hook.Hook.marker">(brane.core.hook.Hook attribute)</a>
+</li>
+        <li><a href="api/brane.html#brane.typing.HookClassType.marker">(brane.typing.HookClassType attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="api/brane.core.html#brane.core.event.MarkerRule">MarkerRule (class in brane.core.event)</a>
+</li>
       <li><a href="api/brane.core.html#brane.core.base.MetaFalse">MetaFalse (class in brane.core.base)</a>
 </li>
       <li><a href="api/brane.core.html#brane.core.format.MetaFormat">MetaFormat (class in brane.core.format)</a>
@@ -720,6 +731,8 @@
 </li>
       <li><a href="api/brane.html#brane.typing.ModuleClassType">ModuleClassType (class in brane.typing)</a>
 </li>
+      <li><a href="api/brane.core.html#brane.core.factory.ModuleConfigType">ModuleConfigType (class in brane.core.factory)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -772,15 +785,17 @@
 </li>
       <li><a href="api/brane.core.html#brane.core.object.Object.object_type">object_type (brane.core.object.Object attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/brane.core.html#brane.core.object.Object.object_type_info">object_type_info (brane.core.object.Object attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/brane.core.html#brane.core.module.Module.object_unpacking_type">object_unpacking_type (brane.core.module.Module attribute)</a>
 </li>
       <li><a href="api/brane.core.html#brane.core.module.Module.object_write_method_name">object_write_method_name (brane.core.module.Module attribute)</a>
 </li>
       <li><a href="api/brane.html#brane.typing.ObjectClassType">ObjectClassType (class in brane.typing)</a>
+</li>
+      <li><a href="api/brane.core.html#brane.core.factory.ObjectConfigType">ObjectConfigType (class in brane.core.factory)</a>
 </li>
       <li><a href="api/brane.core.html#brane.core.mapper.ObjectFormat2Module">ObjectFormat2Module (class in brane.core.mapper)</a>
 </li>
@@ -837,6 +852,8 @@
       <li><a href="api/brane.core.html#brane.core.base.BaseSubclassRegister.priority">priority (brane.core.base.BaseSubclassRegister attribute)</a>
 
       <ul>
+        <li><a href="api/brane.core.html#brane.core.event.MarkerRule.priority">(brane.core.event.MarkerRule attribute)</a>
+</li>
         <li><a href="api/brane.core.html#brane.core.format.Format.priority">(brane.core.format.Format attribute)</a>
 </li>
         <li><a href="api/brane.core.html#brane.core.module.Module.priority">(brane.core.module.Module attribute)</a>
@@ -880,10 +897,10 @@
 </li>
       <li><a href="api/brane.core.html#brane.core.xio.HookManager.register_pre_readall_hook">register_pre_readall_hook() (brane.core.xio.HookManager class method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/brane.core.html#brane.core.xio.HookManager.register_pre_write_hook">register_pre_write_hook() (brane.core.xio.HookManager class method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/brane.core.html#brane.core.xio.HookManager.register_pre_writeall_hook">register_pre_writeall_hook() (brane.core.xio.HookManager class method)</a>
 </li>
       <li><a href="api/brane.core.html#brane.core.format.MetaFormat.registered_formats">registered_formats (brane.core.format.MetaFormat property)</a>
@@ -908,6 +925,8 @@
       </ul></li>
       <li><a href="api/brane.core.html#brane.core.xio.HookManager.remove_hooks_for_event">remove_hooks_for_event() (brane.core.xio.HookManager static method)</a>
 </li>
+      <li><a href="api/brane.core.html#brane.core.event.Event.remove_marker_rule">remove_marker_rule() (brane.core.event.Event method)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -916,8 +935,14 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/brane.core.html#brane.core.event.Event.search_hook_name_with_index">search_hook_name_with_index() (brane.core.event.Event method)</a>
 </li>
-      <li><a href="api/brane.core.html#brane.core.xio.ExtendedIO.set_storage_option">set_storage_option() (brane.core.xio.ExtendedIO method)</a>
+      <li><a href="api/brane.core.html#brane.core.xio.ExtendedIO.set_storage_option">set_storage_option() (brane.core.xio.ExtendedIO class method)</a>
 </li>
+      <li><a href="api/brane.core.html#brane.core.factory.BraneClassGenerator.setup">setup() (brane.core.factory.BraneClassGenerator class method)</a>
+
+      <ul>
+        <li><a href="api/brane.core.html#brane.core.factory.BraneHooksGenerator.setup">(brane.core.factory.BraneHooksGenerator class method)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/brane.core.html#brane.core.xio.HookManager.setup_hooks">setup_hooks() (brane.core.xio.HookManager class method)</a>
