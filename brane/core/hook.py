@@ -27,12 +27,12 @@ def generate_hash_from_objects(*immutable_objects) -> str:
 
 class Hook(HookClassType, metaclass=ABCMeta):
     hook_name: Optional[str] = None
-    flag: HookFlagType = None  # [ARG]: other name convention: marker
+    marker: HookMarkerType = None
     _active: bool = True
 
-    def __init__(self, name: Optional[str] = None, flag: HookFlagType = None):
+    def __init__(self, name: Optional[str] = None, marker: HookMarkerType = None):
         self.hook_name: Optional[str] = name
-        self.flag: HookFlagType = flag  # [ARG]: other name convention: marker (state again)
+        self.marker: HookMarkerType = marker
         self._active: bool = True
 
     def condition(self, info: ContextInterface) -> bool:
@@ -55,15 +55,17 @@ class Hook(HookClassType, metaclass=ABCMeta):
     def __repr__(self) -> str:
         if self.hook_name is not None:
             return self.hook_name
+        else:
+            return repr(self)
 
 
 class FunctionHook(Hook):
     def __init__(
         self,
-        func: Callable[ContextInterface, ContextInterface],
-        condition_func: Callable[ContextInterface, bool] = lambda info: True,
+        func: Callable[[ContextInterface], ContextInterface],
+        condition_func: Callable[[ContextInterface], bool] = lambda info: True,
         name: Optional[str] = None,
-        flag: HookFlagType = None,
+        marker: HookMarkerType = None,
         **kwargs_exp,
     ):
         """
@@ -71,7 +73,7 @@ class FunctionHook(Hook):
             func: hook function. It recevices context including path/paths, object/objects and return
             condition_func: evaluate  whether this hook is called or not based on the context.
             name:
-            flag:
+            marker:
 
             # experimental keyword aruguments
             skip_when_error:
@@ -79,12 +81,15 @@ class FunctionHook(Hook):
             container_type (None|'list'|'tuple'|'dict'):
             is_multiple_objects (bool):
         """
+        hook_name: str = ""
         if name is None:
             import hashlib
 
-            python_hash_value = generate_hash_from_objects(func, condition_func)
-            name = hashlib.md5(python_hash_value.encode()).hexdigest()[::2]
-        super().__init__(name=name, flag=flag)
+            python_hash_value: str = generate_hash_from_objects(func, condition_func)
+            hook_name = hashlib.md5(python_hash_value.encode()).hexdigest()[::2]
+        else:
+            hook_name = name
+        super().__init__(name=hook_name, marker=marker)
         self.hook_func = func
 
         if "skip_when_error" in kwargs_exp:
@@ -95,6 +100,7 @@ class FunctionHook(Hook):
             # container_type = kwargs_exp.get("container_type", None)
             # is_multiple_objects: bool = kwargs_exp.get("is_multiple_objects", False)
             # [ARG]: should use higher order function ?
+
             def check_object_type(obj: Any) -> bool:
                 # nonlocal target_object_type
                 return isinstance(obj, target_object_type)

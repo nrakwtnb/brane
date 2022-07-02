@@ -46,6 +46,7 @@ class HookManager(object):
     # @property [TODO]: use when python>=3.9
     @classmethod
     def get_events(cls) -> dict[str, Event]:
+        """Get events managing hooks."""
         name2event: dict[str, Event] = dict()
         for attr in dir(cls):
             event = getattr(cls, attr)
@@ -55,6 +56,7 @@ class HookManager(object):
 
     @classmethod
     def show_events(cls):
+        """Show all registered hooks at each event."""
         for event_name, event in cls.get_events().items():
             builtins.print(f"Event: {event_name}")
             if len(event):
@@ -239,38 +241,47 @@ class HookManager(object):
 
     @classmethod
     def clear_pre_read_hook(cls):
+        """Remove all the registered hooks which run before loading."""
         cls.clear_hooks(cls.pre_read)
 
     @classmethod
     def clear_post_read_hook(cls):
+        """Remove all the registered hooks which run after loading."""
         cls.clear_hooks(cls.post_read)
 
     @classmethod
     def clear_pre_write_hook(cls):
+        """Remove all the registered hooks which run before saving."""
         cls.clear_hooks(cls.pre_write)
 
     @classmethod
     def clear_post_write_hook(cls):
+        """Remove all the registered hooks which run after saving."""
         cls.clear_hooks(cls.post_write)
 
     @classmethod
     def clear_pre_readall_hook(cls):
+        """Remove all the registered hooks which run before loading all."""
         cls.clear_hooks(cls.pre_readall)
 
     @classmethod
-    def clear_pre_writeall_hook(cls):
-        cls.clear_hooks(cls.pre_writeall)
-
-    @classmethod
     def clear_post_readall_hook(cls):
+        """Remove all the registered hooks which run after loading all."""
         cls.clear_hooks(cls.post_readall)
 
     @classmethod
+    def clear_pre_writeall_hook(cls):
+        """Remove all the registered hooks which run before saving all."""
+        cls.clear_hooks(cls.pre_writeall)
+
+    @classmethod
     def clear_post_writeall_hook(cls):
+        """Remove all the registered hooks which run after saving all."""
         cls.clear_hooks(cls.post_writeall)
 
     @classmethod
     def clear_all_hooks(cls):
+        """Remove all the registered hooks at any event."""
         for event in cls.get_events().values():
             cls.clear_hooks(event)
 
