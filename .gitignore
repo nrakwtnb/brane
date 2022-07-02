@@ -5,6 +5,7 @@ logs/
 tmp_*
 memo
 
+*.sh
 
 
 ### from https://github.com/github/gitignore/blob/main/Python.gitignore
