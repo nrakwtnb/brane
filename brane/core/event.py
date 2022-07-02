@@ -15,7 +15,9 @@ MultipleHookClassType = Union[
 T = TypeVar('T')
 
 
-def convert_obj_into_list(obj: T) -> list[T]:  # [ARG]: convert_iterator ?
+def convert_obj_into_list(
+    obj: Union[list[T], tuple[T], set[T], T]
+) -> list[T]:  # [ARG]: convert_iterator ? and better typing ?
     if isinstance(obj, list):
         return list(obj)
     elif isinstance(obj, tuple):
@@ -49,7 +51,7 @@ class Event(EventClassType):
         if hook_funcs:
             self.hooks = convert_obj_into_list(hook_funcs)
         self.event_name: str = event_name
-        self.marker_rules: dict[str, MarkerRule] = {}
+        self.marker_rules: dict[Union[str, int], MarkerRule] = {}
         # self.allowed_markers: HookMarkerType = None  # fixed in the future
         # self.denied_markers: HookMarkerType = None  # fixed in the future
 
@@ -121,7 +123,7 @@ class Event(EventClassType):
             raise NotImplementedError
 
         if isinstance(hook_names, str):
-            hook_name = [hook_names]
+            hook_names = [hook_names]
 
         def check_no_inclusion_of_hook_name(hook: HookClassType) -> bool:
             nonlocal hook_names

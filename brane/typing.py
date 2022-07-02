@@ -73,11 +73,14 @@ class ObjectClassType:
 HookMarkerType = Optional[Union[str, set[str]]]
 
 
-class HookClassType(Callable):
+class HookClassType:
     hook_name: Optional[str]
     marker: HookMarkerType
-    active: bool
-    condition: Callable[ContextInterface, bool]
+    active: bool  # [FIX] error: Signature of "active" incompatible with supertype "HookClassType"
+    activate: Callable
+    deactivate: Callable
+    condition: Callable[[ContextInterface], bool]
+    __call__: Callable[[ContextInterface], Union[ContextInterface, None]]
 
 
 class EventClassType:

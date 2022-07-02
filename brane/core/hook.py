@@ -55,13 +55,15 @@ class Hook(HookClassType, metaclass=ABCMeta):
     def __repr__(self) -> str:
         if self.hook_name is not None:
             return self.hook_name
+        else:
+            return repr(self)
 
 
 class FunctionHook(Hook):
     def __init__(
         self,
-        func: Callable[ContextInterface, ContextInterface],
-        condition_func: Callable[ContextInterface, bool] = lambda info: True,
+        func: Callable[[ContextInterface], ContextInterface],
+        condition_func: Callable[[ContextInterface], bool] = lambda info: True,
         name: Optional[str] = None,
         marker: HookMarkerType = None,
         **kwargs_exp,
@@ -79,13 +81,14 @@ class FunctionHook(Hook):
             container_type (None|'list'|'tuple'|'dict'):
             is_multiple_objects (bool):
         """
+        hook_name: str = ""
         if name is None:
             import hashlib
 
             python_hash_value: str = generate_hash_from_objects(func, condition_func)
-            hook_name: str = hashlib.md5(python_hash_value.encode()).hexdigest()[::2]
+            hook_name = hashlib.md5(python_hash_value.encode()).hexdigest()[::2]
         else:
-            hook_name: str = name
+            hook_name = name
         super().__init__(name=hook_name, marker=marker)
         self.hook_func = func
 
@@ -97,6 +100,7 @@ class FunctionHook(Hook):
             # container_type = kwargs_exp.get("container_type", None)
             # is_multiple_objects: bool = kwargs_exp.get("is_multiple_objects", False)
             # [ARG]: should use higher order function ?
+
             def check_object_type(obj: Any) -> bool:
                 # nonlocal target_object_type
                 return isinstance(obj, target_object_type)
