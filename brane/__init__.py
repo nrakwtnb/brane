@@ -1,3 +1,4 @@
+__version__ = "v0.0.dev1"
 
 import os  # noqa: E402
 
