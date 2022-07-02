@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import builtins
 import importlib
 
 from brane.core.base import BaseSubclassRegister, MetaFalse
@@ -13,18 +14,135 @@ class MetaModule(type):
         if new_class_info.get("name", None) is None:
             new_class_info["name"] = new_class_info.get("module_name", None)
 
-        print(f"[DEBUG]: in MetaModule class_info={new_class_info}")
+        # print(f"[DEBUG]: in MetaModule class_info={new_class_info}")
         return type.__new__(cls, classname, bases, new_class_info)
 
     # [TODO] python>=3.9, move to class as classmethod property
     @property
-    def registered_modules(cls) -> dict:  # [TODO]: refine typing
+    def registered_modules(cls) -> dict[str, ModuleClassType]:  # [TODO]: refine typing
         # [ARG]: It assumes it is used as mixin with BaseSubclassRegister.
         #     And this line raises mypy error ("MetaModule" has no attribute "_registered_subclasses").
-        return cls._registered_subclasses
+        # return cls._registered_subclasses
+        return cls.get_registered_subclasses()
 
 
 class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
+    # [ARG]: also should be derived with ABCmeta class but not allowed because MetaModule is defined
+    _registered_subclasses: dict[str, ModuleClassType] = {}
+    priority: int = 50
+
+    # should be unqiue. package name specifed at pip install is usually set
+    name: Optional[str] = None
+    # temporal / experimental
+    loaded: bool = False
+
+    # abstractmethod
+    @classmethod
+    def load_modules(cls):
+        """lazy loading of modules and setting their attributes or methods to this class."""
+        if cls.loaded:
+            return None
+
+        cls.loaded = True
+
+        # [ARG]: define `no_module_required` flag propetry
+        """
+        if no_module_required or cls.module:
+            cls.loaded = True
+        else:
+            raise NotImplementedError
+        """
+
+    @classmethod
+    def reload_modules(cls):
+        """reload modules or re-setting attributes or methods."""
+        cls.loaded = False
+        cls.load_modules()
+
+    # abstractmethod
+    @classmethod
+    def read(
+        cls,
+        path: Optional[PathType] = None,
+        file: Optional[FileType] = None,
+        io: Optional[IOType] = None,
+        *args,
+        **kwargs,
+    ) -> Any:
+        """read from path or file stream.
+
+        Args:
+            path: path object
+            file: file stream object
+
+        Returns:
+            Any: loaded objects
+        """
+        raise NotImplementedError
+
+    # abstractmethod
+    @classmethod
+    def write(
+        cls,
+        obj: Any,
+        path: Optional[PathType] = None,
+        file: Optional[FileType] = None,
+        io: Optional[IOType] = None,
+        *args,
+        **kwargs,
+    ) -> Any:
+        """write objects to the file specified by path object or file object.
+
+        Args:
+            obj: object to save
+            path: path object
+            file: file stream object
+        """
+        raise NotImplementedError
+
+
+class ModuleConfig:
+    # [base]
+    name: Optional[str] = None
+    priority: int = 50
+
+    # [read]
+    # [[io]]
+    file_open_for_read: bool = False
+    open_mode_for_read: dict[str, Any] = {"mode": "r"}
+    # [[load]]
+    module_read_method_name: Optional[str] = None
+    file_read_method_name: Optional[str] = None
+    # [[params]]
+    base_args_read: tuple = ()
+    base_kwargs_read: dict = {}
+    # [[post processing]]
+    transform_name: Optional[str] = None
+    transform_info: Optional[tuple[str, ...]] = None
+    object_transform_method_name: Optional[str] = None
+
+    # [write]
+    # [[io]]
+    file_open_for_write: bool = False
+    open_mode_for_write: dict[str, Any] = {"mode": "w"}
+    # [[save]]
+    # [[[write(file, obj)]]]
+    module_write_method_name: Optional[str] = None
+    writer_method_name: Optional[str] = None
+    object_unpacking_type: Optional[Literal['sequence', 'mapping']] = None
+    file_arg_first: bool = True
+    file_keyword_at_write: Optional[str] = None
+    obj_keyword_at_write: Optional[str] = None
+    # [[[obj.write(file)]]]
+    object_write_method_name: Optional[str] = None
+    # [[[file.write(obj)]]]
+    file_write_method_name: Optional[str] = None
+    # [[params]]
+    base_args_write: tuple = ()
+    base_kwargs_write: dict = {}
+
+
+class ModuleTemplate(Module, ModuleConfig):
     """
     Needed to be inheritated. The child class correspond to module.
 
@@ -65,62 +183,25 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
         base_kwargs_read:
         base_args_write:
         base_kwargs_write:
-        generate_params_read:
-        generate_params_write:
-
-        filesystems:
 
     Note:
         Argument version v0.0
     """
 
-    # [ARG]: may split two type of classes
-    # 1. Base Module class which should be inheritated
-    # 2. Config Module class defined here
-
-    _registered_subclasses: dict[str, ModuleClassType] = {}
-    priority: int = 50
-
-    # should be unqiue. package name specifed at pip install is usually set
-    name: Optional[str] = None
-    # module name for base. allow the string like "module1.module2"
-    module_name: Optional[str] = None
     # the module specified by the module_name is set at load_modules method
     module: Any = None
-    # temporal / experimental
-    loaded: bool = False
+    # module name for base. allow the string like "module1.module2"
+    module_name: Optional[str] = None
 
     module_read_method: Optional[Callable] = None
-    module_read_method_name: Optional[str] = None
-    file_read_method_name: Optional[str] = None
-    file_open_for_read: bool = False
-    open_mode_for_read: dict[str, Any] = {"mode": "r"}
     transform: Optional[Callable] = None
-    transform_name: Optional[str] = None
-    transform_info: Optional[tuple[str, ...]] = None
-    object_transform_method_name: Optional[str] = None
 
     module_write_method: Optional[Callable] = None
-    module_write_method_name: Optional[str] = None
-    writer_method_name: Optional[str] = None
-    object_write_method_name: Optional[str] = None
-    file_write_method_name: Optional[str] = None
-    file_open_for_write: bool = False
-    open_mode_for_write: dict[str, Any] = {"mode": "w"}
 
-    file_arg_first: bool = True
-    object_unpacking_type: Optional[Literal['sequence', 'mapping']] = None
-    file_keyword_at_write: Optional[str] = None
-    obj_keyword_at_write: Optional[str] = None
+    # generate_params_read = None  # unnecessary ?
+    generate_params_write = None  # unnecessary ?
 
-    base_args_read: tuple = ()
-    base_kwargs_read: dict = {}
-    base_args_write: tuple = ()
-    base_kwargs_write: dict = {}
-    generate_params_read = None  # unnecessary ?
-    generate_params_write = None
-
-    filesystems: dict = {}
+    # filesystems: dict = {}  # experimental
 
     @classmethod
     def load_modules(cls):
@@ -169,12 +250,6 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
         cls.loaded = True
 
     @classmethod
-    def reload_modules(cls):
-        """reload modules or re-setting attributes or methods."""
-        cls.loaded = False
-        cls.load_modules()
-
-    @classmethod
     def read(
         cls,
         path: Optional[PathType] = None,
@@ -194,6 +269,8 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
         """
         if path is None and file is None:
             raise ValueError("Either path or file argument should be not None.")
+        if io is None:
+            io = builtins  # [ARG]: resolve typing incosistency
 
         # generate the args and keyword args passed to read method
         base_args_read, base_kwargs_read = cls.base_args_read, cls.base_kwargs_read.copy()
@@ -209,7 +286,7 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
                 file = io.open(path, **cls.open_mode_for_read)
             else:
                 file = path
-        assert file is not None
+        assert file is not None  # [ARG]: is there any case only path is accepted ?
 
         if cls.module_read_method:
             obj = cls.module_read_method(file, *args_read, **kwargs_read)
@@ -221,6 +298,7 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
             raise NotImplementedError
 
         # do post-process
+        # [ARG]: allow multiple-time operations by using list of methods
         if cls.transform:
             obj = cls.transform(obj)
         if cls.object_transform_method_name:
@@ -253,6 +331,8 @@ class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
         """
         if path is None and file is None:
             raise ValueError("Either path or file argument should be not None.")
+        if io is None:
+            io = builtins  # [ARG]: resolve typing incosistency
 
         base_args_write, base_kwargs_write = cls.base_args_write, cls.base_kwargs_write.copy()
         if cls.generate_params_write:
@@ -411,10 +491,10 @@ class MetaNoneModule(MetaModule, MetaFalse):  # [MEMO]: deprecated after removin
     pass
 
 
-class NoneModule(Module, metaclass=MetaNoneModule):
-    valid = False  ###
+class NoneModule(ModuleClassType, metaclass=MetaNoneModule):
+    valid = False  # temporal
     name = "None"
 
     # @classmethod # not work for class
     # def __bool__(cls):
-    #    return False
+    #     return False

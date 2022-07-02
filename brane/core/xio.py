@@ -12,9 +12,11 @@ from fsspec.registry import known_implementations
 from brane.core.base import Context
 from brane.core.event import Event
 from brane.core.factory import BraneClassGenerator, BraneHooksGenerator
-from brane.core.format import NoneFormat
+from brane.core.format import Format, NoneFormat
 from brane.core.hook import FunctionHook, Hook
 from brane.core.mapper import ExtensionMapper, ObjectFormat2Module
+from brane.core.module import Module
+from brane.core.object import Object
 from brane.core.utils import get_extension_from_filname_default, integrate_args, integrate_kwargs
 from brane.typing import *  # noqa: F403
 
@@ -402,8 +404,10 @@ class ExtendedIO(HookManager):
             raise AssertionError()
 
         if module_name:
-            if module_name in cls._factory.className2Module:
-                Mdl = cls._factory.className2Module[module_name]
+            # if module_name in cls._factory.className2Module:
+            if module_name in Module.registered_modules:
+                # Mdl = cls._factory.className2Module[module_name]
+                Mdl = Module.registered_modules[module_name]
                 assert Mdl  # temporal (currently, there is possibility that NoneModule comes in)
             else:
                 raise NameError(f"No module name: {module_name}. Check the `all_modules` propetry.")  ###
@@ -600,8 +604,10 @@ class ExtendedIO(HookManager):
             raise AssertionError()
 
         if module_name:
-            if module_name in cls._factory.className2Module:
-                Mdl = cls._factory.className2Module[module_name]
+            # if module_name in cls._factory.className2Module:
+            if module_name in Module.registered_modules:
+                # Mdl = cls._factory.className2Module[module_name]
+                Mdl = Module.registered_modules[module_name]
                 assert Mdl  # temporal (currently, there is possibility that NoneModule comes in)
             else:
                 raise NameError(f"No module name: {module_name}. Check the `all_modules` propetry.")  ### temporal
@@ -618,8 +624,8 @@ class ExtendedIO(HookManager):
                 else:
                     Fmt = NoneFormat
             Mdl = ObjectFormat2Module.get_module_from_object(obj, fmt=Fmt)
-            if not Mdl:
-                raise NotImplementedError(f"Cannot find the corresponding module for given object type {type(obj)}")
+        if not Mdl:
+            raise NotImplementedError(f"Cannot find the corresponding module for given object type {type(obj)}")
         Mdl.load_modules()
 
         fs_info: dict = {}

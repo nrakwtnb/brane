@@ -7,9 +7,9 @@ from pathlib import Path
 import yaml
 
 import brane.config as default_cfg
-from brane.core.format import Format
-from brane.core.module import Module
-from brane.core.object import Object
+from brane.core.format import FormatTemplate
+from brane.core.module import ModuleTemplate
+from brane.core.object import ObjectTemplate
 from brane.typing import *  # noqa: F403
 
 ClassAttributeType = NewType('ClassAttributeType', dict[str, Any])
@@ -17,15 +17,15 @@ ClassAttributeType = NewType('ClassAttributeType', dict[str, Any])
 ConfigType = dict[str, Union[str, dict]]
 
 
-class ModuleConfigType(ConfigType):
+class ModuleConfigType(dict[str, dict[str, Any]]):
     pass
 
 
-class FormatConfigType(ConfigType):
+class FormatConfigType(dict[str, dict[str, Any]]):
     pass
 
 
-class ObjectConfigType(ConfigType):
+class ObjectConfigType(dict[str, dict[str, Any]]):
     pass
 
 
@@ -49,6 +49,9 @@ def load_multiple_config(config_path_list: list[PathType], strict: bool = False)
     return [load_config(config_path, strict=strict) for config_path in config_path_list]
 
 
+T = TypeVar('T')
+
+
 class BraneClassGenerator(object):  # [ARG]: rename class name ?
     # [TODO]: verify config format based on Config class
     className2Module: dict[str, ModuleClassType] = dict()
@@ -69,13 +72,14 @@ class BraneClassGenerator(object):  # [ARG]: rename class name ?
     def generate_classes_from_configs(
         config_list: list[ConfigType],
         suffix: str,
-        cls: type,
+        cls: T,
         apply_attributes: Optional[Callable[[str, ClassAttributeType], ClassAttributeType]] = None,
-    ) -> dict[str, type]:
+    ) -> dict[str, T]:
         # [TODO]: use generics: type of return's value can be of ModuleClassType, FormatClassType or ObjectClassType depending on cls
         name2class: dict[str, type] = {}
         for config in config_list:
             name2class_for_cfg: dict[str, type] = {
+                # getattr(attributes, "name") if hasattr(attributes, "name") else class_name.lower(): type(
                 class_name: type(
                     f"{class_name}{suffix}",
                     (cls,),
@@ -88,10 +92,18 @@ class BraneClassGenerator(object):  # [ARG]: rename class name ?
 
     @classmethod
     def load_brane_modules(cls, config_path_list: list[PathType]) -> dict[str, ModuleClassType]:
+        def update_attributes(class_name: str, attributes: ClassAttributeType) -> ClassAttributeType:
+            # nonlocal cls
+            attributes = attributes.copy()
+            if not attributes.get("name", None):
+                attributes["name"] = class_name.lower()
+
+            return attributes
+
         config_list: list[ConfigType] = load_multiple_config(config_path_list=config_path_list)
         # [TODO]: config verification: each is of ModuleConfigType ?
         className2Module: dict[str, ModuleClassType] = cls.generate_classes_from_configs(
-            config_list=config_list, suffix="Module", cls=Module, apply_attributes=None
+            config_list=config_list, suffix="Module", cls=ModuleTemplate, apply_attributes=update_attributes
         )
         return className2Module
 
@@ -100,8 +112,8 @@ class BraneClassGenerator(object):  # [ARG]: rename class name ?
         def update_attributes(class_name: str, attributes: ClassAttributeType) -> ClassAttributeType:
             # nonlocal cls
             attributes = attributes.copy()
-            if attributes.get("name", None):
-                attributes["name"] = class_name
+            if not attributes.get("name", None):
+                attributes["name"] = class_name.lower()
 
             if attributes.get("module", None) is None and attributes.get("module_name", None) is not None:
                 attributes["module"] = cls.className2Module.get(attributes["module_name"], None)
@@ -118,7 +130,7 @@ class BraneClassGenerator(object):  # [ARG]: rename class name ?
         config_list: list[ConfigType] = load_multiple_config(config_path_list=config_path_list)
         # [TODO]: config verification: each is of FormatConfigType ?
         className2Format: dict[str, FormatClassType] = cls.generate_classes_from_configs(
-            config_list=config_list, suffix="Format", cls=Format, apply_attributes=update_attributes
+            config_list=config_list, suffix="Format", cls=FormatTemplate, apply_attributes=update_attributes
         )
         return className2Format
 
@@ -127,8 +139,8 @@ class BraneClassGenerator(object):  # [ARG]: rename class name ?
         def update_attributes(class_name: str, attributes: ClassAttributeType) -> ClassAttributeType:
             # nonlocal cls
             attributes = attributes.copy()
-            if attributes.get("name", None):
-                attributes["name"] = class_name
+            if not attributes.get("name", None):
+                attributes["name"] = class_name.lower()
 
             if attributes.get("format", None) is None and attributes.get("format_name", None) is not None:
                 attributes["format"] = cls.className2Format.get(attributes["format_name"], None)
@@ -154,7 +166,7 @@ class BraneClassGenerator(object):  # [ARG]: rename class name ?
         config_list: list[ConfigType] = load_multiple_config(config_path_list=config_path_list)
         # [TODO]: config verification: each is of ObjectConfigType ?
         className2Object: dict[str, ObjectClassType] = cls.generate_classes_from_configs(
-            config_list=config_list, suffix="_Object", cls=Object, apply_attributes=update_attributes
+            config_list=config_list, suffix="_Object", cls=ObjectTemplate, apply_attributes=update_attributes
         )
         return className2Object
 
@@ -202,7 +214,8 @@ class BraneHooksGenerator(object):
     def __init__(self):
         self.setup()
 
-    def _check_config(cfg: ConfigType):
+    @classmethod
+    def _check_config(cls, cfg: ConfigType):
         if "version" not in cfg:
             raise ValueError("Invalid config")  # [TODO]: refine error
 

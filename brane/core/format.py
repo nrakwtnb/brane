@@ -22,15 +22,17 @@ class MetaFormat(type):
 
     # [TODO] python>=3.9, move to class as classmethod property
     @property
-    def registered_formats(cls) -> dict:
+    def registered_formats(cls) -> dict[str, FormatClassType]:
         # [ARG]: It assumes it is used as mixin with BaseSubclassRegister.
         #     And this line raises mypy error ("MetaFormat" has no attribute "_registered_subclasses").
-        return cls._registered_subclasses
+        # return cls._registered_subclasses
+        return cls.get_registered_subclasses()
 
 
 class Format(FormatClassType, BaseSubclassRegister, metaclass=MetaFormat):
     _registered_subclasses: dict[str, FormatClassType] = {}
-    priority = 50
+    priority: int = 50
+    module: Optional[ModuleClassType] = None
     # valid = True
 
     # # Image, Text ... # experimental
@@ -45,9 +47,23 @@ class Format(FormatClassType, BaseSubclassRegister, metaclass=MetaFormat):
         return ext_normalized in cls.variation
 
 
+class FormatConfig:
+    # [base]
+    name: Optional[str] = None
+    priority: int = 50
+
+    module_name: Optional[str] = None
+    default_extension: Optional[str] = None
+    variation: list[str] = []  # variations ? // use tuple instead of list or replace later ?
+
+
+class FormatTemplate(Format, FormatConfig):
+    pass
+
+
 class MetaNoneFormat(MetaFormat, MetaFalse):  # [MEMO]: deprecated after removing MetaFormat
     pass
 
 
-class NoneFormat(Format, metaclass=MetaNoneFormat):
+class NoneFormat(FormatClassType, metaclass=MetaNoneFormat):
     valid = False

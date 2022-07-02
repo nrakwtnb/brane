@@ -47,22 +47,27 @@ del _generate_file_related_types
 
 
 class ModuleClassType:
-    name: str
+    name: Optional[str]  # or str ?
     loaded: bool
-    load_modules: Callable
-    reload_modules: Callable
+    load_modules: Callable[[], None]
+    reload_modules: Callable[[], None]
     read: Callable
     write: Callable
 
 
 class FormatClassType:
-    module: ModuleClassType
+    module: Optional[ModuleClassType]
+    check_extension: Callable[[str], bool]
 
 
 class ObjectClassType:
-    module: ModuleClassType
-    format: FormatClassType
+    module: Optional[ModuleClassType]
+    format: Optional[FormatClassType]
     object: Any
+    load_objects: Callable[[], None]
+    # [ARG]: optional ?
+    format_checker: Optional[Callable[[Any], FormatClassType]]
+    module_checker: Optional[Callable[[Any, FormatClassType], ModuleClassType]]
 
 
 HookMarkerType = Optional[Union[str, set[str]]]
