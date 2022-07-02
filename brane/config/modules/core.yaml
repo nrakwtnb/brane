@@ -1,5 +1,4 @@
 TextIO:
-    name: textio
     file_read_method_name: read
     file_open_for_read: true
     file_write_method_name: write
@@ -17,7 +16,7 @@ Json:
     base_kwargs_write:
         indent: 2
 
-Wave:
+Wave:  # [TODO]: to be updated
     module_name: wave
 
     file_open_for_read: true
