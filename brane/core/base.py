@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from collections import OrderedDict  # deprecated ? (builtin dict is already ordered)
-
 from brane.core.utils import sort_mapper
 from brane.typing import *  # noqa: F403
 
@@ -9,29 +7,28 @@ from brane.typing import *  # noqa: F403
 class BaseSubclassRegister(object):
     valid: bool = True
     # [CHECK]: cannot access to it by `cls.__registered_subclasses`
-    # __registered_subclasses = []
-    _registered_subclasses = OrderedDict()  # not list
+    _registered_subclasses: dict[str, type] = dict()
     priority: int = -1
 
     def __init_subclass__(cls):
         # [ARG]: not register the subclass if name is None ?
         if cls.valid:
-            # cls._registered_subclasses.append(cls)
             name = getattr(cls, "name", None)
+            if name:
+                if name in cls._registered_subclasses:  # inserted for debug purpose
+                    print(f"[DEBUG]: overwritten cls.name = {name}, cls = {cls}")
+                else:
+                    print(f"[DEBUG]: register cls.name = {name}, cls = {cls}")
+                # assume the base is one of Module, Format, Object
+                base = cls.__base__
+                if issubclass(base, BaseSubclassRegister) and base != BaseSubclassRegister:
+                    print(f"[DEBUG]: registered @ {base}")
+                    base._registered_subclasses.update({name: cls})
 
-            if name in cls._registered_subclasses:  # for debug
-                print(f"[DEBUG]: overwritten cls.name = {name}, cls = {cls}")
-            else:
-                print(f"[DEBUG]: register cls.name = {name}, cls = {cls}")
-            # assume the base is one of Module, Format, Object
-            base = cls.__base__
-            if issubclass(base, BaseSubclassRegister) and base != BaseSubclassRegister:
-                print(f"[DEBUG]: registered @ {base}")
-                base._registered_subclasses.update({name: cls})
-                # sort by priority
-                base._registered_subclasses = OrderedDict(
-                    sort_mapper(mapper=cls._registered_subclasses, key="priority")
-                )
+    @classmethod
+    def get_registered_subclasses(cls) -> dict[str, type]:
+        # sort by priority
+        return sort_mapper(mapper=cls._registered_subclasses, key="priority")
 
 
 class MetaFalse(type):
@@ -52,16 +49,24 @@ class Context(ContextInterface):
         objects
         path
         paths
+        protocol
         file
         files
+        args
+        kwargs
         Module
+        Format
 
     """
 
-    object = None
-    objects = None
-    path = None
-    paths = None
-    file = None
-    files = None
-    Module = None
+    object: Optional[Any] = None
+    objects: Union[None, Any, list[Any], dict[str, Any]] = None
+    path: Optional[PathType] = None
+    paths: Union[None, list[PathType], dict[str, PathType]] = None
+    protocol: Optional[str] = None
+    file: Optional[FileType] = None
+    files: Union[None, list[FileType], dict[str, FileType]] = None
+    args: tuple = ()
+    kwargs: dict[str, Any] = {}  # [ARG]: mutable -> immutable
+    Module: Optional[ModuleClassType] = None
+    Format: Optional[FormatClassType] = None
