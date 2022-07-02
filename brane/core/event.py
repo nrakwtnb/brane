@@ -12,9 +12,12 @@ MultipleHookClassType = Union[
     tuple[HookClassType],
     set[HookClassType],
 ]
+T = TypeVar('T')
 
 
-def convert_obj_into_list(obj) -> list:  # [ARG]: convert_iterator ?
+def convert_obj_into_list(
+    obj: Union[list[T], tuple[T], set[T], T]
+) -> list[T]:  # [ARG]: convert_iterator ? and better typing ?
     if isinstance(obj, list):
         return list(obj)
     elif isinstance(obj, tuple):
@@ -85,7 +88,7 @@ class Event(EventClassType):
         hook_funcs: MultipleHookClassType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
-        loc: Union['before', 'after'] = 'after',
+        loc: Literal['before', 'after'] = 'after',
     ):
         num_registered_hooks = len(self.hooks)
         if ref_name:

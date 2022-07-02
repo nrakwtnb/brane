@@ -49,6 +49,9 @@ def load_multiple_config(config_path_list: list[PathType], strict: bool = False)
     return [load_config(config_path, strict=strict) for config_path in config_path_list]
 
 
+T = TypeVar('T')
+
+
 class BraneClassGenerator(object):  # [ARG]: rename class name ?
     # [TODO]: verify config format based on Config class
     className2Module: dict[str, ModuleClassType] = dict()
@@ -57,6 +60,7 @@ class BraneClassGenerator(object):  # [ARG]: rename class name ?
     _instance = None
 
     def __new__(cls):
+        # Singleton pattern
         if cls._instance is None:
             cls._instance = super(BraneClassGenerator, cls).__new__(cls)
         return cls._instance
@@ -68,12 +72,14 @@ class BraneClassGenerator(object):  # [ARG]: rename class name ?
     def generate_classes_from_configs(
         config_list: list[ConfigType],
         suffix: str,
-        cls: type,
+        cls: T,
         apply_attributes: Optional[Callable[[str, ClassAttributeType], ClassAttributeType]] = None,
-    ) -> dict[str, type]:
+    ) -> dict[str, T]:
+        # [TODO]: use generics: type of return's value can be of ModuleClassType, FormatClassType or ObjectClassType depending on cls
         name2class: dict[str, type] = {}
         for config in config_list:
             name2class_for_cfg: dict[str, type] = {
+                # getattr(attributes, "name") if hasattr(attributes, "name") else class_name.lower(): type(
                 class_name: type(
                     f"{class_name}{suffix}",
                     (cls,),

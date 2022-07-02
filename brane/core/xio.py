@@ -83,7 +83,7 @@ class HookManager(object):
         hook: HookType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
-        loc: Union['before', 'after'] = 'after',
+        loc: Literal['before', 'after'] = 'after',
         **hook_kwargs,
     ):
         hook = cls._get_hook_class(hook, **hook_kwargs)
@@ -95,7 +95,7 @@ class HookManager(object):
         hook: HookType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
-        loc: Union['before', 'after'] = 'after',
+        loc: Literal['before', 'after'] = 'after',
         **hook_kwargs,
     ):
         """Add new hook which runs before loading.
@@ -111,7 +111,7 @@ class HookManager(object):
         hook: HookType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
-        loc: Union['before', 'after'] = 'after',
+        loc: Literal['before', 'after'] = 'after',
         **hook_kwargs,
     ):
         """Add new hook which runs after loading.
@@ -127,7 +127,7 @@ class HookManager(object):
         hook: HookType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
-        loc: Union['before', 'after'] = 'after',
+        loc: Literal['before', 'after'] = 'after',
         **hook_kwargs,
     ):
         """Add new hook which runs before saving.
@@ -143,7 +143,7 @@ class HookManager(object):
         hook: HookType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
-        loc: Union['before', 'after'] = 'after',
+        loc: Literal['before', 'after'] = 'after',
         **hook_kwargs,
     ):
         """Add new hook which runs after saving.
@@ -161,7 +161,7 @@ class HookManager(object):
         hook: HookType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
-        loc: Union['before', 'after'] = 'after',
+        loc: Literal['before', 'after'] = 'after',
         **hook_kwargs,
     ):
         """Add new hook which runs before loading all.
@@ -179,7 +179,7 @@ class HookManager(object):
         hook: HookType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
-        loc: Union['before', 'after'] = 'after',
+        loc: Literal['before', 'after'] = 'after',
         **hook_kwargs,
     ):
         """Add new hook which runs after loading all.
@@ -197,7 +197,7 @@ class HookManager(object):
         hook: HookType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
-        loc: Union['before', 'after'] = 'after',
+        loc: Literal['before', 'after'] = 'after',
         **hook_kwargs,
     ):
         """Add new hook which runs before saving all.
@@ -215,7 +215,7 @@ class HookManager(object):
         hook: HookType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
-        loc: Union['before', 'after'] = 'after',
+        loc: Literal['before', 'after'] = 'after',
         **hook_kwargs,
     ):
         """Add new hook which runs after saving all.

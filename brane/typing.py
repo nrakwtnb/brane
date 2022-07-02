@@ -7,6 +7,7 @@ from typing import (  # noqa: F401
     Generator,
     Generic,
     NamedTuple,
+    NewType,
     Optional,
     Sequence,
     TypeVar,
@@ -14,9 +15,9 @@ from typing import (  # noqa: F401
 )
 
 try:
-    from typing import Protocol, TypedDict  # noqa: F401 # >=3.8
+    from typing import Literal, Protocol, TypedDict  # noqa: F401 # >=3.8
 except ImportError:
-    from typing_extensions import Protocol, TypedDict  # noqa: F401 # <=3.7
+    from typing_extensions import Literal, Protocol, TypedDict  # noqa: F401 # <=3.7
 
 
 # define the types for universal objects
@@ -46,41 +47,61 @@ del _generate_file_related_types
 
 
 class ModuleClassType:
-    name: str
+    name: Optional[str]  # or str ?
     loaded: bool
-    reload_modules: Callable
+    load_modules: Callable[[], None]
+    reload_modules: Callable[[], None]
     read: Callable
     write: Callable
 
 
 class FormatClassType:
-    pass
+    module: Optional[ModuleClassType]
+    check_extension: Callable[[str], bool]
 
 
 class ObjectClassType:
-    pass
+    module: Optional[ModuleClassType]
+    format: Optional[FormatClassType]
+    object: Any
+    load_objects: Callable[[], None]
+    # [ARG]: optional ?
+    format_checker: Optional[Callable[[Any], FormatClassType]]
+    module_checker: Optional[Callable[[Any, FormatClassType], ModuleClassType]]
+
+
+HookMarkerType = Optional[Union[str, set[str]]]
 
 
 class HookClassType:
-    pass
+    hook_name: Optional[str]
+    marker: HookMarkerType
+    active: bool  # [FIX] error: Signature of "active" incompatible with supertype "HookClassType"
+    activate: Callable
+    deactivate: Callable
+    condition: Callable[[ContextInterface], bool]
+    __call__: Callable[[ContextInterface], Union[ContextInterface, None]]
 
 
 class EventClassType:
-    pass
+    clear_hooks: Callable
+    add_hooks: Callable
+    remove_hooks: Callable
 
 
-HookFlagType = Optional[Union[str, set[str]]]
-
-
-class ContextInterface(TypedDict):
-    object: Optional[Any] = None
-    objects: Optional[list[Any]] = None
-    path: Optional[PathType] = None
-    paths: Optional[list[PathType]] = None
-    file: Optional[FileType] = None
-    files: Optional[list[FileType]] = None
-    Module: Optional[ModuleClassType] = None
-    Format: Optional[FormatClassType] = None
+class ContextInterface(TypedDict, total=False):
+    object: Optional[Any]
+    objects: Union[None, Any, list[Any], dict[str, Any]]
+    path: Optional[PathType]
+    paths: Union[None, list[PathType], dict[str, PathType]]
+    ext: Optional[str]
+    protocol: Optional[str]
+    file: Optional[FileType]
+    files: Union[None, list[FileType], dict[str, FileType]]
+    args: tuple
+    kwargs: dict[str, Any]  # [ARG]: mutable -> immutable
+    Module: Optional[ModuleClassType]
+    Format: Optional[FormatClassType]
 
 
 # used for debug purpose temporalily
@@ -91,7 +112,7 @@ def print(*value, sep=' ', end='\n', file=None, flush=False):
 
     if file is None:
         file = sys.stdout
-    if os.environ.get("BRANE_MODE", None) == 'debug':
+    if 'debug' in os.environ.get("BRANE_MODE", ""):
         builtins.print(*value, end=end, file=file, flush=flush)
     else:
         pass
