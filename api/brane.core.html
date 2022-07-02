@@ -183,6 +183,11 @@
 <span class="sig-name descname"><span class="pre">priority</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#brane.core.base.BaseSubclassRegister.priority" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="brane.core.base.BaseSubclassRegister.get_registered_subclasses">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_registered_subclasses</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">type</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#brane.core.base.BaseSubclassRegister.get_registered_subclasses" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -373,7 +378,7 @@
 <span id="brane-core-event-module"></span><h2>brane.core.event module<a class="headerlink" href="#module-brane.core.event" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="brane.core.event.convert_obj_into_list">
-<span class="sig-prename descclassname"><span class="pre">brane.core.event.</span></span><span class="sig-name descname"><span class="pre">convert_obj_into_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#brane.core.event.convert_obj_into_list" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">brane.core.event.</span></span><span class="sig-name descname"><span class="pre">convert_obj_into_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#brane.core.event.convert_obj_into_list" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
@@ -459,19 +464,19 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="brane.core.factory.ModuleConfigType">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.core.factory.</span></span><span class="sig-name descname"><span class="pre">ModuleConfigType</span></span><a class="headerlink" href="#brane.core.factory.ModuleConfigType" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>]]</p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">Any</span></code>]]</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="brane.core.factory.FormatConfigType">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.core.factory.</span></span><span class="sig-name descname"><span class="pre">FormatConfigType</span></span><a class="headerlink" href="#brane.core.factory.FormatConfigType" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>]]</p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">Any</span></code>]]</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="brane.core.factory.ObjectConfigType">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.core.factory.</span></span><span class="sig-name descname"><span class="pre">ObjectConfigType</span></span><a class="headerlink" href="#brane.core.factory.ObjectConfigType" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>]]</p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">Any</span></code>]]</p>
 </dd></dl>
 
 <dl class="py class">
@@ -496,7 +501,7 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="brane.core.factory.BraneClassGenerator.className2Module">
-<span class="sig-name descname"><span class="pre">className2Module</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="brane.html#brane.typing.ModuleClassType" title="brane.typing.ModuleClassType"><span class="pre">brane.typing.ModuleClassType</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'CV2':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.module.CV2Module'&gt;,</span> <span class="pre">'Csv':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.module.CsvModule'&gt;,</span> <span class="pre">'Json':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.module.JsonModule'&gt;,</span> <span class="pre">'Numpy':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.module.NumpyModule'&gt;,</span> <span class="pre">'Numpz1':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.module.Numpz1Module'&gt;,</span> <span class="pre">'Numpz2':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.module.Numpz2Module'&gt;,</span> <span class="pre">'OpenPyxl':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.module.OpenPyxlModule'&gt;,</span> <span class="pre">'Pandas':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.module.PandasModule'&gt;,</span> <span class="pre">'Pickle':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.module.PickleModule'&gt;,</span> <span class="pre">'Pillow':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.module.PillowModule'&gt;,</span> <span class="pre">'Pyyaml':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.module.PyyamlModule'&gt;,</span> <span class="pre">'TextIO':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.module.TextIOModule'&gt;,</span> <span class="pre">'Toml':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.module.TomlModule'&gt;,</span> <span class="pre">'Wave':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.module.WaveModule'&gt;}</span></em><a class="headerlink" href="#brane.core.factory.BraneClassGenerator.className2Module" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">className2Module</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="brane.html#brane.typing.ModuleClassType" title="brane.typing.ModuleClassType"><span class="pre">brane.typing.ModuleClassType</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'CV2':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.module.CV2Module'&gt;,</span> <span class="pre">'Csv':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.module.CsvModule'&gt;,</span> <span class="pre">'Json':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.module.JsonModule'&gt;,</span> <span class="pre">'Numpy':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.module.NumpyModule'&gt;,</span> <span class="pre">'Numpz1':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.module.Numpz1Module'&gt;,</span> <span class="pre">'Numpz2':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.module.Numpz2Module'&gt;,</span> <span class="pre">'OpenPyxl':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.module.OpenPyxlModule'&gt;,</span> <span class="pre">'Pandas':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.module.PandasModule'&gt;,</span> <span class="pre">'Pickle':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.module.PickleModule'&gt;,</span> <span class="pre">'Pillow':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.module.PillowModule'&gt;,</span> <span class="pre">'PyYAML':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.module.PyYAMLModule'&gt;,</span> <span class="pre">'TextIO':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.module.TextIOModule'&gt;,</span> <span class="pre">'Toml':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.module.TomlModule'&gt;,</span> <span class="pre">'Wave':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.module.WaveModule'&gt;}</span></em><a class="headerlink" href="#brane.core.factory.BraneClassGenerator.className2Module" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -506,12 +511,12 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="brane.core.factory.BraneClassGenerator.className2Object">
-<span class="sig-name descname"><span class="pre">className2Object</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="brane.html#brane.typing.ObjectClassType" title="brane.typing.ObjectClassType"><span class="pre">brane.typing.ObjectClassType</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'Csv_CSV':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.object.Csv_CSV_Object'&gt;,</span> <span class="pre">'Json_JSON':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.object.Json_JSON_Object'&gt;,</span> <span class="pre">'PIL_Image':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.object.PIL_Image_Object'&gt;,</span> <span class="pre">'PIL_JPEG':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.object.PIL_JPEG_Object'&gt;,</span> <span class="pre">'PIL_PNG':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.object.PIL_PNG_Object'&gt;,</span> <span class="pre">'Pandas_DataFrame':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.object.Pandas_DataFrame_Object'&gt;,</span> <span class="pre">'Pickle_PKL':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.object.Pickle_PKL_Object'&gt;,</span> <span class="pre">'Pyyaml_Dict':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.object.Pyyaml_Dict_Object'&gt;,</span> <span class="pre">'TextIO_TXT':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.object.TextIO_TXT_Object'&gt;}</span></em><a class="headerlink" href="#brane.core.factory.BraneClassGenerator.className2Object" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">className2Object</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="brane.html#brane.typing.ObjectClassType" title="brane.typing.ObjectClassType"><span class="pre">brane.typing.ObjectClassType</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'Csv_CSV':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.object.Csv_CSV_Object'&gt;,</span> <span class="pre">'Json_JSON':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.object.Json_JSON_Object'&gt;,</span> <span class="pre">'Numpy_NdArray':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.object.Numpy_NdArray_Object'&gt;,</span> <span class="pre">'PIL_Image':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.object.PIL_Image_Object'&gt;,</span> <span class="pre">'PIL_JPEG':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.object.PIL_JPEG_Object'&gt;,</span> <span class="pre">'PIL_PNG':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.object.PIL_PNG_Object'&gt;,</span> <span class="pre">'Pandas_DataFrame':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.object.Pandas_DataFrame_Object'&gt;,</span> <span class="pre">'Pickle_PKL':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.object.Pickle_PKL_Object'&gt;,</span> <span class="pre">'Pyyaml_Dict':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.object.Pyyaml_Dict_Object'&gt;,</span> <span class="pre">'TextIO_TXT':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.object.TextIO_TXT_Object'&gt;,</span> <span class="pre">'Toml_Dict':</span> <span class="pre">&lt;class</span> <span class="pre">'brane.core.object.Toml_Dict_Object'&gt;}</span></em><a class="headerlink" href="#brane.core.factory.BraneClassGenerator.className2Object" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="brane.core.factory.BraneClassGenerator.generate_classes_from_configs">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_classes_from_configs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apply_attributes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ClassAttributeType</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ClassAttributeType</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">type</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#brane.core.factory.BraneClassGenerator.generate_classes_from_configs" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_classes_from_configs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apply_attributes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ClassAttributeType</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ClassAttributeType</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#brane.core.factory.BraneClassGenerator.generate_classes_from_configs" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -587,7 +592,7 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></p>
 <dl class="py property">
 <dt class="sig sig-object py" id="brane.core.format.MetaFormat.registered_formats">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">registered_formats</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#brane.core.format.MetaFormat.registered_formats" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">registered_formats</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="brane.html#brane.typing.FormatClassType" title="brane.typing.FormatClassType"><span class="pre">brane.typing.FormatClassType</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#brane.core.format.MetaFormat.registered_formats" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -599,6 +604,11 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="brane.core.format.Format.priority">
 <span class="sig-name descname"><span class="pre">priority</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">50</span></em><a class="headerlink" href="#brane.core.format.Format.priority" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.format.Format.module">
+<span class="sig-name descname"><span class="pre">module</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="brane.html#brane.typing.ModuleClassType" title="brane.typing.ModuleClassType"><span class="pre">ModuleClassType</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.format.Format.module" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -624,6 +634,53 @@
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="brane.core.format.FormatConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.core.format.</span></span><span class="sig-name descname"><span class="pre">FormatConfig</span></span><a class="headerlink" href="#brane.core.format.FormatConfig" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.format.FormatConfig.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.format.FormatConfig.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.format.FormatConfig.priority">
+<span class="sig-name descname"><span class="pre">priority</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">50</span></em><a class="headerlink" href="#brane.core.format.FormatConfig.priority" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.format.FormatConfig.module_name">
+<span class="sig-name descname"><span class="pre">module_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.format.FormatConfig.module_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.format.FormatConfig.default_extension">
+<span class="sig-name descname"><span class="pre">default_extension</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.format.FormatConfig.default_extension" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.format.FormatConfig.variation">
+<span class="sig-name descname"><span class="pre">variation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#brane.core.format.FormatConfig.variation" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="brane.core.format.FormatTemplate">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.core.format.</span></span><span class="sig-name descname"><span class="pre">FormatTemplate</span></span><a class="headerlink" href="#brane.core.format.FormatTemplate" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#brane.core.format.Format" title="brane.core.format.Format"><code class="xref py py-class docutils literal notranslate"><span class="pre">Format</span></code></a>, <a class="reference internal" href="#brane.core.format.FormatConfig" title="brane.core.format.FormatConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">FormatConfig</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.format.FormatTemplate.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.format.FormatTemplate.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.format.FormatTemplate.variation">
+<span class="sig-name descname"><span class="pre">variation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[None]</span></em><a class="headerlink" href="#brane.core.format.FormatTemplate.variation" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="brane.core.format.MetaNoneFormat">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.core.format.</span></span><span class="sig-name descname"><span class="pre">MetaNoneFormat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bases</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">type</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#brane.core.format.MetaNoneFormat" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#brane.core.format.MetaFormat" title="brane.core.format.MetaFormat"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetaFormat</span></code></a>, <a class="reference internal" href="#brane.core.base.MetaFalse" title="brane.core.base.MetaFalse"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetaFalse</span></code></a></p>
@@ -632,10 +689,10 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="brane.core.format.NoneFormat">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.core.format.</span></span><span class="sig-name descname"><span class="pre">NoneFormat</span></span><a class="headerlink" href="#brane.core.format.NoneFormat" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#brane.core.format.Format" title="brane.core.format.Format"><code class="xref py py-class docutils literal notranslate"><span class="pre">Format</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="brane.html#brane.typing.FormatClassType" title="brane.typing.FormatClassType"><code class="xref py py-class docutils literal notranslate"><span class="pre">FormatClassType</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="brane.core.format.NoneFormat.valid">
-<span class="sig-name descname"><span class="pre">valid</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#brane.core.format.NoneFormat.valid" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">valid</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#brane.core.format.NoneFormat.valid" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -645,12 +702,17 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="brane.core.format.NoneFormat.variation">
-<span class="sig-name descname"><span class="pre">variation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[None]</span></em><a class="headerlink" href="#brane.core.format.NoneFormat.variation" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">variation</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[None]</span></em><a class="headerlink" href="#brane.core.format.NoneFormat.variation" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="brane.core.format.NoneFormat.module">
-<span class="sig-name descname"><span class="pre">module</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="brane.html#brane.typing.ModuleClassType" title="brane.typing.ModuleClassType"><span class="pre">ModuleClassType</span></a></em><a class="headerlink" href="#brane.core.format.NoneFormat.module" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">module</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="brane.html#brane.typing.ModuleClassType" title="brane.typing.ModuleClassType"><span class="pre">ModuleClassType</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#brane.core.format.NoneFormat.module" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.format.NoneFormat.check_extension">
+<span class="sig-name descname"><span class="pre">check_extension</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#brane.core.format.NoneFormat.check_extension" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -764,7 +826,7 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></p>
 <dl class="py property">
 <dt class="sig sig-object py" id="brane.core.module.MetaModule.registered_modules">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">registered_modules</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#brane.core.module.MetaModule.registered_modules" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">registered_modules</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="brane.html#brane.typing.ModuleClassType" title="brane.typing.ModuleClassType"><span class="pre">brane.typing.ModuleClassType</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#brane.core.module.MetaModule.registered_modules" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -773,51 +835,6 @@
 <dt class="sig sig-object py" id="brane.core.module.Module">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.core.module.</span></span><span class="sig-name descname"><span class="pre">Module</span></span><a class="headerlink" href="#brane.core.module.Module" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="brane.html#brane.typing.ModuleClassType" title="brane.typing.ModuleClassType"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModuleClassType</span></code></a>, <a class="reference internal" href="#brane.core.base.BaseSubclassRegister" title="brane.core.base.BaseSubclassRegister"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSubclassRegister</span></code></a></p>
-<p>Needed to be inheritated. The child class correspond to module.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – </p></li>
-<li><p><strong>loaded</strong> – </p></li>
-<li><p><strong>reload_modules</strong> – </p></li>
-<li><p><strong>read</strong> – </p></li>
-<li><p><strong>write</strong> – </p></li>
-<li><p><strong>module_name</strong> – </p></li>
-<li><p><strong>module</strong> – </p></li>
-<li><p><strong>module_read_method_name</strong> – </p></li>
-<li><p><strong>module_read_method</strong> – </p></li>
-<li><p><strong>file_read_method_name</strong> – </p></li>
-<li><p><strong>file_open_for_read</strong> – </p></li>
-<li><p><strong>open_mode_for_read</strong> – </p></li>
-<li><p><strong>transform</strong> – </p></li>
-<li><p><strong>transform_name</strong> – </p></li>
-<li><p><strong>transform_info</strong> – </p></li>
-<li><p><strong>object_transform_method_name</strong> – </p></li>
-<li><p><strong>module_write_method_name</strong> – </p></li>
-<li><p><strong>module_write_method</strong> – </p></li>
-<li><p><strong>writer_method_name</strong> – </p></li>
-<li><p><strong>object_write_method_name</strong> – </p></li>
-<li><p><strong>file_write_method_name</strong> – </p></li>
-<li><p><strong>file_open_for_write</strong> – </p></li>
-<li><p><strong>open_mode_for_write</strong> – </p></li>
-<li><p><strong>file_arg_first</strong> – </p></li>
-<li><p><strong>object_unpacking_type</strong> – </p></li>
-<li><p><strong>file_keyword_at_write</strong> – </p></li>
-<li><p><strong>obj_keyword_at_write</strong> – </p></li>
-<li><p><strong>base_args_read</strong> – </p></li>
-<li><p><strong>base_kwargs_read</strong> – </p></li>
-<li><p><strong>base_args_write</strong> – </p></li>
-<li><p><strong>base_kwargs_write</strong> – </p></li>
-<li><p><strong>generate_params_read</strong> – </p></li>
-<li><p><strong>generate_params_write</strong> – </p></li>
-<li><p><strong>filesystems</strong> – </p></li>
-</ul>
-</dd>
-</dl>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Argument version v0.0</p>
-</div>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="brane.core.module.Module.priority">
 <span class="sig-name descname"><span class="pre">priority</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">50</span></em><a class="headerlink" href="#brane.core.module.Module.priority" title="Permalink to this definition"></a></dt>
@@ -829,153 +846,8 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.module_name">
-<span class="sig-name descname"><span class="pre">module_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.Module.module_name" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.module">
-<span class="sig-name descname"><span class="pre">module</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Any</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.Module.module" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="brane.core.module.Module.loaded">
 <span class="sig-name descname"><span class="pre">loaded</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#brane.core.module.Module.loaded" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.module_read_method">
-<span class="sig-name descname"><span class="pre">module_read_method</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.Module.module_read_method" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.module_read_method_name">
-<span class="sig-name descname"><span class="pre">module_read_method_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.Module.module_read_method_name" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.file_read_method_name">
-<span class="sig-name descname"><span class="pre">file_read_method_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.Module.file_read_method_name" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.file_open_for_read">
-<span class="sig-name descname"><span class="pre">file_open_for_read</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#brane.core.module.Module.file_open_for_read" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.open_mode_for_read">
-<span class="sig-name descname"><span class="pre">open_mode_for_read</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'mode':</span> <span class="pre">'r'}</span></em><a class="headerlink" href="#brane.core.module.Module.open_mode_for_read" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.transform">
-<span class="sig-name descname"><span class="pre">transform</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.Module.transform" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.transform_name">
-<span class="sig-name descname"><span class="pre">transform_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.Module.transform_name" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.transform_info">
-<span class="sig-name descname"><span class="pre">transform_info</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.Module.transform_info" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.object_transform_method_name">
-<span class="sig-name descname"><span class="pre">object_transform_method_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.Module.object_transform_method_name" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.module_write_method">
-<span class="sig-name descname"><span class="pre">module_write_method</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.Module.module_write_method" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.module_write_method_name">
-<span class="sig-name descname"><span class="pre">module_write_method_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.Module.module_write_method_name" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.writer_method_name">
-<span class="sig-name descname"><span class="pre">writer_method_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.Module.writer_method_name" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.object_write_method_name">
-<span class="sig-name descname"><span class="pre">object_write_method_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.Module.object_write_method_name" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.file_write_method_name">
-<span class="sig-name descname"><span class="pre">file_write_method_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.Module.file_write_method_name" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.file_open_for_write">
-<span class="sig-name descname"><span class="pre">file_open_for_write</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#brane.core.module.Module.file_open_for_write" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.open_mode_for_write">
-<span class="sig-name descname"><span class="pre">open_mode_for_write</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'mode':</span> <span class="pre">'w'}</span></em><a class="headerlink" href="#brane.core.module.Module.open_mode_for_write" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.file_arg_first">
-<span class="sig-name descname"><span class="pre">file_arg_first</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#brane.core.module.Module.file_arg_first" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.object_unpacking_type">
-<span class="sig-name descname"><span class="pre">object_unpacking_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'sequence'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'mapping'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.Module.object_unpacking_type" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.file_keyword_at_write">
-<span class="sig-name descname"><span class="pre">file_keyword_at_write</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.Module.file_keyword_at_write" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.obj_keyword_at_write">
-<span class="sig-name descname"><span class="pre">obj_keyword_at_write</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.Module.obj_keyword_at_write" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.base_args_read">
-<span class="sig-name descname"><span class="pre">base_args_read</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></em><a class="headerlink" href="#brane.core.module.Module.base_args_read" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.base_kwargs_read">
-<span class="sig-name descname"><span class="pre">base_kwargs_read</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#brane.core.module.Module.base_kwargs_read" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.base_args_write">
-<span class="sig-name descname"><span class="pre">base_args_write</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></em><a class="headerlink" href="#brane.core.module.Module.base_args_write" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.base_kwargs_write">
-<span class="sig-name descname"><span class="pre">base_kwargs_write</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#brane.core.module.Module.base_kwargs_write" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.generate_params_read">
-<span class="sig-name descname"><span class="pre">generate_params_read</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.Module.generate_params_read" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.generate_params_write">
-<span class="sig-name descname"><span class="pre">generate_params_write</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.Module.generate_params_write" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.module.Module.filesystems">
-<span class="sig-name descname"><span class="pre">filesystems</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#brane.core.module.Module.filesystems" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1028,6 +900,251 @@
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="brane.core.module.ModuleConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.core.module.</span></span><span class="sig-name descname"><span class="pre">ModuleConfig</span></span><a class="headerlink" href="#brane.core.module.ModuleConfig" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleConfig.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.ModuleConfig.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleConfig.priority">
+<span class="sig-name descname"><span class="pre">priority</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">50</span></em><a class="headerlink" href="#brane.core.module.ModuleConfig.priority" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleConfig.file_open_for_read">
+<span class="sig-name descname"><span class="pre">file_open_for_read</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#brane.core.module.ModuleConfig.file_open_for_read" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleConfig.open_mode_for_read">
+<span class="sig-name descname"><span class="pre">open_mode_for_read</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'mode':</span> <span class="pre">'r'}</span></em><a class="headerlink" href="#brane.core.module.ModuleConfig.open_mode_for_read" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleConfig.module_read_method_name">
+<span class="sig-name descname"><span class="pre">module_read_method_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.ModuleConfig.module_read_method_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleConfig.file_read_method_name">
+<span class="sig-name descname"><span class="pre">file_read_method_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.ModuleConfig.file_read_method_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleConfig.base_args_read">
+<span class="sig-name descname"><span class="pre">base_args_read</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></em><a class="headerlink" href="#brane.core.module.ModuleConfig.base_args_read" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleConfig.base_kwargs_read">
+<span class="sig-name descname"><span class="pre">base_kwargs_read</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#brane.core.module.ModuleConfig.base_kwargs_read" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleConfig.transform_name">
+<span class="sig-name descname"><span class="pre">transform_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.ModuleConfig.transform_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleConfig.transform_info">
+<span class="sig-name descname"><span class="pre">transform_info</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.ModuleConfig.transform_info" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleConfig.object_transform_method_name">
+<span class="sig-name descname"><span class="pre">object_transform_method_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.ModuleConfig.object_transform_method_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleConfig.file_open_for_write">
+<span class="sig-name descname"><span class="pre">file_open_for_write</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#brane.core.module.ModuleConfig.file_open_for_write" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleConfig.open_mode_for_write">
+<span class="sig-name descname"><span class="pre">open_mode_for_write</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'mode':</span> <span class="pre">'w'}</span></em><a class="headerlink" href="#brane.core.module.ModuleConfig.open_mode_for_write" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleConfig.module_write_method_name">
+<span class="sig-name descname"><span class="pre">module_write_method_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.ModuleConfig.module_write_method_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleConfig.writer_method_name">
+<span class="sig-name descname"><span class="pre">writer_method_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.ModuleConfig.writer_method_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleConfig.object_unpacking_type">
+<span class="sig-name descname"><span class="pre">object_unpacking_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'sequence'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'mapping'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.ModuleConfig.object_unpacking_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleConfig.file_arg_first">
+<span class="sig-name descname"><span class="pre">file_arg_first</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#brane.core.module.ModuleConfig.file_arg_first" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleConfig.file_keyword_at_write">
+<span class="sig-name descname"><span class="pre">file_keyword_at_write</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.ModuleConfig.file_keyword_at_write" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleConfig.obj_keyword_at_write">
+<span class="sig-name descname"><span class="pre">obj_keyword_at_write</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.ModuleConfig.obj_keyword_at_write" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleConfig.object_write_method_name">
+<span class="sig-name descname"><span class="pre">object_write_method_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.ModuleConfig.object_write_method_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleConfig.file_write_method_name">
+<span class="sig-name descname"><span class="pre">file_write_method_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.ModuleConfig.file_write_method_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleConfig.base_args_write">
+<span class="sig-name descname"><span class="pre">base_args_write</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></em><a class="headerlink" href="#brane.core.module.ModuleConfig.base_args_write" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleConfig.base_kwargs_write">
+<span class="sig-name descname"><span class="pre">base_kwargs_write</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#brane.core.module.ModuleConfig.base_kwargs_write" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="brane.core.module.ModuleTemplate">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.core.module.</span></span><span class="sig-name descname"><span class="pre">ModuleTemplate</span></span><a class="headerlink" href="#brane.core.module.ModuleTemplate" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#brane.core.module.Module" title="brane.core.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a>, <a class="reference internal" href="#brane.core.module.ModuleConfig" title="brane.core.module.ModuleConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModuleConfig</span></code></a></p>
+<p>Needed to be inheritated. The child class correspond to module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – </p></li>
+<li><p><strong>loaded</strong> – </p></li>
+<li><p><strong>reload_modules</strong> – </p></li>
+<li><p><strong>read</strong> – </p></li>
+<li><p><strong>write</strong> – </p></li>
+<li><p><strong>module_name</strong> – </p></li>
+<li><p><strong>module</strong> – </p></li>
+<li><p><strong>module_read_method_name</strong> – </p></li>
+<li><p><strong>module_read_method</strong> – </p></li>
+<li><p><strong>file_read_method_name</strong> – </p></li>
+<li><p><strong>file_open_for_read</strong> – </p></li>
+<li><p><strong>open_mode_for_read</strong> – </p></li>
+<li><p><strong>transform</strong> – </p></li>
+<li><p><strong>transform_name</strong> – </p></li>
+<li><p><strong>transform_info</strong> – </p></li>
+<li><p><strong>object_transform_method_name</strong> – </p></li>
+<li><p><strong>module_write_method_name</strong> – </p></li>
+<li><p><strong>module_write_method</strong> – </p></li>
+<li><p><strong>writer_method_name</strong> – </p></li>
+<li><p><strong>object_write_method_name</strong> – </p></li>
+<li><p><strong>file_write_method_name</strong> – </p></li>
+<li><p><strong>file_open_for_write</strong> – </p></li>
+<li><p><strong>open_mode_for_write</strong> – </p></li>
+<li><p><strong>file_arg_first</strong> – </p></li>
+<li><p><strong>object_unpacking_type</strong> – </p></li>
+<li><p><strong>file_keyword_at_write</strong> – </p></li>
+<li><p><strong>obj_keyword_at_write</strong> – </p></li>
+<li><p><strong>base_args_read</strong> – </p></li>
+<li><p><strong>base_kwargs_read</strong> – </p></li>
+<li><p><strong>base_args_write</strong> – </p></li>
+<li><p><strong>base_kwargs_write</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Argument version v0.0</p>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleTemplate.module">
+<span class="sig-name descname"><span class="pre">module</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Any</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.ModuleTemplate.module" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleTemplate.module_name">
+<span class="sig-name descname"><span class="pre">module_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.ModuleTemplate.module_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleTemplate.module_read_method">
+<span class="sig-name descname"><span class="pre">module_read_method</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.ModuleTemplate.module_read_method" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleTemplate.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.ModuleTemplate.transform" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleTemplate.module_write_method">
+<span class="sig-name descname"><span class="pre">module_write_method</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.ModuleTemplate.module_write_method" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleTemplate.generate_params_write">
+<span class="sig-name descname"><span class="pre">generate_params_write</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.ModuleTemplate.generate_params_write" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="brane.core.module.ModuleTemplate.load_modules">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_modules</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#brane.core.module.ModuleTemplate.load_modules" title="Permalink to this definition"></a></dt>
+<dd><p>lazy loading of modules and setting their attributes or methods to this class.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="brane.core.module.ModuleTemplate.read">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path:</span> <span class="pre">~typing.Optional[~typing.Union[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">~pathlib.Path]]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file:</span> <span class="pre">~typing.Optional[~_io._IOBase]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">io:</span> <span class="pre">~typing.Optional[~typing.Union[~brane.typing._generate_file_related_types.&lt;locals&gt;.IO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">~fsspec.asyn.AsyncFileSystem]]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#brane.core.module.ModuleTemplate.read" title="Permalink to this definition"></a></dt>
+<dd><p>read from path or file stream.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> – path object</p></li>
+<li><p><strong>file</strong> – file stream object</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>loaded objects</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="brane.core.module.ModuleTemplate.write">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj:</span> <span class="pre">~typing.Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path:</span> <span class="pre">~typing.Optional[~typing.Union[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">~pathlib.Path]]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file:</span> <span class="pre">~typing.Optional[~_io._IOBase]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">io:</span> <span class="pre">~typing.Optional[~typing.Union[~brane.typing._generate_file_related_types.&lt;locals&gt;.IO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">~fsspec.asyn.AsyncFileSystem]]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#brane.core.module.ModuleTemplate.write" title="Permalink to this definition"></a></dt>
+<dd><p>write objects to the file specified by path object or file object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> – object to save</p></li>
+<li><p><strong>path</strong> – path object</p></li>
+<li><p><strong>file</strong> – file stream object</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.ModuleTemplate.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.module.ModuleTemplate.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="brane.core.module.MetaNoneModule">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.core.module.</span></span><span class="sig-name descname"><span class="pre">MetaNoneModule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bases</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">type</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#brane.core.module.MetaNoneModule" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#brane.core.module.MetaModule" title="brane.core.module.MetaModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetaModule</span></code></a>, <a class="reference internal" href="#brane.core.base.MetaFalse" title="brane.core.base.MetaFalse"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetaFalse</span></code></a></p>
@@ -1036,15 +1153,40 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="brane.core.module.NoneModule">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.core.module.</span></span><span class="sig-name descname"><span class="pre">NoneModule</span></span><a class="headerlink" href="#brane.core.module.NoneModule" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#brane.core.module.Module" title="brane.core.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="brane.html#brane.typing.ModuleClassType" title="brane.typing.ModuleClassType"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModuleClassType</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="brane.core.module.NoneModule.valid">
-<span class="sig-name descname"><span class="pre">valid</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#brane.core.module.NoneModule.valid" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">valid</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#brane.core.module.NoneModule.valid" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="brane.core.module.NoneModule.name">
 <span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'None'</span></em><a class="headerlink" href="#brane.core.module.NoneModule.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.NoneModule.loaded">
+<span class="sig-name descname"><span class="pre">loaded</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#brane.core.module.NoneModule.loaded" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.NoneModule.load_modules">
+<span class="sig-name descname"><span class="pre">load_modules</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#brane.core.module.NoneModule.load_modules" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.NoneModule.reload_modules">
+<span class="sig-name descname"><span class="pre">reload_modules</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#brane.core.module.NoneModule.reload_modules" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.NoneModule.read">
+<span class="sig-name descname"><span class="pre">read</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span></em><a class="headerlink" href="#brane.core.module.NoneModule.read" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.module.NoneModule.write">
+<span class="sig-name descname"><span class="pre">write</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span></em><a class="headerlink" href="#brane.core.module.NoneModule.write" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1054,7 +1196,7 @@
 <span id="brane-core-object-module"></span><h2>brane.core.object module<a class="headerlink" href="#module-brane.core.object" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="brane.core.object.MetaObject">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.core.object.</span></span><span class="sig-name descname"><span class="pre">MetaObject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bases</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#brane.core.object.MetaObject" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.core.object.</span></span><span class="sig-name descname"><span class="pre">MetaObject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bases</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#brane.core.object.MetaObject" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></p>
 <dl class="py property">
 <dt class="sig sig-object py" id="brane.core.object.MetaObject.object">
@@ -1063,7 +1205,7 @@
 
 <dl class="py property">
 <dt class="sig sig-object py" id="brane.core.object.MetaObject.registered_objects">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">registered_objects</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#brane.core.object.MetaObject.registered_objects" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">registered_objects</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="brane.html#brane.typing.ObjectClassType" title="brane.typing.ObjectClassType"><span class="pre">brane.typing.ObjectClassType</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#brane.core.object.MetaObject.registered_objects" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1073,8 +1215,18 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.core.object.</span></span><span class="sig-name descname"><span class="pre">Object</span></span><a class="headerlink" href="#brane.core.object.Object" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="brane.html#brane.typing.ObjectClassType" title="brane.typing.ObjectClassType"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectClassType</span></code></a>, <a class="reference internal" href="#brane.core.base.BaseSubclassRegister" title="brane.core.base.BaseSubclassRegister"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSubclassRegister</span></code></a></p>
 <dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.object.Object.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.object.Object.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="brane.core.object.Object.priority">
 <span class="sig-name descname"><span class="pre">priority</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">50</span></em><a class="headerlink" href="#brane.core.object.Object.priority" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.object.Object.loaded">
+<span class="sig-name descname"><span class="pre">loaded</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#brane.core.object.Object.loaded" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1089,13 +1241,12 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="brane.core.object.Object.object_type">
-<span class="sig-name descname"><span class="pre">object_type</span></span><a class="headerlink" href="#brane.core.object.Object.object_type" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></p>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">object_type</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.object.Object.object_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="brane.core.object.Object.object_type_info">
-<span class="sig-name descname"><span class="pre">object_type_info</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.object.Object.object_type_info" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">object_type_info</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.object.Object.object_type_info" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1105,12 +1256,12 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="brane.core.object.Object.format_checker">
-<span class="sig-name descname"><span class="pre">format_checker</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.object.Object.format_checker" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">format_checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="brane.html#brane.typing.FormatClassType" title="brane.typing.FormatClassType"><span class="pre">FormatClassType</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.object.Object.format_checker" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="brane.core.object.Object.module_checker">
-<span class="sig-name descname"><span class="pre">module_checker</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.object.Object.module_checker" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">module_checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="brane.html#brane.typing.FormatClassType" title="brane.typing.FormatClassType"><span class="pre">FormatClassType</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="brane.html#brane.typing.ModuleClassType" title="brane.typing.ModuleClassType"><span class="pre">ModuleClassType</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.object.Object.module_checker" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1118,9 +1269,51 @@
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_objects</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#brane.core.object.Object.load_objects" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="brane.core.object.ObjectConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.core.object.</span></span><span class="sig-name descname"><span class="pre">ObjectConfig</span></span><a class="headerlink" href="#brane.core.object.ObjectConfig" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="brane.core.object.Object.name">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Object'</span></em><a class="headerlink" href="#brane.core.object.Object.name" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="brane.core.object.ObjectConfig.format_name">
+<span class="sig-name descname"><span class="pre">format_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.object.ObjectConfig.format_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.object.ObjectConfig.module_name">
+<span class="sig-name descname"><span class="pre">module_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.object.ObjectConfig.module_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.object.ObjectConfig.object_type_info">
+<span class="sig-name descname"><span class="pre">object_type_info</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.object.ObjectConfig.object_type_info" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.object.ObjectConfig.priority">
+<span class="sig-name descname"><span class="pre">priority</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">50</span></em><a class="headerlink" href="#brane.core.object.ObjectConfig.priority" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="brane.core.object.ObjectTemplate">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">brane.core.object.</span></span><span class="sig-name descname"><span class="pre">ObjectTemplate</span></span><a class="headerlink" href="#brane.core.object.ObjectTemplate" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#brane.core.object.Object" title="brane.core.object.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></a>, <a class="reference internal" href="#brane.core.object.ObjectConfig" title="brane.core.object.ObjectConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectConfig</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.object.ObjectTemplate.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.object.ObjectTemplate.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.object.ObjectTemplate.object_type">
+<span class="sig-name descname"><span class="pre">object_type</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.object.ObjectTemplate.object_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="brane.core.object.ObjectTemplate.object_type_info">
+<span class="sig-name descname"><span class="pre">object_type_info</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#brane.core.object.ObjectTemplate.object_type_info" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1140,7 +1333,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="brane.core.utils.sort_mapper">
-<span class="sig-prename descclassname"><span class="pre">brane.core.utils.</span></span><span class="sig-name descname"><span class="pre">sort_mapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapper</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ascending</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#brane.core.utils.sort_mapper" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">brane.core.utils.</span></span><span class="sig-name descname"><span class="pre">sort_mapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapper</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ascending</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#brane.core.utils.sort_mapper" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1166,7 +1359,7 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="brane.core.xio.HookManager.pre_read">
-<span class="sig-name descname"><span class="pre">pre_read</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.</span> <span class="pre">2099ea5b246af182:</span> <span class="pre">&lt;function</span> <span class="pre">check_path_existence&gt;</span></em><a class="headerlink" href="#brane.core.xio.HookManager.pre_read" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">pre_read</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.</span> <span class="pre">3cd5ff3f11893ad8:</span> <span class="pre">&lt;function</span> <span class="pre">check_path_existence&gt;</span></em><a class="headerlink" href="#brane.core.xio.HookManager.pre_read" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1176,7 +1369,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="brane.core.xio.HookManager.pre_write">
-<span class="sig-name descname"><span class="pre">pre_write</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.</span> <span class="pre">d1403ec5638e05bb:</span> <span class="pre">&lt;function</span> <span class="pre">create_parent_directory&gt;</span></em><a class="headerlink" href="#brane.core.xio.HookManager.pre_write" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">pre_write</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.</span> <span class="pre">a08a3abc8f88e692:</span> <span class="pre">&lt;function</span> <span class="pre">create_parent_directory&gt;</span></em><a class="headerlink" href="#brane.core.xio.HookManager.pre_write" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1494,7 +1687,7 @@ If the specified path is in the glob format, paths will be sorted.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="brane.core.xio.ExtendedIO.reload">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reload</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_paths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hook_config_paths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#brane.core.xio.ExtendedIO.reload" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reload</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module_config_paths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format_config_paths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_config_paths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hook_config_paths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#brane.core.xio.ExtendedIO.reload" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
