@@ -12,9 +12,11 @@ from fsspec.registry import known_implementations
 from brane.core.base import Context
 from brane.core.event import Event
 from brane.core.factory import BraneClassGenerator, BraneHooksGenerator
-from brane.core.format import NoneFormat
+from brane.core.format import Format, NoneFormat
 from brane.core.hook import FunctionHook, Hook
 from brane.core.mapper import ExtensionMapper, ObjectFormat2Module
+from brane.core.module import Module
+from brane.core.object import Object
 from brane.core.utils import get_extension_from_filname_default, integrate_args, integrate_kwargs
 from brane.typing import *  # noqa: F403
 
@@ -315,11 +317,12 @@ class ExtendedIO(HookManager):
     logger = IOLogger()
     kept_storage_options = dict()
 
+    @classmethod
     def set_storage_option(cls, protocol: str, storage_options: dict):
-        self.kept_storage_options[protocol] = storage_options
+        cls.kept_storage_options[protocol] = storage_options
 
     @staticmethod
-    def get_protocol(path: PathType) -> str:
+    def _get_protocol(path: PathType) -> str:
         path_str = str(path)
 
         if ":" not in path_str:
@@ -344,14 +347,14 @@ class ExtendedIO(HookManager):
             raise NotImplementedError(protocol)
 
     @classmethod
-    def get_filesystem(
+    def _get_filesystem(
         cls, path: PathType, storage_options: dict
     ) -> dict[str, Any]:  # [TODO]: define type for filesystem (Protocol class with open method for example)
-        protocol: Optional[str] = cls.get_protocol(path)
+        protocol: Optional[str] = cls._get_protocol(path)
 
         if protocol == 'file':
             return {"protocol": "file", "filesystem": builtins}
-        elif protocol in known_implementations.keys():  # [ARG]: similar logic appears in get_protocol method
+        elif protocol in known_implementations.keys():  # [ARG]: similar logic appears in _get_protocol method
             if protocol in cls.kept_storage_options:
                 new_storage_options = {**cls.kept_storage_options[protocol], **storage_options}
             else:
@@ -401,8 +404,10 @@ class ExtendedIO(HookManager):
             raise AssertionError()
 
         if module_name:
-            if module_name in cls._factory.className2Module:
-                Mdl = cls._factory.className2Module[module_name]
+            # if module_name in cls._factory.className2Module:
+            if module_name in Module.registered_modules:
+                # Mdl = cls._factory.className2Module[module_name]
+                Mdl = Module.registered_modules[module_name]
                 assert Mdl  # temporal (currently, there is possibility that NoneModule comes in)
             else:
                 raise NameError(f"No module name: {module_name}. Check the `all_modules` propetry.")  ###
@@ -410,12 +415,12 @@ class ExtendedIO(HookManager):
             ext = ext if ext else cls.get_extension_from_filename(path)
             Mdl = ExtensionMapper.get_module_class_from_extension(ext)
             if not Mdl:
-                raise NotImplementedError(f"Cannot find the corresponding module for given extension {ext}")
+                raise NotImplementedError(f"Cannot find the corresponding module for given extension '{ext}'")
         Mdl.load_modules()
 
         fs_info: dict = {}
         if path:
-            fs_info = cls.get_filesystem(path=path, storage_options=storage_options)
+            fs_info = cls._get_filesystem(path=path, storage_options=storage_options)
         protocol = fs_info.get("protocol", None)
 
         context: ContextInterface = Context(
@@ -426,8 +431,6 @@ class ExtendedIO(HookManager):
         base_kwargs = context.get("kwargs", {})
         base_args = integrate_args(base_args, read_args)
         base_kwargs = integrate_kwargs(base_kwargs, read_kwargs)
-        base_args = integrate_args(base_args, args)
-        base_kwargs = integrate_kwargs(base_kwargs, kwargs)
 
         path = context["path"]
         file = context["file"]
@@ -461,7 +464,7 @@ class ExtendedIO(HookManager):
         read_kwargs: Optional[dict] = None,
         *args,
         **kwargs,
-    ) -> list[Any]:
+    ) -> Union[list[Any], Any]:
         """
         Args:
             multiple_paths: Several file paths to read once. The glob format is also allowed.
@@ -490,7 +493,7 @@ class ExtendedIO(HookManager):
         else:
             raise NotImplementedError
         if len(paths) == 0:
-            return {}
+            return []
 
         context: ContextInterface = Context({"paths": paths})
         context = cls.pre_readall.fire(context)
@@ -519,7 +522,7 @@ class ExtendedIO(HookManager):
         read_kwargs: Optional[dict] = None,
         *args,
         **kwargs,
-    ) -> dict[str, Any]:
+    ) -> Union[dict[str, Any], Any]:
         if read_args is None:
             read_args = tuple()
         if read_kwargs is None:
@@ -599,8 +602,10 @@ class ExtendedIO(HookManager):
             raise AssertionError()
 
         if module_name:
-            if module_name in cls._factory.className2Module:
-                Mdl = cls._factory.className2Module[module_name]
+            # if module_name in cls._factory.className2Module:
+            if module_name in Module.registered_modules:
+                # Mdl = cls._factory.className2Module[module_name]
+                Mdl = Module.registered_modules[module_name]
                 assert Mdl  # temporal (currently, there is possibility that NoneModule comes in)
             else:
                 raise NameError(f"No module name: {module_name}. Check the `all_modules` propetry.")  ### temporal
@@ -617,13 +622,13 @@ class ExtendedIO(HookManager):
                 else:
                     Fmt = NoneFormat
             Mdl = ObjectFormat2Module.get_module_from_object(obj, fmt=Fmt)
-            if not Mdl:
-                raise NotImplementedError(f"Cannot find the corresponding module for given object type {type(obj)}")
+        if not Mdl:
+            raise NotImplementedError(f"Cannot find the corresponding module for given object type {type(obj)}")
         Mdl.load_modules()
 
         fs_info: dict = {}
         if path:
-            fs_info = cls.get_filesystem(path=path, storage_options=storage_options)
+            fs_info = cls._get_filesystem(path=path, storage_options=storage_options)
         protocol = fs_info.get("protocol", None)
 
         context: ContextInterface = Context(
@@ -634,8 +639,6 @@ class ExtendedIO(HookManager):
         base_kwargs = context.get("kwargs", {})
         base_args = integrate_args(base_args, write_args)
         base_kwargs = integrate_kwargs(base_kwargs, write_kwargs)
-        base_args = integrate_args(base_args, args)
-        base_kwargs = integrate_kwargs(base_kwargs, kwargs)
 
         path = context["path"]
         file = context["file"]
@@ -653,7 +656,7 @@ class ExtendedIO(HookManager):
         cls,
         obj_list: list[Any],
         output_dir: Optional[PathType] = None,
-        path_ruler: Optional[Callable[int, str]] = None,
+        path_ruler: Optional[Callable[[int], str]] = None,
         write_args: Optional[tuple] = None,
         write_kwargs: Optional[dict] = None,
         *args,
@@ -689,7 +692,7 @@ class ExtendedIO(HookManager):
         context = cls.pre_writeall.fire(context)
         for idx, obj in enumerate(obj_list):
             path = paths[idx]
-            cls.write(obj=obj, path=path, *write_args, **write_kwargs)
+            cls.write(obj=obj, path=path, write_args=write_args, write_kwargs=write_kwargs)
 
         context = cls.post_writeall.fire(context)
 
@@ -698,7 +701,7 @@ class ExtendedIO(HookManager):
         cls,
         obj_dict: dict[str, Any],
         output_dir: Optional[PathType] = None,
-        path_ruler: Optional[Callable[str, str]] = None,
+        path_ruler: Optional[Callable[[str], str]] = None,
         write_args: Optional[tuple] = None,
         write_kwargs: Optional[dict] = None,
         *args,
@@ -730,7 +733,7 @@ class ExtendedIO(HookManager):
         context = cls.pre_writeall.fire(context)
         for key, obj in obj_dict.items():
             path = paths[key]
-            cls.write(obj=obj, path=path, *write_args, **write_kwargs)
+            cls.write(obj=obj, path=path, write_args=write_args, write_kwargs=write_kwargs)
 
         context = cls.post_writeall.fire(context)
 
@@ -751,12 +754,15 @@ class ExtendedIO(HookManager):
 
     @classmethod
     def all_modules(cls):
-        return list(cls._factory.className2Module.keys())
+        # return list(cls._factory.className2Module.keys())
+        return list(Module.registered_modules.keys())
 
     @classmethod
     def all_formats(cls):
-        return list(cls._factory.className2Format.keys())
+        # return list(cls._factory.className2Format.keys())
+        return list(Format.registered_modules.keys())
 
     @classmethod
     def all_objects(cls):
-        return list(cls._factory.className2Object.keys())
+        # return list(cls._factory.className2Object.keys())
+        return list(Object.registered_modules.keys())
