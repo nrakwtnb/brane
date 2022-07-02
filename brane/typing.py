@@ -112,7 +112,7 @@ def print(*value, sep=' ', end='\n', file=None, flush=False):
 
     if file is None:
         file = sys.stdout
-    if os.environ.get("BRANE_MODE", None) == 'debug':
+    if 'debug' in os.environ.get("BRANE_MODE", ""):
         builtins.print(*value, end=end, file=file, flush=flush)
     else:
         pass

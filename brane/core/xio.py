@@ -415,7 +415,7 @@ class ExtendedIO(HookManager):
             ext = ext if ext else cls.get_extension_from_filename(path)
             Mdl = ExtensionMapper.get_module_class_from_extension(ext)
             if not Mdl:
-                raise NotImplementedError(f"Cannot find the corresponding module for given extension {ext}")
+                raise NotImplementedError(f"Cannot find the corresponding module for given extension '{ext}'")
         Mdl.load_modules()
 
         fs_info: dict = {}
@@ -431,8 +431,6 @@ class ExtendedIO(HookManager):
         base_kwargs = context.get("kwargs", {})
         base_args = integrate_args(base_args, read_args)
         base_kwargs = integrate_kwargs(base_kwargs, read_kwargs)
-        base_args = integrate_args(base_args, args)
-        base_kwargs = integrate_kwargs(base_kwargs, kwargs)
 
         path = context["path"]
         file = context["file"]
@@ -641,8 +639,6 @@ class ExtendedIO(HookManager):
         base_kwargs = context.get("kwargs", {})
         base_args = integrate_args(base_args, write_args)
         base_kwargs = integrate_kwargs(base_kwargs, write_kwargs)
-        base_args = integrate_args(base_args, args)
-        base_kwargs = integrate_kwargs(base_kwargs, kwargs)
 
         path = context["path"]
         file = context["file"]
@@ -660,7 +656,7 @@ class ExtendedIO(HookManager):
         cls,
         obj_list: list[Any],
         output_dir: Optional[PathType] = None,
-        path_ruler: Optional[Callable[int, str]] = None,
+        path_ruler: Optional[Callable[[int], str]] = None,
         write_args: Optional[tuple] = None,
         write_kwargs: Optional[dict] = None,
         *args,
@@ -696,7 +692,7 @@ class ExtendedIO(HookManager):
         context = cls.pre_writeall.fire(context)
         for idx, obj in enumerate(obj_list):
             path = paths[idx]
-            cls.write(obj=obj, path=path, *write_args, **write_kwargs)
+            cls.write(obj=obj, path=path, write_args=write_args, write_kwargs=write_kwargs)
 
         context = cls.post_writeall.fire(context)
 
@@ -705,7 +701,7 @@ class ExtendedIO(HookManager):
         cls,
         obj_dict: dict[str, Any],
         output_dir: Optional[PathType] = None,
-        path_ruler: Optional[Callable[str, str]] = None,
+        path_ruler: Optional[Callable[[str], str]] = None,
         write_args: Optional[tuple] = None,
         write_kwargs: Optional[dict] = None,
         *args,
@@ -737,23 +733,36 @@ class ExtendedIO(HookManager):
         context = cls.pre_writeall.fire(context)
         for key, obj in obj_dict.items():
             path = paths[key]
-            cls.write(obj=obj, path=path, *write_args, **write_kwargs)
+            cls.write(obj=obj, path=path, write_args=write_args, write_kwargs=write_kwargs)
 
         context = cls.post_writeall.fire(context)
 
     @classmethod
-    def reload(cls, config_paths: Optional[list[PathType]] = None, hook_config_paths: Optional[list[PathType]] = None):
-        cls._factory.setup(config_paths=config_paths)
+    def reload(
+        cls,
+        module_config_paths: Optional[list[PathType]] = None,
+        format_config_paths: Optional[list[PathType]] = None,
+        object_config_paths: Optional[list[PathType]] = None,
+        hook_config_paths: Optional[list[PathType]] = None,
+    ):
+        cls._factory.setup(
+            module_config_paths=module_config_paths,
+            format_config_paths=format_config_paths,
+            object_config_paths=object_config_paths,
+        )
         cls.setup_hooks(hook_config_paths=hook_config_paths)
 
     @classmethod
     def all_modules(cls):
-        return list(cls._factory.className2Module.keys())
+        # return list(cls._factory.className2Module.keys())
+        return list(Module.registered_modules.keys())
 
     @classmethod
     def all_formats(cls):
-        return list(cls._factory.className2Format.keys())
+        # return list(cls._factory.className2Format.keys())
+        return list(Format.registered_modules.keys())
 
     @classmethod
     def all_objects(cls):
-        return list(cls._factory.className2Object.keys())
+        # return list(cls._factory.className2Object.keys())
+        return list(Object.registered_modules.keys())
