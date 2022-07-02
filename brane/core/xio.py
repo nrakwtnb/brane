@@ -275,11 +275,11 @@ class HookManager(object):
             cls.clear_hooks(event)
 
     @classmethod
-    def setup_hooks(cls, hook_config_paths: Optional[list[PathType]] = None):  # temporal name
+    def setup_hooks(
+        cls, hook_config_paths: Optional[list[PathType]] = None, use_builtin_config: bool = True
+    ):  # temporal name
         # [TODO]: refactoring
-        cls._hook_generator.activate(config_paths=hook_config_paths)
-        # cls.register_pre_read_hook(check_path_existence)  # read_pre.add_hooks(FunctionHook(check_path_existence))
-        # cls.register_pre_write_hook(create_parent_directory)  # write_pre.add_hooks(FunctionHook(create_parent_directory))
+        cls._hook_generator.setup(config_paths=hook_config_paths)
         for event_name, hooks in cls._hook_generator.event2hooks.items():
             event = getattr(cls, event_name)
             assert isinstance(event, Event)
@@ -724,8 +724,18 @@ class ExtendedIO(HookManager):
         context = cls.post_writeall.fire(context)
 
     @classmethod
-    def reload(cls, config_paths: Optional[list[PathType]] = None, hook_config_paths: Optional[list[PathType]] = None):
-        cls._factory.activate(config_paths=config_paths)
+    def reload(
+        cls,
+        module_config_paths: Optional[list[PathType]] = None,
+        format_config_paths: Optional[list[PathType]] = None,
+        object_config_paths: Optional[list[PathType]] = None,
+        hook_config_paths: Optional[list[PathType]] = None,
+    ):
+        cls._factory.setup(
+            module_config_paths=module_config_paths,
+            format_config_paths=format_config_paths,
+            object_config_paths=object_config_paths,
+        )
         cls.setup_hooks(hook_config_paths=hook_config_paths)
 
     @classmethod

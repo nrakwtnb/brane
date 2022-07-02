@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib
 import os
+from pathlib import Path
 
 import yaml
 
@@ -11,11 +12,45 @@ from brane.core.module import Module
 from brane.core.object import Object
 from brane.typing import *  # noqa: F403
 
-ClassAttributeType = dict[str, Any]
+ClassAttributeType = NewType('ClassAttributeType', dict[str, Any])
+# ConfigType = NewType('ConfigType', dict[str, Union[str, dict]])
 ConfigType = dict[str, Union[str, dict]]
 
 
+class ModuleConfigType(dict[str, dict[str, Any]]):
+    pass
+
+
+class FormatConfigType(dict[str, dict[str, Any]]):
+    pass
+
+
+class ObjectConfigType(dict[str, dict[str, Any]]):
+    pass
+
+
+class HookConfigType(ConfigType):
+    pass
+
+
+def load_config(config_path: PathType, strict: bool = False) -> ConfigType:
+    cfg: ConfigType = {}
+    # if os.path.exists(str(config_path)):  [ARG]: which to use
+    if Path(config_path).exists():
+        with open(config_path, "r") as f:
+            cfg = yaml.safe_load(f)
+    else:
+        if strict:
+            raise FileNotFoundError(config_path)
+    return cfg
+
+
+def load_multiple_config(config_path_list: list[PathType], strict: bool = False) -> list[ConfigType]:
+    return [load_config(config_path, strict=strict) for config_path in config_path_list]
+
+
 class BraneClassGenerator(object):  # [ARG]: rename class name ?
+    # [TODO]: verify config format based on Config class
     className2Module: dict[str, ModuleClassType] = dict()
     className2Format: dict[str, FormatClassType] = dict()
     className2Object: dict[str, ObjectClassType] = dict()
@@ -27,15 +62,7 @@ class BraneClassGenerator(object):  # [ARG]: rename class name ?
         return cls._instance
 
     def __init__(self):
-        self.activate()
-
-    @staticmethod
-    def load_config(config_path: str) -> ConfigType:
-        cfg: ConfigType = {}
-        if os.path.exists(config_path):
-            with open(config_path, "r") as f:
-                cfg = yaml.safe_load(f)
-        return cfg
+        self.setup()
 
     @staticmethod
     def generate_classes_from_configs(
@@ -131,11 +158,35 @@ class BraneClassGenerator(object):  # [ARG]: rename class name ?
         return className2Object
 
     @classmethod
-    def activate(cls, config_paths: Optional[list[PathType]] = None):
-        # [TODO]: use config_paths
-        cls.className2Module = cls.load_brane_modules()
-        cls.className2Format = cls.load_brane_formats()
-        cls.className2Object = cls.load_brane_objects()
+    def setup(
+        cls,
+        module_config_paths: Optional[list[PathType]] = None,
+        format_config_paths: Optional[list[PathType]] = None,
+        object_config_paths: Optional[list[PathType]] = None,
+    ):
+        if module_config_paths is None:
+            module_config_paths = default_cfg.MODULE_CONFIGS
+        if format_config_paths is None:
+            format_config_paths = default_cfg.FORMAT_CONFIGS
+        if object_config_paths is None:
+            object_config_paths = default_cfg.OBJECT_CONFIGS
+
+        cls.className2Module = cls.load_brane_modules(config_path_list=module_config_paths)
+        cls.className2Format = cls.load_brane_formats(config_path_list=format_config_paths)
+        cls.className2Object = cls.load_brane_objects(config_path_list=object_config_paths)
+
+    @classmethod
+    def activate(
+        cls,
+        module_config_paths: Optional[list[PathType]] = None,
+        format_config_paths: Optional[list[PathType]] = None,
+        object_config_paths: Optional[list[PathType]] = None,
+    ):
+        # [MEMO]: add new brane classes based on the specified configs
+        raise NotImplementedError
+
+
+LoadedHookType = Union[Callable, HookClassType]
 
 
 class BraneHooksGenerator(object):
@@ -148,30 +199,25 @@ class BraneHooksGenerator(object):
         return cls._instance
 
     def __init__(self):
-        self.activate()
+        self.setup()
 
-    @staticmethod
-    def load_config(config_path: PathType) -> ConfigType:
-        cfg: ConfigType = {}
-        if os.path.exists(config_path):
-            with open(config_path, "r") as f:
-                cfg = yaml.safe_load(f)
-        return cfg
+    @classmethod
+    def _check_config(cls, cfg: ConfigType):
+        if "version" not in cfg:
+            raise ValueError("Invalid config")  # [TODO]: refine error
 
-    @staticmethod
-    def load_hooks_from_config(cfg: ConfigType) -> list:  # [TODO]: refine return type
-        # [TODO]: reduce the depth of nested for-and-if-statements
-        # [TODO]: allow Functionhook arguments (flg, condition, ...)
-        if cfg["version"] != 'dev.0':
-            raise NotImplementedError("Unsupported hook config version: {cfg['version']}")  # [TODO]: refine error
         if "targets" not in cfg:
             raise ValueError("Invalid config")  # [TODO]: refine error
 
-        loaded_hooks = {}
+    @staticmethod
+    def _generate_hooks_from_config_for_dev0(cfg: ConfigType) -> dict[str, list[LoadedHookType]]:
+        # [TODO]: reduce the depth of nested for-and-if-statements
+        # [TODO]: allow Functionhook arguments (flg, condition, ...)
+        loaded_hooks: dict[str, list[LoadedHookType]] = {}
         for event, target_hook_list in cfg["targets"].items():
             if target_hook_list is None:
                 continue
-            loaded_hooks_for_event = []
+            loaded_hooks_for_event: list[LoadedHookType] = []
             for module2hooks in target_hook_list:
                 for module_name, hook_info_list in module2hooks.items():
                     module = importlib.import_module(module_name)
@@ -179,7 +225,7 @@ class BraneHooksGenerator(object):
 
                         if isinstance(hook_info, str):
                             if hasattr(module, hook_info):
-                                hook_func = getattr(module, hook_info)
+                                hook_func: Callable = getattr(module, hook_info)
                                 loaded_hooks_for_event.append(hook_func)
                             else:
                                 print(f"[WARNING]: no {hook_info} is found in {module}")
@@ -187,7 +233,7 @@ class BraneHooksGenerator(object):
                         elif isinstance(hook_info, dict) and len(hook_info) == 1:
                             hook_class_name, hook_params = next(iter(hook_info.items()))
                             if hasattr(module, hook_class_name):
-                                hook_class = getattr(module, hook_class_name)
+                                hook_class: HookClassType = getattr(module, hook_class_name)
                                 if hook_params is None:
                                     loaded_hooks_for_event.append(hook_class())
                                 elif isinstance(hook_params, dict):
@@ -200,37 +246,46 @@ class BraneHooksGenerator(object):
                                 print(f"[WARNING]: no {hook_class} is found in {module}")
 
                         else:
-                            raise NotImplementedError("Invalid hook info: {hook_info}")  # [TODO]: refine error
+                            raise NotImplementedError(f"Invalid hook info: {hook_info}")  # [TODO]: refine error
             loaded_hooks[event] = loaded_hooks_for_event
         return loaded_hooks
 
     @classmethod
-    def load_event2hooks(
-        cls, base_config_path: Optional[list[PathType]] = None, extra_config_paths: Optional[list[PathType]] = None
-    ) -> dict[str, list]:  # [TODO]: refine return type
-        config_paths: list[PathType] = []
-        if base_config_path is None:
-            config_paths.extend(
-                [
-                    default_cfg.CORE_HOOK_CONFIG_PATH,
-                    default_cfg.THIRDPARTY_HOOK_CONFIG_PATH,
-                ]
-            )
-        if extra_config_paths:
-            config_paths.extend(extra_config_paths)
+    def load_hooks_from_config(cls, config_path: PathType) -> dict[str, list[LoadedHookType]]:
+        cfg: ConfigType = load_config(config_path)
+        cls._check_config(cfg)
+        cfg_version: str = cfg["version"]
+        if cfg_version == "dev.0":
+            return cls._generate_hooks_from_config_for_dev0(cfg=cfg)
+        else:
+            raise NotImplementedError(f"Unsupported hook config version: {cfg_version}")  # [TODO]: refine error
 
-        event2hooks = dict()
+    @classmethod
+    def load_event2hooks(cls, config_paths: Optional[list[PathType]] = None) -> dict[str, list[LoadedHookType]]:
+        if config_paths is None:
+            config_paths = []
+
+        event2hooks: dict[str, list[LoadedHookType]] = dict()
         for path in config_paths:
             if not os.path.exists(str(path)):
                 continue
-            cfg = cls.load_config(path)
-            event2hooks_for_cfg = cls.load_hooks_from_config(cfg)
+            event2hooks_for_cfg: dict[str, list[LoadedHookType]] = cls.load_hooks_from_config(config_path=path)
             for event, hooks in event2hooks_for_cfg.items():
                 event2hooks.setdefault(event, []).extend(hooks)
         return event2hooks
 
     @classmethod
-    def activate(cls, config_paths: Optional[list[PathType]] = None):
-        assert config_paths is None, "Not implemented yet"
-        # [TODO]: use config_paths
-        cls.event2hooks = cls.load_event2hooks()
+    def setup(cls, config_paths: Optional[list[PathType]] = None, use_builtin_config: bool = True):
+        """Overwrite the base hook set based on the config."""
+        all_config_paths: list[PathType] = []
+        if use_builtin_config:
+            all_config_paths.extend(default_cfg.HOOK_CONFIGS)
+        if config_paths:
+            all_config_paths.extend(config_paths)
+
+        cls.event2hooks = cls.load_event2hooks(config_paths=all_config_paths)
+
+    @classmethod
+    def activate(cls, config_paths: Optional[list[PathType]]):
+        # [MEMO]: add new hooks based on the specified configs
+        raise NotImplementedError
