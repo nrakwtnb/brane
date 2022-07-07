@@ -9,6 +9,9 @@ def normalize_extension_default(ext: str) -> str:
 
 
 class MetaFormat(type):
+    # [TODO]: search better class inheritance structures because this is only defined for Format (kind of mix-in)
+    # this induce mypy errors ignored with the comment here
+
     def __new__(cls, classname: str, bases: tuple[type], class_info: dict):
         new_class_info: dict = class_info.copy()
         default_extension: Optional[str] = class_info.get("default_extension", None)
@@ -26,10 +29,10 @@ class MetaFormat(type):
         # [ARG]: It assumes it is used as mixin with BaseSubclassRegister.
         #     And this line raises mypy error ("MetaFormat" has no attribute "_registered_subclasses").
         # return cls._registered_subclasses
-        return cls.get_registered_subclasses()
+        return cls.get_registered_subclasses()  # type: ignore
 
 
-class Format(FormatClassType, BaseSubclassRegister, metaclass=MetaFormat):
+class Format(FormatType, BaseSubclassRegister, metaclass=MetaFormat):
     _registered_subclasses: dict[str, FormatClassType] = {}
     priority: int = 50
     module: Optional[ModuleClassType] = None
@@ -65,5 +68,5 @@ class MetaNoneFormat(MetaFormat, MetaFalse):  # [MEMO]: deprecated after removin
     pass
 
 
-class NoneFormat(FormatClassType, metaclass=MetaNoneFormat):
+class NoneFormat(FormatType, metaclass=MetaNoneFormat):
     valid = False

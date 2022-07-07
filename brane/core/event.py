@@ -2,15 +2,16 @@ from __future__ import annotations
 
 import builtins
 import dataclasses
+import typing
 
 from brane.core.utils import sort_mapper
 from brane.typing import *  # noqa: F403
 
-MultipleHookClassType = Union[
-    HookClassType,
-    list[HookClassType],
-    tuple[HookClassType],
-    set[HookClassType],
+MultipleHookType = Union[
+    HookType,
+    list[HookType],
+    tuple[HookType],
+    set[HookType],
 ]
 T = TypeVar('T')
 
@@ -36,7 +37,7 @@ class MarkerRule:  # [ARG]: use TypedDict, namedtuple or dataclass
     priority: int
 
 
-class Event(EventClassType):
+class Event(EventType):
     # [TODO]: fix marker's specification
     # * and/or
     # * allow/denied
@@ -46,7 +47,7 @@ class Event(EventClassType):
     #    EventManager.add_events(self)
     #    return self
 
-    def __init__(self, event_name: str = "", hook_funcs: Optional[MultipleHookClassType] = None):
+    def __init__(self, event_name: str = "", hook_funcs: Optional[MultipleHookType] = None):
         self.hooks: list[HookClassType] = []
         if hook_funcs:
             self.hooks = convert_obj_into_list(hook_funcs)
@@ -82,10 +83,9 @@ class Event(EventClassType):
         else:
             raise ValueError("Not unique.")
 
-    # @classmethod
     def add_hooks(
         self,
-        hook_funcs: MultipleHookClassType,
+        hook_funcs: MultipleHookType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
         loc: Literal['before', 'after'] = 'after',
@@ -116,7 +116,6 @@ class Event(EventClassType):
             raise AssertionError(loc)
         self.hooks = hooks_former + hook_funcs + hooks_latter
 
-    # @classmethod
     def remove_hooks(self, hook_names: Union[str, Container[str]], strict: bool = False):
         # [MEMO]: When strict = True, it requires all the hook id should appear exactly once
         if strict:
@@ -124,6 +123,7 @@ class Event(EventClassType):
 
         if isinstance(hook_names, str):
             hook_names = [hook_names]
+            hook_names = typing.cast(Container[str], hook_names)
 
         def check_no_inclusion_of_hook_name(hook: HookClassType) -> bool:
             nonlocal hook_names
@@ -132,7 +132,6 @@ class Event(EventClassType):
         new_hooks = list(filter(check_no_inclusion_of_hook_name, self.hooks))
         self.hooks = new_hooks
 
-    # @classmethod
     def clear_hooks(self):
         self.hooks = []
 
@@ -173,7 +172,6 @@ class Event(EventClassType):
                     raise NotImplementedError()  # This error is not checked when typining is completed
         return True
 
-    # @classmethod
     def fire(self, info: ContextInterface, verbose: bool = False) -> ContextInterface:
         for hook in self.hooks:
             # [TODO]: use wallus operator in the future when supporting python>=3.8

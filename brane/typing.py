@@ -4,12 +4,14 @@ from typing import (  # noqa: F401
     Any,
     Callable,
     Container,
+    Final,
     Generator,
     Generic,
     NamedTuple,
     NewType,
     Optional,
     Sequence,
+    Type,
     TypeVar,
     Union,
 )
@@ -43,10 +45,12 @@ PathType, FileType, IOType = _generate_file_related_types()
 del _generate_file_related_types
 
 
+AnyObjectType = Any
+
 # define the package specific types
 
 
-class ModuleClassType:
+class ModuleType:
     name: Optional[str]  # or str ?
     loaded: bool
     load_modules: Callable[[], None]
@@ -55,25 +59,29 @@ class ModuleClassType:
     write: Callable
 
 
-class FormatClassType:
+class FormatType:
     module: Optional[ModuleClassType]
     check_extension: Callable[[str], bool]
 
 
-class ObjectClassType:
+class ObjectType:
     module: Optional[ModuleClassType]
     format: Optional[FormatClassType]
-    object: Any
+    object: AnyObjectType
     load_objects: Callable[[], None]
     # [ARG]: optional ?
-    format_checker: Optional[Callable[[Any], FormatClassType]]
-    module_checker: Optional[Callable[[Any, FormatClassType], ModuleClassType]]
+    format_checker: Optional[Callable[[AnyObjectType], FormatClassType]]
+    module_checker: Optional[Callable[[AnyObjectType, FormatClassType], ModuleClassType]]
 
+
+ModuleClassType = Type[ModuleType]
+FormatClassType = Type[FormatType]
+ObjectClassType = Type[ObjectType]
 
 HookMarkerType = Optional[Union[str, set[str]]]
 
 
-class HookClassType:
+class HookType:
     hook_name: Optional[str]
     marker: HookMarkerType
     active: bool  # [FIX] error: Signature of "active" incompatible with supertype "HookClassType"
@@ -83,7 +91,10 @@ class HookClassType:
     __call__: Callable[[ContextInterface], Union[ContextInterface, None]]
 
 
-class EventClassType:
+HookClassType = Type[HookType]
+
+
+class EventType:
     clear_hooks: Callable
     add_hooks: Callable
     remove_hooks: Callable

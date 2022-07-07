@@ -7,6 +7,9 @@ from brane.typing import *  # noqa: F403
 
 
 class MetaObject(type):
+    # [TODO]: search better class inheritance structures because this is only defined for Object (kind of mix-in)
+    # this induce mypy errors ignored with the comment here
+
     def __new__(cls, classname: str, bases, class_info: dict[str, Any]):
         # print(f"[DEBUG]: @MetaObject, cls={cls}, classname={classname} bases={bases}, class_info={class_info}")
         new_class_info = class_info.copy()
@@ -17,18 +20,18 @@ class MetaObject(type):
     # [TODO] python>=3.9, move to class as classmethod property
     @property
     def object(cls) -> Any:
-        cls.load_objects()
+        cls.load_objects()  # type: ignore
         print("@Meta:", cls)
-        return cls.object_type
+        return cls.object_type  # type: ignore
 
     # [TODO] python>=3.9, move to class as classmethod property
     @property
     def registered_objects(cls) -> dict[str, ObjectClassType]:
         # return cls._registered_subclasses
-        return cls.get_registered_subclasses()
+        return cls.get_registered_subclasses()  # type: ignore
 
 
-class Object(ObjectClassType, BaseSubclassRegister, metaclass=MetaObject):
+class Object(ObjectType, BaseSubclassRegister, metaclass=MetaObject):
     _registered_subclasses: dict[str, ObjectClassType] = {}
     name: Optional[str] = None
     priority: int = 50
@@ -36,8 +39,8 @@ class Object(ObjectClassType, BaseSubclassRegister, metaclass=MetaObject):
 
     format: Optional[FormatClassType] = None  # required
     module: Optional[ModuleClassType] = None  # required
-    object_type = None  ### [ARG]] should change the attribute name ?
-    object_type_info: Optional[tuple[str, ...]] = None  ### [TODO]: change the attribute name
+    object_type = None  # [ARG] should change the attribute name ?
+    object_type_info: Optional[tuple[str, ...]] = None  # [TODO]: change the attribute name
 
     # optional
     type_evaluation = None
@@ -75,5 +78,5 @@ class ObjectConfig:
 
 class ObjectTemplate(Object, ObjectConfig):
     name: Optional[str] = None
-    object_type = None  ### [ARG]] should change the attribute name ?
-    object_type_info: Optional[tuple[str, ...]] = None  ### [TODO]: change the attribute name
+    object_type = None  # [ARG] should change the attribute name ?
+    object_type_info: Optional[tuple[str, ...]] = None  # [TODO]: change the attribute name

@@ -20,7 +20,7 @@ from brane.core.object import Object
 from brane.core.utils import get_extension_from_filname_default, integrate_args, integrate_kwargs
 from brane.typing import *  # noqa: F403
 
-HookType = Union[Hook, collections.abc.Callable]
+GeneralHookType = Union[Hook, collections.abc.Callable]
 
 
 class HookManager(object):
@@ -68,7 +68,7 @@ class HookManager(object):
             print(30 * "-")
 
     @classmethod
-    def _get_hook_class(cls, hook: HookType, **hook_kwargs):
+    def _get_hook_class(cls, hook: GeneralHookType, **hook_kwargs):
         if isinstance(hook, Hook):
             return hook
         elif isinstance(hook, collections.abc.Callable):
@@ -79,8 +79,8 @@ class HookManager(object):
     @classmethod
     def connect_hook_and_event(
         cls,
-        event: EventClassType,
-        hook: HookType,
+        event: EventType,
+        hook: GeneralHookType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
         loc: Literal['before', 'after'] = 'after',
@@ -92,7 +92,7 @@ class HookManager(object):
     @classmethod
     def register_pre_read_hook(
         cls,
-        hook: HookType,
+        hook: GeneralHookType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
         loc: Literal['before', 'after'] = 'after',
@@ -108,7 +108,7 @@ class HookManager(object):
     @classmethod
     def register_post_read_hook(
         cls,
-        hook: HookType,
+        hook: GeneralHookType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
         loc: Literal['before', 'after'] = 'after',
@@ -124,7 +124,7 @@ class HookManager(object):
     @classmethod
     def register_pre_write_hook(
         cls,
-        hook: HookType,
+        hook: GeneralHookType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
         loc: Literal['before', 'after'] = 'after',
@@ -140,7 +140,7 @@ class HookManager(object):
     @classmethod
     def register_post_write_hook(
         cls,
-        hook: HookType,
+        hook: GeneralHookType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
         loc: Literal['before', 'after'] = 'after',
@@ -158,7 +158,7 @@ class HookManager(object):
     @classmethod
     def register_pre_readall_hook(
         cls,
-        hook: HookType,
+        hook: GeneralHookType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
         loc: Literal['before', 'after'] = 'after',
@@ -176,7 +176,7 @@ class HookManager(object):
     @classmethod
     def register_post_readall_hook(
         cls,
-        hook: HookType,
+        hook: GeneralHookType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
         loc: Literal['before', 'after'] = 'after',
@@ -194,7 +194,7 @@ class HookManager(object):
     @classmethod
     def register_pre_writeall_hook(
         cls,
-        hook: HookType,
+        hook: GeneralHookType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
         loc: Literal['before', 'after'] = 'after',
@@ -212,7 +212,7 @@ class HookManager(object):
     @classmethod
     def register_post_writeall_hook(
         cls,
-        hook: HookType,
+        hook: GeneralHookType,
         ref_index: Optional[int] = None,
         ref_name: Optional[str] = None,
         loc: Literal['before', 'after'] = 'after',
@@ -228,7 +228,7 @@ class HookManager(object):
         )
 
     @staticmethod
-    def remove_hooks_for_event(event: EventClassType, hook_names: Container[str], *args, **kwargs):
+    def remove_hooks_for_event(event: EventType, hook_names: Container[str], *args, **kwargs):
         # [ARG]: renamed as disconnect
         event.remove_hooks(hook_names=hook_names)
 
@@ -238,7 +238,7 @@ class HookManager(object):
             event.remove_hooks(hook_names=hook_names)
 
     @staticmethod
-    def clear_hooks(event: EventClassType):
+    def clear_hooks(event: EventType):
         event.clear_hooks()
 
     @classmethod

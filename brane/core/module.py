@@ -9,6 +9,9 @@ from brane.typing import *  # noqa: F403
 
 
 class MetaModule(type):
+    # [TODO]: search better class inheritance structures because this is only defined for Module (kind of mix-in)
+    # this induce mypy errors ignored with the comment here
+
     def __new__(cls, classname: str, bases: tuple[type], class_info: dict):  # [TODO]: refine typing
         new_class_info: dict = class_info.copy()
         if new_class_info.get("name", None) is None:
@@ -23,10 +26,10 @@ class MetaModule(type):
         # [ARG]: It assumes it is used as mixin with BaseSubclassRegister.
         #     And this line raises mypy error ("MetaModule" has no attribute "_registered_subclasses").
         # return cls._registered_subclasses
-        return cls.get_registered_subclasses()
+        return cls.get_registered_subclasses()  # type: ignore
 
 
-class Module(ModuleClassType, BaseSubclassRegister, metaclass=MetaModule):
+class Module(ModuleType, BaseSubclassRegister, metaclass=MetaModule):
     # [ARG]: also should be derived with ABCmeta class but not allowed because MetaModule is defined
     _registered_subclasses: dict[str, ModuleClassType] = {}
     priority: int = 50
@@ -491,7 +494,7 @@ class MetaNoneModule(MetaModule, MetaFalse):  # [MEMO]: deprecated after removin
     pass
 
 
-class NoneModule(ModuleClassType, metaclass=MetaNoneModule):
+class NoneModule(ModuleType, metaclass=MetaNoneModule):
     valid = False  # temporal
     name = "None"
 

@@ -33,7 +33,7 @@ class ExtensionMapper(object):  # [ARG]: rename ?
 
 class ObjectFormat2Module(object):  # [ARG]: rename ?
     # [TODO]: use hash  to faster loading... ( Obj.load_objects takes much time at first )
-    def get_module_from_object(obj, fmt=None) -> ModuleClassType:
+    def get_module_from_object(obj, fmt: Optional[FormatClassType] = None) -> ModuleClassType:
         # [TODO]: In the future, I'd like to use hashed-key for quick search
         # [TDOO]: If fmt is given, it uses it with high priority
         # [TODO]: If necessary, also returns format (may be used to decide filename extention ?)
@@ -52,6 +52,8 @@ class ObjectFormat2Module(object):  # [ARG]: rename ?
                     elif hasattr(Obj, "format_checker") and Obj.format_checker is not None:
                         fmt = Obj.format_checker(obj)
                         print("[DEBUG]: Obj.format_checker", fmt)
+                    elif fmt is None:
+                        raise ValueError("`fmt` should not be None")
                     module = Obj.module_checker(obj, fmt)
                     print("[DEBUG]: module", module)
                     return module

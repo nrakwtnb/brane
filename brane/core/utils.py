@@ -25,7 +25,9 @@ def integrate_kwargs(base_kwargs: dict, new_kwargs: dict) -> dict:
 T = TypeVar("T")
 
 
-def sort_mapper(mapper: dict[str, T], key: str, ascending: bool = False) -> dict[str, T]:  # T should has key
+def sort_mapper(
+    mapper: dict[Union[str, int], T], key: str, ascending: bool = False
+) -> dict[Union[str, int], T]:  # T should has key
     """
     Args:
         mapper:

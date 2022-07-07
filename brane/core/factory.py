@@ -199,7 +199,7 @@ class BraneClassGenerator(object):  # [ARG]: rename class name ?
         raise NotImplementedError
 
 
-LoadedHookType = Union[Callable, HookClassType]
+LoadedHookType = Union[Callable, HookType]
 
 
 class BraneHooksGenerator(object):

@@ -25,7 +25,7 @@ def generate_hash_from_objects(*immutable_objects) -> str:
     return hex(int(concat_binary, 2))[2:].zfill(total_length_for_hex)
 
 
-class Hook(HookClassType, metaclass=ABCMeta):
+class Hook(HookType, metaclass=ABCMeta):
     hook_name: Optional[str] = None
     marker: HookMarkerType = None
     _active: bool = True
